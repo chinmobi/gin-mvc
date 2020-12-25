@@ -5,10 +5,23 @@
 package main
 
 import (
+	"log"
+
+	"github.com/chinmobi/gin-mvc/app"
 	"github.com/chinmobi/gin-mvc/config"
 	"github.com/chinmobi/gin-mvc/web"
 )
 
+const (
+	STARTING_FAULT_LOG_FMT = "App starting fault: %s\n"
+)
+
 func main() {
-	web.StartServer(config.Default())
+	app := app.New(config.Default())
+
+	if err := app.Start(); err != nil {
+		log.Fatalf(STARTING_FAULT_LOG_FMT, err)
+	}
+
+	web.StartServer(app)
 }

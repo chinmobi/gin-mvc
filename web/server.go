@@ -17,13 +17,12 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/chinmobi/gin-mvc/config"
+	"github.com/chinmobi/gin-mvc/app"
 
 	"github.com/gin-gonic/gin"
 )
 
-func StartServer(config *config.Config) {
-	port := config.Server.Port
+func StartServer(app *app.App) {
 
 	// Starts a new Gin instance with no middle-ware
 	router := gin.New()
@@ -37,7 +36,7 @@ func StartServer(config *config.Config) {
 
 	// Listen and serve on defined port
 	srv := &http.Server{
-		Addr:    ":" + port,
+		Addr:    ":" + app.Config.Server.Port,
 		Handler: router,
 	}
 
@@ -66,6 +65,7 @@ func StartServer(config *config.Config) {
 
 	defer func() {
 		cancel()
+		app.Shutdown()
 		log.Println("Server exited")
 	}()
 
