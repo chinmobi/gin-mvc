@@ -18,6 +18,7 @@ import (
 	"time"
 
 	"github.com/chinmobi/gin-mvc/app"
+	"github.com/chinmobi/gin-mvc/routes"
 
 	"github.com/gin-gonic/gin"
 )
@@ -28,11 +29,7 @@ func StartServer(app *app.App) {
 	router := gin.New()
 
 	// Define handlers
-	router.GET("/", func (c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "TODO",
-		})
-	})
+	routes.Setup(&router.RouterGroup, app)
 
 	// Listen and serve on defined port
 	srv := &http.Server{
