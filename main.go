@@ -5,9 +5,10 @@
 package main
 
 import (
+	"github.com/chinmobi/gin-mvc/config"
 	"github.com/chinmobi/gin-mvc/web"
 )
 
 func main() {
-	web.StartServer()
+	web.StartServer(config.Default())
 }

@@ -17,11 +17,13 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/chinmobi/gin-mvc/config"
+
 	"github.com/gin-gonic/gin"
 )
 
-func StartServer() {
-	port := "8080"
+func StartServer(config *config.Config) {
+	port := config.Server.Port
 
 	// Starts a new Gin instance with no middle-ware
 	router := gin.New()
