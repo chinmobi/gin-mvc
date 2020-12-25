@@ -14,8 +14,8 @@ const (
 	SERVER_PORT_ENV_NAME = "PORT"
 	DEFAULT_SERVER_PORT  = "8080"
 
-	INVALID_SERVER_PORT_LOG_FMT = "Invalid server port env:[%s], using the default value:[%s]\n"
-	EMPTY_SERVER_PORT_LOG_FMT   = "Null server port env [%s], using the default value:[%s]\n"
+	INVALID_SERVER_PORT_LOG_FMT = "Invalid server port env: [%s], using the default value: [%s]\n"
+	EMPTY_SERVER_PORT_LOG_FMT   = "Null server port env [%s], using the default value: [%s]\n"
 )
 
 type Server struct {

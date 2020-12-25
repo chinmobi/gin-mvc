@@ -70,7 +70,7 @@ func StartServer(config *config.Config) {
 	}()
 
 	if err := srv.Shutdown(ctx); err != nil {
-		log.Fatal("Server forced to shutdown:%+v", err)
+		log.Fatal("Server forced to shutdown: %+v", err)
 	}
 
 	log.Println("Server exiting...")
