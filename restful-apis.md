@@ -16,7 +16,7 @@ Each of the APIs will return the unique error response format if some errors occ
       {
         "name": "<error type name>",
         "message": "<error message>",
-        "_other_error_fields", "..."
+        "_other_error_fields": "..."
       },
       {"_other_errors": "..."}
     ]
@@ -30,7 +30,7 @@ For normal response, the response's data entity format is like:
 {
   "apiVersion": "v1",
   "data": { "_comment": "Any object.",
-    "_each_of_the_data_fields", "..."
+    "_each_of_the_data_fields": "..."
   }
 }
 ```
@@ -60,7 +60,7 @@ Normal response body:
   "apiVersion": "v1",
   "data": [ {"_comment": "Array of user objects"},
     { "_comment": "Each of the user object",
-      "_each_of_the_user_fields", "..."
+      "_each_of_the_user_fields": "..."
     },
     {"_other_user_objects": "..."}
   ]
