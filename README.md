@@ -44,6 +44,39 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 <br/>Use `go clean` to clean the built objects.
 <br/>Use `make` to build more complex targets.
 
+## Architecture
+
+* `app` - The application main context to load and provide the app's components/utilities, it also manages the components/utilities' lifecycle (`Load, Setup/Start, Teardown/Shutdown, Release`).
+
+* `config` - Load and set up the configurations that used to set up the app's components/utilities.
+
+* `controller` - Define controller handers for handling requests.
+
+* `ctx` - Provide request scale context while handling requests.
+
+* `ctx/security` - Provide authentication and authorization while handling requests.
+
+* `db` - Manage the data-stores' connections (`redis`, `mongodb`, `prosgres`, etc...), and provide the DAOs(data access objects) that used for `model`.
+
+* `errors` - Define the application scale errors.
+
+* `evt` - Provide the application event utilities to publish / listen / multicast application events.
+
+* `grpool` - Provide the Goroutine pool that used for the app's other components.
+
+* `log` - Provide the application logging utilities.
+
+* `middleware` - Define middleware handlers before the `controller` handler while handling requests.
+
+* `model` - Define the business entities and models that used for `service`.
+
+* `mq` - Manage and provide message queueing utilities (`rabbitmq`, `kafka`, etc...).
+
+* `model` - Map the `RESTful API` URL path routes to `controller` handers.
+
+* `service` - Define the business services that used for `controller` and `middleware` handers.
+
+* `web` - Provide the web server to run the `app`.
 
 ## Authors
 
