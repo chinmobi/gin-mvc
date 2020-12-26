@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+
+  backend:
+    container_name: ${CONTAINER_NAME}
+    hostname: ${CONTAINER_NAME}
+    build: ..
+    image: ${IMAGE_FULL_NAME}
+    env_file:
+      - ../.env
+    ports:
+      - "${HOST_PORT}:${PORT}"
+    networks:
+      - backend-net
+
+networks:
+
+  backend-net:
+    external:
+      name: ${BACKEND_NETWORK_NAME}
