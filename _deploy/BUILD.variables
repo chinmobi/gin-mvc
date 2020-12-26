@@ -1,0 +1,1 @@
+IMAGE_OS_ARCH="GOOS=linux GOARCH=amd64"
