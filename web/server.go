@@ -33,7 +33,7 @@ func StartServer(app *app.App) {
 
 	// Listen and serve on defined port
 	srv := &http.Server{
-		Addr:    ":" + app.Config.Server.Port,
+		Addr:    ":" + app.Config().Server.Port,
 		Handler: router,
 	}
 

@@ -9,12 +9,12 @@ import (
 )
 
 type App struct {
-	Config  *config.Config
+	config  *config.Config
 }
 
 func New(config *config.Config) *App {
 	app := &App{
-		Config: config,
+		config: config,
 	}
 
 	return app
@@ -33,4 +33,8 @@ func (app *App) Start() error {
 
 func (app *App) Shutdown() {
 	// Shutting down / releasing application components.
+}
+
+func (app *App) Config() *config.Config {
+	return app.config
 }
