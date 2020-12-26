@@ -82,7 +82,7 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 * First of all, analyze the requirements and business rules, and then write the use cases.
 
-* According to the use cases, design the RESTful APIs that served for the use cases.
+* According to the use cases, design the [RESTful APIs](restful-apis.md) that served for the use cases.
 
 * Based on the RESTful APIs, design `controller` handers, and DTOs(data transfer objects) used for the handlers.
 
