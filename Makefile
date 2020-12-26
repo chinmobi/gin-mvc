@@ -21,6 +21,8 @@ DEPLOY_OS_ARCH = $(shell echo $(IMAGE_OS_ARCH))
 DEPLOY_OUTPUT_DIR := ./_deploy/bin
 DEPLOY_OUTPUT_BIN := $(DEPLOY_OUTPUT_DIR)/$(APP_NAME)
 
+DOCKER_SCRIPTS_DIR := ./_deploy/docker
+
 
 # Basic shell commands
 RM := rm -f
@@ -51,10 +53,16 @@ clean:
 	$(RM) $(DEPLOY_OUTPUT_BIN)
 
 
-.PHONY: deploy-build
+.PHONY: deploy-build docker-image docker-clean
 
 deploy-build:
 	CGO_ENABLED=0 $(DEPLOY_OS_ARCH) $(GOBUILD) -o $(DEPLOY_OUTPUT_BIN) -v $(BUILDFLAGS)
+
+docker-image: deploy-build
+	@ $(DOCKER_SCRIPTS_DIR)/build-image.sh
+
+docker-clean:
+	@ $(DOCKER_SCRIPTS_DIR)/clean-image.sh
 
 help:
 	@echo
@@ -68,6 +76,8 @@ help:
 	@echo '    clean         Remove object files and cached files'
 	@echo
 	@echo '    deploy-build  Compile packages for deployment'
+	@echo '    docker-image  Build docker image'
+	@echo '    docker-clean  Clean docker image'
 	@echo
 	@echo '    help          Show this help message'
 	@echo

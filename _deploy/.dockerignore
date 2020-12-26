@@ -3,3 +3,4 @@ Dockerfile
 .gitignore
 .directory
 BUILD.variables
+docker/
