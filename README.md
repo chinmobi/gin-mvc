@@ -72,11 +72,25 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 * `mq` - Manage and provide message queueing utilities (`rabbitmq`, `kafka`, etc...).
 
-* `model` - Map the `RESTful API` URL path routes to `controller` handers.
+* `routes` - Map the `RESTful API` URL path routes to `controller` handers.
 
 * `service` - Define the business services that used for `controller` and `middleware` handers.
 
 * `web` - Provide the web server to run the `app`.
+
+## Best Practices
+
+* First of all, analyze the requirements and business rules, and then write the use cases.
+
+* According to the use cases, design the RESTful APIs that served for the use cases.
+
+* Based on the RESTful APIs, design `controller` handers, and DTOs(data transfer objects) used for the handlers.
+
+* Setup the `routes` that map the RESTful APIs' paths to `controller` handers.
+
+* According to the DDD's(domain-driven design) principle, design the business `model` entities and `service` interfaces to implement the `controller` handers.
+
+* Complete the `db` DAOs to implement the `model` and `service` objects.
 
 ## Authors
 
