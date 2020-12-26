@@ -53,7 +53,7 @@ clean:
 	$(RM) $(DEPLOY_OUTPUT_BIN)
 
 
-.PHONY: deploy-build docker-image docker-clean
+.PHONY: deploy-build docker-image docker-run docker-stop docker-clean
 
 deploy-build:
 	CGO_ENABLED=0 $(DEPLOY_OS_ARCH) $(GOBUILD) -o $(DEPLOY_OUTPUT_BIN) -v $(BUILDFLAGS)
@@ -61,7 +61,13 @@ deploy-build:
 docker-image: deploy-build
 	@ $(DOCKER_SCRIPTS_DIR)/build-image.sh
 
-docker-clean:
+docker-run: docker-image
+	@ $(DOCKER_SCRIPTS_DIR)/run.sh
+
+docker-stop:
+	@ $(DOCKER_SCRIPTS_DIR)/stop.sh
+
+docker-clean: docker-stop
 	@ $(DOCKER_SCRIPTS_DIR)/clean-image.sh
 
 help:
@@ -77,6 +83,8 @@ help:
 	@echo
 	@echo '    deploy-build  Compile packages for deployment'
 	@echo '    docker-image  Build docker image'
+	@echo '    docker-run    Run docker container'
+	@echo '    docker-stop   Stop and clean docker container'
 	@echo '    docker-clean  Clean docker image'
 	@echo
 	@echo '    help          Show this help message'
