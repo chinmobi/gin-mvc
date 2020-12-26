@@ -3,6 +3,7 @@
 ### NOTE:
 
 Each of the APIs will return the unique error response format if some errors occurred:
+<br/>(The field like `"_comment": "..."`, is not the real field, just as a comment)
 
 ```json
 {
@@ -11,13 +12,13 @@ Each of the APIs will return the unique error response format if some errors occ
     "statusCode": "<the status code>",
     "code": "<the error code identifying the specific error>",
     "message": "<the brief description about the error>",
-    "errors": [ // The array of wrapped errors' details.
+    "errors": [ {"_comment": "Array of wrapped errors' details."},
       {
         "name": "<error type name>",
         "message": "<error message>",
-        ...
+        "_other_error_fields", "..."
       },
-      ...
+      {"_other_errors": "..."}
     ]
   }
 }
@@ -28,8 +29,8 @@ For normal response, the response's data entity format is like:
 ```json
 {
   "apiVersion": "v1",
-  "data": { // Any object.
-    ...
+  "data": { "_comment": "Any object.",
+    "_each_of_the_data_fields", "..."
   }
 }
 ```
@@ -38,8 +39,8 @@ or array of objects:
 ```json
 {
   "apiVersion": "v1",
-  "data": [ // Array of objects.
-    ...
+  "data": [ {"_comment": "Array of objects."},
+    {"_each_of_the_objects": "..."}
   ]
 }
 ```
@@ -57,11 +58,11 @@ Normal response body:
 ```json
 {
   "apiVersion": "v1",
-  "data": [ // The array of user objects'
-    { // Each of the user object
-      ...
+  "data": [ {"_comment": "Array of user objects"},
+    { "_comment": "Each of the user object",
+      "_each_of_the_user_fields", "..."
     },
-    ...
+    {"_other_user_objects": "..."}
   ]
 }
 ```
@@ -77,7 +78,7 @@ Normal response body:
 ```json
 {
   "apiVersion": "v1",
-  "data": { // The user object
+  "data": { "_comment": "The user object",
     "id": "<the user's id>",
     "nickname": "<the user's nickname>",
     "email": "<the user's email>"
@@ -105,7 +106,7 @@ Normal response body:
 ```json
 {
   "apiVersion": "v1",
-  "data": { // The user object
+  "data": { "_comment": "The user object",
     "id": "<the user's id>",
     "nickname": "<the user's nickname>",
     "email": "<the user's email>"
@@ -138,7 +139,7 @@ Normal response body:
 ```json
 {
   "apiVersion": "v1",
-  "data": { // The user object
+  "data": { "_comment": "The user object",
     "id": "<the user's id>",
     "nickname": "<the user's nickname>",
     "email": "<the user's email>"
@@ -196,7 +197,7 @@ Normal response body:
 ```json
 {
   "apiVersion": "v1",
-  "data": { // The user object
+  "data": { "_comment": "The user object",
     "id": "<the user's id>",
     "nickname": "<the user's nickname>",
     "email": "<the user's email>"
@@ -225,7 +226,7 @@ Normal response body:
 ```json
 {
   "apiVersion": "v1",
-  "data": { // The user object
+  "data": { "_comment": "The user object",
     "id": "<the user's id>",
     "nickname": "<the user's nickname>",
     "email": "<the user's email>"
