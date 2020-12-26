@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd $(dirname $0) && source ./.env && source ../.env
+cd $(dirname $0) && source ./.env
 
 
 if ! docker ps | grep -q "${CONTAINER_NAME}"; then
@@ -12,7 +12,7 @@ if ! docker ps | grep -q "${CONTAINER_NAME}"; then
     docker run -d \
       --name ${CONTAINER_NAME} \
       --network=${BACKEND_NETWORK_NAME} --hostname=${CONTAINER_NAME} \
-      -p ${PORT}:${PORT} \
+      -p ${HOST_PORT}:${PORT} \
       ${IMAGE_FULL_NAME}
   fi
 fi
