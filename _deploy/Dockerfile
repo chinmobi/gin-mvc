@@ -35,4 +35,5 @@ ENTRYPOINT ["./docker-entrypoint.sh"]
 
 
 EXPOSE 8080
+
 CMD ["start-app"]
