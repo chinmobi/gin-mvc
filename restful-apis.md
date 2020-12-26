@@ -47,7 +47,7 @@ or array of objects:
 
 ### DEMO for: Create, Read, Update and Delete `User`
 
-* Get all users
+* **Get all users**
 
 ```
 GET /api/v1/users
@@ -67,7 +67,7 @@ Normal response body:
 }
 ```
 
-* Get a user by user's id (uid)
+* **Get a user by the user's id (uid)**
 
 ```
 GET /api/v1/users/:uid
@@ -86,7 +86,7 @@ Normal response body:
 }
 ```
 
-* Create a user
+* **Create a user**
 
 ```
 POST /api/v1/users
@@ -114,7 +114,7 @@ Normal response body:
 }
 ```
 
-* Update the user
+* **Update the user**
 
 ```
 PUT /api/v1/users/:uid
@@ -147,7 +147,7 @@ Normal response body:
 }
 ```
 
-* Delete the user
+* **Delete the user**
 
 ```
 DELETE /api/v1/users/:uid
@@ -155,7 +155,7 @@ DELETE /api/v1/users/:uid
 
 None response content.
 
-* Demo for more complex RESTful APIs
+* **Demo for more complex RESTful APIs**
 
 ```
 // Get the user(identified by the uid)'s all roles:
@@ -177,7 +177,7 @@ DELETE /api/v1/users/:uid/roles/:rid
 
 ### DEMO for: Login, Logout, Register `User account`
 
-* Login the user's account
+* **Login the user's account**
 
 ```
 POST /login
@@ -205,7 +205,7 @@ Normal response body:
 }
 ```
 
-* Register a user's account
+* **Register a user's account**
 
 ```
 POST /signup
@@ -234,7 +234,7 @@ Normal response body:
 }
 ```
 
-* Logout the user's account
+* **Logout the user's account**
 
 ```
 POST /auth/logout?uid=<user's id>
@@ -247,7 +247,7 @@ GET /auth/logout?uid=<user's id>
 
 The response should be redirected to the `/login` URL.
 
-* The `/auth/**` path could be used for more account actions, such as:
+* **The `/auth/**` paths could be used for more account actions, such as:**
 
 ```
 // Reset the account's password
