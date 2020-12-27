@@ -13,6 +13,9 @@ OUTPUT_DIR := $(GOPATH)/bin
 OUTPUT_BIN := $(OUTPUT_DIR)/$(BINARY_NAME)
 
 
+GO_TEST_DIRS = $(shell ./go-test-dirs.sh)
+
+
 # Deployment variables
 APP_NAME ?= $(BINARY_NAME)
 
@@ -44,8 +47,10 @@ all: test build
 build:
 	$(GOBUILD) -o $(OUTPUT_BIN) -v $(BUILDFLAGS)
 
-test:
-	$(GOTEST) -v ./...
+test: $(GO_TEST_DIRS)
+	@for dir in $^; do \
+		go test -v ./$$dir ; \
+	done;
 
 clean:
 	$(GOCLEAN)
