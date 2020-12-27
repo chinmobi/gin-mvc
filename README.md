@@ -80,17 +80,19 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 ## Best Practices
 
-* First of all, analyze the requirements and business rules, and then write the use cases.
+1. First of all, analyze the requirements and business rules, and then write the use cases.
 
-* According to the use cases, design the [RESTful APIs](restful-apis.md) that served for the use cases.
+2. According to the use cases, design the [RESTful APIs](restful-apis.md) that served for the use cases.
 
-* Based on the [RESTful APIs](restful-apis.md), design `controller` handers, and DTOs(data transfer objects) used for the handlers.
+3. Based on the [RESTful APIs](restful-apis.md), design `controller` handers, and DTOs(data transfer objects) used for the handlers.
 
-* Setup the `routes` that map the [RESTful APIs](restful-apis.md)' paths to `controller` handers.
+4. Setup the `routes` that map the [RESTful APIs](restful-apis.md)' paths to `controller` handers.
 
-* According to the DDD's(domain-driven design) principle, design the business `model` entities and `service` interfaces to implement the `controller` handers.
+5. According to the DDD's(domain-driven design) principle, design the business `model` entities and `service` interfaces to implement the `controller` handers.
 
-* Complete the `db` DAOs to implement the `model` and `service` objects.
+6. Complete the `db` DAOs to implement the `model` and `service` objects.
+
+**IMPORTANT: Following the agile development. <br/>All of the steps can be and must be taking turns to develop, be processing from iteration to iteration (step by step). <br/>Once someone has recognized some use cases, another one can design the APIs and/or design the business models/services simultaneously. <br/>Once someone has completed some APIs' design, another one can develop the controller handlers and/or develop the models/services and/or develop the DAOs simultaneously, and so on.**
 
 ## Authors
 
