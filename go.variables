@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+GOOS=$(go env GOOS)
+GOARCH=$(go env GOARCH)
+
+echo "GOOS=${GOOS} GOARCH=${GOARCH}"
