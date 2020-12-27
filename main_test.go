@@ -6,6 +6,8 @@ package main
 
 import (
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestMain(t *testing.T) {
@@ -18,12 +20,17 @@ func TestMain(t *testing.T) {
 		{"", ""},
 	}
 
+	assert := assert.New(t)
+
 	for _, test := range tests {
 		got := doMain(test.input)
 
 		if got != test.want {
 			t.Errorf("got: [%q], want: [%q]", got, test.want)
 		}
+
+		// or
+		assert.Equal(test.want, got)
 	}
 }
 
