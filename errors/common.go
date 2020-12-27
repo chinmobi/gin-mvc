@@ -17,6 +17,34 @@ type CausedErrorBase struct {
 }
 
 
+// ErrLackOfParameter
+type ErrLackOfParameter OriginalErrorBase
+
+func newErrLackOfParameter(params []string) *ErrLackOfParameter {
+	var msg string
+	for i, cnt := 0, len(params); i < cnt; i++ {
+		if i > 0 {
+			msg += ", "
+		}
+		msg += params[i]
+	}
+
+	err := &ErrLackOfParameter{
+		Name: "ErrLackOfParameter",
+		Message: msg,
+	}
+	return err
+}
+
+func NewErrLackOfParameter(params ...string) *ErrLackOfParameter {
+	return newErrLackOfParameter(params)
+}
+
+func (err *ErrLackOfParameter) Error() string {
+	return err.Name + ": " + err.Message
+}
+
+
 // ErrInvalidParameter
 type ErrInvalidParameter struct {
 	Name        string  `json:"name"`
