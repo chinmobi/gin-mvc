@@ -260,14 +260,14 @@ POST /auth/refresh_token
 
 ### Best Practices
 
-* The `/public/**` should be used for static resources (*.html, *.css, *.js, *.jpg, ...), NOT be authenticated.
+* The `/public/**` should be used for static resources (*.html, *.css, *.js, *.jpg, ...), **NOT** be authenticated.
 
-* The `/api/v1/**` used for RESTful APIs resources, SHOULD be authenticated.
+* The `/api/v1/**` used for RESTful APIs resources, **SHOULD** be authenticated.
 
-* The `/login` used for login account, NOT be authenticated.
+* The `/login` used for login account, **NOT** be authenticated.
 
-* The `/signup` used for register an account, NOT be authenticated.
+* The `/signup` used for register an account, **NOT** be authenticated.
 
-* The `/auth/**` used for account's auth actions, MUST be authenticated.
+* The `/auth/**` used for account's auth actions, **MUST** be authenticated.
 
 * Using `/api/v1/**`, `/api/v2/**`, ... to identify api versions.
