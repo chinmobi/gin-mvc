@@ -36,8 +36,8 @@ func NewErrAlreadyExists(msg string) *ErrAlreadyExists {
 	return err
 }
 
-func NewErrAlreadyExistsFor(name, value string) *ErrAlreadyExists {
-	return NewErrAlreadyExists(name + " for [" + value + "]")
+func NewErrAlreadyExistsFor(entity, field, value string) *ErrAlreadyExists {
+	return NewErrAlreadyExists(entity + " for " + field + ": [" + value + "]")
 }
 
 func (err *ErrAlreadyExists) Error() string {
