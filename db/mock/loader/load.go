@@ -11,7 +11,14 @@ import (
 )
 
 func Load(supplier *impl.ModelSupplier) error {
-	supplier.SetUserModel(mock.NewUserModel(db.NewUsersDB()))
+	ctx, err := db.NewContext()
+	if err != nil {
+		return err
+	}
+
+	supplier.AddCloser(ctx)
+
+	supplier.SetUserModel(mock.NewUserModel(ctx.UsersDB()))
 
 	return nil
 }

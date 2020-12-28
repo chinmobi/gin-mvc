@@ -25,7 +25,7 @@ type UsersDB struct {
 	uids          uint32
 }
 
-func NewUsersDB() *UsersDB {
+func newUsersDB() *UsersDB {
 	users := &UsersDB{
 		entities: make(map[uint32]model.UserEntity),
 		nicknameIndex: make(map[string]uint32),
