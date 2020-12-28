@@ -11,5 +11,6 @@ import (
 // NOTE: The user service is just for demo, could to be removed for real project.
 
 type UserService struct {
+	services  *serviceSupplier
 	userModel  model.UserModel
 }
