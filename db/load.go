@@ -16,3 +16,10 @@ func Load(config *config.Config) (model.Supplier, error) {
 
 	return loader.Load(config, supplier)
 }
+
+func Release(supplier model.Supplier) error {
+	if ms, ok := supplier.(*impl.ModelSupplier); ok {
+		return ms.Close()
+	}
+	return nil
+}

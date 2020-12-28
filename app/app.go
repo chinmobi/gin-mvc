@@ -7,6 +7,7 @@ package app
 import (
 	"github.com/chinmobi/gin-mvc/config"
 	"github.com/chinmobi/gin-mvc/db"
+	"github.com/chinmobi/gin-mvc/errors"
 	"github.com/chinmobi/gin-mvc/model"
 )
 
@@ -43,7 +44,17 @@ func (app *App) Start() error {
 
 func (app *App) Shutdown() error {
 	// Shutting down / releasing application components.
-	return nil
+
+	var errs *errors.ErrWrapErrors
+
+	if err := db.Release(app.modelSupplier); err != nil {
+		if errs == nil {
+			errs = errors.NewErrWrapErrors()
+		}
+		errs.Wrap(err)
+	}
+
+	return errs
 }
 
 func (app *App) Config() *config.Config {
