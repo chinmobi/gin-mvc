@@ -5,13 +5,13 @@
 package loader
 
 import (
-	"github.com/chinmobi/gin-mvc/model"
-	mock "github.com/chinmobi/gin-mvc/model/mock"
+	"github.com/chinmobi/gin-mvc/db/impl"
 	db "github.com/chinmobi/gin-mvc/db/mock"
+	mock "github.com/chinmobi/gin-mvc/model/mock"
 )
 
-func Load(set *model.SupplierSet) error {
-	set.SetUserModel(mock.NewUserModel(db.NewUsersDB()))
+func Load(supplier *impl.ModelSupplier) error {
+	supplier.SetUserModel(mock.NewUserModel(db.NewUsersDB()))
 
 	return nil
 }

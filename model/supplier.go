@@ -8,23 +8,3 @@ package model
 type Supplier interface {
 	GetUserModel() UserModel
 }
-
-// The implementation of the model supplier.
-type SupplierSet struct {
-	userModel UserModel
-}
-
-func NewSupplierSet() *SupplierSet {
-	set := &SupplierSet{
-	}
-	return set
-}
-
-func (set *SupplierSet) SetUserModel(u UserModel) *SupplierSet {
-	set.userModel = u
-	return set
-}
-
-func (set *SupplierSet) GetUserModel() UserModel {
-	return set.userModel
-}
