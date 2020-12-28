@@ -5,12 +5,14 @@
 package impl
 
 import (
+	"github.com/chinmobi/gin-mvc/errors"
 	"github.com/chinmobi/gin-mvc/model"
 )
 
 // The implementation of the model supplier.
 type ModelSupplier struct {
-	userModel model.UserModel
+	dbClosers  []Closer
+	userModel  model.UserModel
 }
 
 func NewModelSupplier() *ModelSupplier {
@@ -19,9 +21,31 @@ func NewModelSupplier() *ModelSupplier {
 	return ms
 }
 
-func (ms *ModelSupplier) SetUserModel(u model.UserModel) *ModelSupplier {
+// Manage DB closers
+
+func (ms *ModelSupplier) AddCloser(c ...Closer) {
+	ms.dbClosers = append(ms.dbClosers, c...)
+}
+
+func (ms *ModelSupplier) Close() error {
+	var errs *errors.ErrWrapErrors
+
+	for _, closer := range ms.dbClosers {
+		if err := closer.Close(); err != nil {
+			if errs == nil {
+				errs = errors.NewErrWrapErrors()
+			}
+			errs.Wrap(err)
+		}
+	}
+
+	return errs
+}
+
+// Get / set models
+
+func (ms *ModelSupplier) SetUserModel(u model.UserModel) {
 	ms.userModel = u
-	return ms
 }
 
 func (ms *ModelSupplier) GetUserModel() model.UserModel {
