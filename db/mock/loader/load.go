@@ -10,8 +10,8 @@ import (
 	db "github.com/chinmobi/gin-mvc/db/mock"
 )
 
-func Load(suppliers *model.SupplierSet) error {
-	suppliers.SetUserModel(mock.NewUserModel(db.NewUsersDB()))
+func Load(set *model.SupplierSet) error {
+	set.SetUserModel(mock.NewUserModel(db.NewUsersDB()))
 
 	return nil
 }
