@@ -6,6 +6,7 @@ package service
 
 import (
 	"github.com/chinmobi/gin-mvc/model"
+	"github.com/chinmobi/gin-mvc/service/dto"
 )
 
 // NOTE: The user service is just for demo, could to be removed for real project.
@@ -13,4 +14,28 @@ import (
 type UserService struct {
 	services  *serviceSupplier
 	userModel  model.UserModel
+}
+
+func (svc *UserService) CreateUser(u *dto.UserDTO) (*model.UserEntity, error) {
+	return svc.getUserModel().CreateUser(u.ToUserEntity())
+}
+
+func (svc *UserService) FindAllUsers() ([]model.UserEntity, error) {
+	return svc.getUserModel().FindAllUsers()
+}
+
+func (svc *UserService) FindUserByID(uid uint32) (*model.UserEntity, error) {
+	return svc.getUserModel().FindUserByID(uid)
+}
+
+func (svc *UserService) UpdateUser(uid uint32, u *dto.UserDTO) (*model.UserEntity, error) {
+	return svc.getUserModel().UpdateUser(uid, u.ToUserEntity())
+}
+
+func (svc *UserService) DeleteUser(uid uint32) (uint64, error) {
+	return svc.getUserModel().DeleteUser(uid)
+}
+
+func (svc *UserService) getUserModel() model.UserModel {
+	return svc.userModel
 }
