@@ -14,7 +14,6 @@ type ErrWrapErrors struct {
 
 func NewErrWrapErrors() *ErrWrapErrors {
 	err := &ErrWrapErrors{
-		errors: make([]error, 0, 2),
 	}
 	return err
 }
@@ -45,4 +44,11 @@ func (w *ErrWrapErrors) Error() string {
 	str.WriteString("]")
 
 	return str.String()
+}
+
+func (w *ErrWrapErrors) AsError() error {
+	if w.errors != nil {
+		return w
+	}
+	return nil
 }

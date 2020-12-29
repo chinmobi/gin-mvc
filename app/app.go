@@ -58,14 +58,11 @@ func (app *App) Start() error {
 func (app *App) Shutdown() error {
 	// Shutting down / releasing application components.
 
-	var errs *errors.ErrWrapErrors
+	errs := errors.NewErrWrapErrors()
 
 	// Tear down the services
 	if app.services != nil {
 		if err := service.TearDown(app.services); err != nil {
-			if errs == nil {
-				errs = errors.NewErrWrapErrors()
-			}
 			errs.Wrap(err)
 		}
 		app.services = nil
@@ -74,15 +71,12 @@ func (app *App) Shutdown() error {
 	// Release the models
 	if app.models != nil {
 		if err := db.Release(app.models); err != nil {
-			if errs == nil {
-				errs = errors.NewErrWrapErrors()
-			}
 			errs.Wrap(err)
 		}
 		app.models = nil
 	}
 
-	return errs
+	return errs.AsError()
 }
 
 func (app *App) Config() *config.Config {

@@ -32,7 +32,10 @@ func StartServer(app *app.App) {
 	web := ctx.NewWebContext(router)
 
 	// Define handlers
-	routes.SetUp(web, app)
+	if err := routes.SetUp(web, app); err != nil {
+		shutDownApp(app)
+		log.Fatalf("Setup web routers fault: %+v", err)
+	}
 
 	// Listen and serve on defined port
 	srv := &http.Server{
@@ -44,7 +47,9 @@ func StartServer(app *app.App) {
 	// it won't block the graceful shutdown handling below
 	go func() {
 		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			log.Fatalf("listen: %s\n", err)
+			tearDownContext(web)
+			shutDownApp(app)
+			log.Fatalf("Http server listen fault: %+v", err)
 		}
 	}()
 	log.Println("Server started")
@@ -65,13 +70,26 @@ func StartServer(app *app.App) {
 
 	defer func() {
 		cancel()
-		app.Shutdown()
+		tearDownContext(web)
+		shutDownApp(app)
 		log.Println("Server exited")
 	}()
 
 	if err := srv.Shutdown(ctx); err != nil {
-		log.Fatal("Server forced to shutdown: %+v", err)
+		log.Fatalf("Server forced to shutdown: %+v", err)
 	}
 
 	log.Println("Server exiting...")
+}
+
+func tearDownContext(web *ctx.WebContext) {
+	if err := routes.TearDown(web); err != nil {
+		log.Printf("Web tearing down: %+v", err)
+	}
+}
+
+func shutDownApp(app *app.App) {
+	if err := app.Shutdown(); err != nil {
+		log.Printf("App shutting down: %+v", err)
+	}
 }

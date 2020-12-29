@@ -10,7 +10,12 @@ import (
 	"github.com/chinmobi/gin-mvc/web/ctx"
 )
 
-func SetUp(web *ctx.WebContext, app *app.App) {
+func SetUp(web *ctx.WebContext, app *app.App) error {
 	r := web.RootRouter()
 	r.GET("/", controller.HandleDefault)
+	return nil
+}
+
+func TearDown(web *ctx.WebContext) error {
+	return nil
 }

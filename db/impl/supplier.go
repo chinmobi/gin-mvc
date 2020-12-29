@@ -28,18 +28,15 @@ func (ms *ModelSupplier) AddCloser(c ...Closer) {
 }
 
 func (ms *ModelSupplier) Close() error {
-	var errs *errors.ErrWrapErrors
+	errs := errors.NewErrWrapErrors()
 
 	for _, closer := range ms.dbClosers {
 		if err := closer.Close(); err != nil {
-			if errs == nil {
-				errs = errors.NewErrWrapErrors()
-			}
 			errs.Wrap(err)
 		}
 	}
 
-	return errs
+	return errs.AsError()
 }
 
 // Get / set models

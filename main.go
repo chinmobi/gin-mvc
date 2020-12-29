@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	STARTING_FAULT_LOG_FMT = "App starting fault: %v\n"
+	STARTING_FAULT_LOG_FMT = "App starting fault: %+v\n"
 )
 
 func main() {
