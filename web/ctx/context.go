@@ -10,6 +10,7 @@ import (
 
 type WebContext struct {
 	engine       *gin.Engine
+	middlewares  interface{} // avoid importing cycle
 	controllers  interface{} // avoid importing cycle
 }
 
@@ -22,6 +23,14 @@ func NewWebContext(engine *gin.Engine) *WebContext {
 
 func (ctx *WebContext) RootRouter() *gin.RouterGroup {
 	return &ctx.engine.RouterGroup
+}
+
+func (ctx *WebContext) SetMiddlewares(middlewares interface{}) {
+	ctx.middlewares = middlewares
+}
+
+func (ctx *WebContext) GetMiddlewares() interface{} {
+	return ctx.middlewares
 }
 
 func (ctx *WebContext) SetControllers(controllers interface{}) {

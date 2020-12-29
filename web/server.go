@@ -18,6 +18,7 @@ import (
 	"time"
 
 	"github.com/chinmobi/gin-mvc/app"
+	"github.com/chinmobi/gin-mvc/middleware"
 	"github.com/chinmobi/gin-mvc/routes"
 	"github.com/chinmobi/gin-mvc/web/ctx"
 
@@ -27,12 +28,19 @@ import (
 func StartServer(app *app.App) {
 
 	// Starts a new Gin instance with no middle-ware
-	router := gin.New()
+	engine := gin.New()
 
-	web := ctx.NewWebContext(router)
+	web := ctx.NewWebContext(engine)
+
+	// Set up middlewares
+	if err := middleware.SetUp(web, app); err != nil {
+		shutDownApp(app)
+		log.Fatalf("Setup web middlewares fault: %+v", err)
+	}
 
 	// Define handlers
 	if err := routes.SetUp(web, app); err != nil {
+		tearDownMiddleware(web)
 		shutDownApp(app)
 		log.Fatalf("Setup web routers fault: %+v", err)
 	}
@@ -40,14 +48,14 @@ func StartServer(app *app.App) {
 	// Listen and serve on defined port
 	srv := &http.Server{
 		Addr:    ":" + app.Config().Server.Port,
-		Handler: router,
+		Handler: engine,
 	}
 
 	// Initializing the server in a goroutine so that
 	// it won't block the graceful shutdown handling below
 	go func() {
 		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			tearDownContext(web)
+			tearDownWebContext(web)
 			shutDownApp(app)
 			log.Fatalf("Http server listen fault: %+v", err)
 		}
@@ -70,7 +78,7 @@ func StartServer(app *app.App) {
 
 	defer func() {
 		cancel()
-		tearDownContext(web)
+		tearDownWebContext(web)
 		shutDownApp(app)
 		log.Println("Server exited")
 	}()
@@ -82,9 +90,16 @@ func StartServer(app *app.App) {
 	log.Println("Server exiting...")
 }
 
-func tearDownContext(web *ctx.WebContext) {
+func tearDownWebContext(web *ctx.WebContext) {
 	if err := routes.TearDown(web); err != nil {
-		log.Printf("Web tearing down: %+v", err)
+		log.Printf("Web routes tearing down: %+v", err)
+	}
+	tearDownMiddleware(web)
+}
+
+func tearDownMiddleware(web *ctx.WebContext) {
+	if err := middleware.TearDown(web); err != nil {
+		log.Printf("Web middlewares tearing down: %+v", err)
 	}
 }
 
