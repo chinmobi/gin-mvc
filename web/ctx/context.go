@@ -2,10 +2,6 @@
 // Use of this source code is governed by a MIT style
 // license that can be found in the LICENSE file.
 
-// The graceful-shutdown codes is based on the gin-gonic example codes
-// (graceful-shutdown by Bo-Yi Wu (appleboy)) that can be found
-// at https://github.com/gin-gonic/examples
-
 package ctx
 
 import (
@@ -13,7 +9,8 @@ import (
 )
 
 type WebContext struct {
-	engine *gin.Engine
+	engine       *gin.Engine
+	controllers  interface{} // avoid importing cycle
 }
 
 func NewWebContext(engine *gin.Engine) *WebContext {
@@ -25,4 +22,12 @@ func NewWebContext(engine *gin.Engine) *WebContext {
 
 func (ctx *WebContext) RootRouter() *gin.RouterGroup {
 	return &ctx.engine.RouterGroup
+}
+
+func (ctx *WebContext) SetControllers(controllers interface{}) {
+	ctx.controllers = controllers
+}
+
+func (ctx *WebContext) GetControllers() interface{} {
+	return ctx.controllers
 }
