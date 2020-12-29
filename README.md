@@ -72,6 +72,8 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 * `mq` - Manage and provide message queueing utilities (`rabbitmq`, `kafka`, etc...).
 
+* `restful` - Provide the RESTful APIs' utilities.
+
 * `routes` - Map the `RESTful API` URL path routes to `controller` handers.
 
 * `service` - Define the business services that used for `controller` and `middleware` handers.
@@ -92,7 +94,7 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 6. Complete the `db` DAOs to implement the `model` and `service` objects.
 
-**IMPORTANT: Following the agile development. All of the steps can be and must be taking turns to develop, be processing from iteration to iteration (step by step). Once someone has recognized some use cases, another one can design the APIs and/or design the business models/services simultaneously. Once someone has completed some APIs' design, another one can develop the controller handlers and/or develop the models/services and/or develop the DAOs simultaneously, and so on.**
+**IMPORTANT: Following the agile development. All of the steps can be and must be taking turns to develop, be processing from iteration to iteration (step by step). <br/>Once someone has recognized some use cases, another one can design the APIs and/or design the business models/services simultaneously. <br/>Once someone has completed some APIs' design, another one can develop the controller handlers and/or develop the models/services and/or develop the DAOs simultaneously, and so on.**
 
 ## Authors
 

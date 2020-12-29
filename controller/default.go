@@ -5,13 +5,13 @@
 package controller
 
 import (
-	"net/http"
+	"github.com/chinmobi/gin-mvc/restful"
 
 	"github.com/gin-gonic/gin"
 )
 
 func HandleDefault(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
+	restful.RespDataEntity(c, gin.H{
 		"message": "TODO",
 	})
 }
