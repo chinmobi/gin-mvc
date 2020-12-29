@@ -12,14 +12,19 @@ import (
 
 func SetUp(web *ctx.WebContext, app *app.App) error {
 	ctrls := NewControllerSet()
-	if err := ctrls.setUp(); err != nil {
+	if err := ctrls.setUp(app); err != nil {
 		return err
 	}
 	web.SetControllers(ctrls)
 
 	// Set up routes' handlers
-
 	r := web.RootRouter()
+
+	v1 := r.Group("/api/v1")
+	{
+		setupUserRoutes(v1, ctrls.userCtrl)
+	}
+
 	r.GET("/", controller.HandleDefault)
 	return nil
 }

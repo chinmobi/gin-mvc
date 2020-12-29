@@ -4,7 +4,13 @@
 
 package routes
 
+import (
+	"github.com/chinmobi/gin-mvc/app"
+	"github.com/chinmobi/gin-mvc/controller"
+)
+
 type ControllerSet struct {
+	userCtrl  *controller.UserController
 }
 
 func NewControllerSet() *ControllerSet {
@@ -13,7 +19,8 @@ func NewControllerSet() *ControllerSet {
 	return set
 }
 
-func (set *ControllerSet) setUp() error {
+func (set *ControllerSet) setUp(app *app.App) error {
+	set.userCtrl = controller.NewUserController(app.ServiceSupplier())
 	return nil
 }
 
