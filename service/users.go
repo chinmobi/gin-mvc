@@ -17,7 +17,11 @@ type UserService struct {
 }
 
 func (svc *UserService) CreateUser(u *dto.UserDTO) (*model.UserEntity, error) {
-	return svc.getUserModel().CreateUser(u.ToUserEntity())
+	entity, err := u.ToUserEntity()
+	if err != nil {
+		return nil, err
+	}
+	return svc.getUserModel().CreateUser(entity)
 }
 
 func (svc *UserService) FindAllUsers() ([]model.UserEntity, error) {
@@ -29,7 +33,11 @@ func (svc *UserService) FindUserByID(uid uint32) (*model.UserEntity, error) {
 }
 
 func (svc *UserService) UpdateUser(uid uint32, u *dto.UserDTO) (*model.UserEntity, error) {
-	return svc.getUserModel().UpdateUser(uid, u.ToUserEntity())
+	entity, err := u.ToUserEntity()
+	if err != nil {
+		return nil, err
+	}
+	return svc.getUserModel().UpdateUser(uid, entity)
 }
 
 func (svc *UserService) DeleteUser(uid uint32) (uint64, error) {

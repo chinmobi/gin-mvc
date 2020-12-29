@@ -6,6 +6,7 @@ package dto
 
 import (
 	"github.com/chinmobi/gin-mvc/model"
+	"github.com/chinmobi/gin-mvc/model/x/passwd"
 )
 
 // NOTE: The user dto is just for demo, could to be removed for real project.
@@ -16,11 +17,19 @@ type UserDTO struct {
 	Email     string  `json:"email,omitempty"`
 }
 
-func (dto *UserDTO) ToUserEntity() *model.UserEntity {
+func (dto *UserDTO) ToUserEntity() (*model.UserEntity, error) {
 	u := &model.UserEntity{
 		Nickname: dto.Nickname,
-		PasswordHash: dto.Password,
 		Email: dto.Email,
 	}
-	return u
+
+	if dto.Password != "" {
+		hashedPassword, err := passwd.HashPassword(dto.Password)
+		if err != nil {
+			return nil, err
+		}
+		u.PasswordHash = string(hashedPassword)
+	}
+
+	return u, nil
 }
