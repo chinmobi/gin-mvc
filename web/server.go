@@ -19,6 +19,7 @@ import (
 
 	"github.com/chinmobi/gin-mvc/app"
 	"github.com/chinmobi/gin-mvc/routes"
+	"github.com/chinmobi/gin-mvc/web/ctx"
 
 	"github.com/gin-gonic/gin"
 )
@@ -28,8 +29,10 @@ func StartServer(app *app.App) {
 	// Starts a new Gin instance with no middle-ware
 	router := gin.New()
 
+	web := ctx.NewWebContext(router)
+
 	// Define handlers
-	routes.Setup(&router.RouterGroup, app)
+	routes.SetUp(web, app)
 
 	// Listen and serve on defined port
 	srv := &http.Server{

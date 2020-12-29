@@ -7,10 +7,10 @@ package routes
 import (
 	"github.com/chinmobi/gin-mvc/app"
 	"github.com/chinmobi/gin-mvc/controller"
-
-	"github.com/gin-gonic/gin"
+	"github.com/chinmobi/gin-mvc/web/ctx"
 )
 
-func Setup(r *gin.RouterGroup, app *app.App) {
+func SetUp(web *ctx.WebContext, app *app.App) {
+	r := web.RootRouter()
 	r.GET("/", controller.HandleDefault)
 }
