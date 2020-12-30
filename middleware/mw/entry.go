@@ -38,7 +38,7 @@ func (e *Entry) Next() *Entry {
 	return e.next
 }
 
-func (e *Entry) putAdapter(adapter ...Adapter) {
+func (e *Entry) addAdapter(adapter ...Adapter) {
 	e.adapters = append(e.adapters, adapter...)
 }
 

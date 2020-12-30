@@ -49,8 +49,8 @@ func (c *Configurer) Build(category string) *Builder {
 	return b
 }
 
-func (b *Builder) PutAdapter(adapter ...Adapter) *Builder {
-	b.entry.putAdapter(adapter...)
+func (b *Builder) AddMwAdapter(adapter ...Adapter) *Builder {
+	b.entry.addAdapter(adapter...)
 	return b
 }
 
