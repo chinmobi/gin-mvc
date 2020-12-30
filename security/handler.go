@@ -5,8 +5,12 @@
 package security
 
 import (
+	"github.com/chinmobi/gin-mvc/security/errors"
+
 	"github.com/gin-gonic/gin"
 )
+
+type ErrAuthentication = errors.ErrAuthentication
 
 type OnAuthSuccessFunc func(c *gin.Context, auth Authentication) error
 type OnAuthFailureFunc func(c *gin.Context, authErr *ErrAuthentication) error
