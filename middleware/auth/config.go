@@ -7,8 +7,9 @@ package auth
 import (
 	"github.com/chinmobi/gin-mvc/app"
 	"github.com/chinmobi/gin-mvc/middleware/mw"
+	"github.com/chinmobi/gin-mvc/security"
 )
 
-func Configure(builder *mw.Builder, app *app.App) error {
+func Configure(builder *mw.Builder, authHandler security.AuthHandlerSetter, app *app.App) error {
 	return nil
 }

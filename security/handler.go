@@ -16,6 +16,11 @@ type AuthHandler interface {
 	OnAuthFailure(c *gin.Context, authErr *ErrAuthentication) (int, error)
 }
 
+type AuthHandlerSetter interface {
+	AddSuccessFunc(onSuccess ...OnAuthSuccessFunc)
+	AddFailureFunc(onFailure ...OnAuthFailureFunc)
+}
+
 type AuthHandlerSet struct {
 	successFuncChain  []OnAuthSuccessFunc
 	failureFuncChain  []OnAuthFailureFunc
@@ -26,6 +31,8 @@ func NewAuthHandlerSet() *AuthHandlerSet {
 	}
 	return set
 }
+
+// AuthHandlerSetter methods
 
 func (set *AuthHandlerSet) AddSuccessFunc(onSuccess ...OnAuthSuccessFunc) {
 	set.successFuncChain = append(set.successFuncChain, onSuccess...)

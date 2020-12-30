@@ -9,16 +9,19 @@ import (
 	"github.com/chinmobi/gin-mvc/errors"
 	"github.com/chinmobi/gin-mvc/middleware/config"
 	"github.com/chinmobi/gin-mvc/middleware/mw"
+	"github.com/chinmobi/gin-mvc/security"
 
 	"github.com/gin-gonic/gin"
 )
 
 type MiddlewareSet struct {
-	entries  *mw.Entry
+	authHandler  *security.AuthHandlerSet
+	entries      *mw.Entry
 }
 
 func NewMiddlewareSet() *MiddlewareSet {
 	set := &MiddlewareSet{
+		authHandler: security.NewAuthHandlerSet(),
 	}
 	return set
 }
@@ -29,7 +32,7 @@ func (set *MiddlewareSet) setUp(app *app.App) error {
 
 	configurer := mw.NewConfigurer(set.entries)
 
-	if err := config.Configure(configurer, app); err != nil {
+	if err := config.Configure(configurer, set.authHandler, app); err != nil {
 		set.tearDown()
 		return err
 	}
@@ -39,6 +42,8 @@ func (set *MiddlewareSet) setUp(app *app.App) error {
 
 func (set *MiddlewareSet) tearDown() error {
 	errs := errors.NewErrWrapErrors()
+
+	set.authHandler.Clear()
 
 	entry := set.entries
 	for entry != nil {
@@ -55,11 +60,15 @@ func (set *MiddlewareSet) tearDown() error {
 	return errs.AsError()
 }
 
-func (set *MiddlewareSet) CommonHandlers() gin.HandlersChain {
+func (set *MiddlewareSet) SecurityAuthHandler() security.AuthHandler {
+	return set.authHandler
+}
+
+func (set *MiddlewareSet) CommonHandlersChain() gin.HandlersChain {
 	return set.HandlersChain(mw.MW_COMMON)
 }
 
-func (set *MiddlewareSet) AuthHandlers() gin.HandlersChain {
+func (set *MiddlewareSet) AuthHandlersChain() gin.HandlersChain {
 	return set.HandlersChain(mw.MW_AUTH)
 }
 

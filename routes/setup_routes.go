@@ -12,8 +12,8 @@ import (
 )
 
 func setUpRoutes(router *gin.RouterGroup, ctrls *ControllerSet, mws *mw.MiddlewareSet) error {
-	commonMWs := mws.CommonHandlers()
-	authMWs := mws.AuthHandlers()
+	commonMWs := mws.CommonHandlersChain()
+	authMWs := mws.AuthHandlersChain()
 
 	// Set up routes' handlers
 	router.Use(commonMWs...)

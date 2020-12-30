@@ -16,9 +16,7 @@ func SetUp(web *ctx.WebContext, app *app.App) error {
 		return err
 	}
 
-	mws := getMiddlewares(web)
-
-	return setUpRoutes(web.RootRouter(), ctrls, mws)
+	return setUpRoutes(web.RootRouter(), ctrls, getMiddlewares(web))
 }
 
 func TearDown(web *ctx.WebContext) error {
@@ -33,8 +31,10 @@ func getMiddlewares(web *ctx.WebContext) *middleware.MiddlewareSet {
 // Manage controllers (setUp / tearDown)
 
 func setUp(web *ctx.WebContext, app *app.App) (*ControllerSet, error) {
+	mws := getMiddlewares(web)
+
 	ctrls := NewControllerSet()
-	if err := ctrls.setUp(app); err != nil {
+	if err := ctrls.setUp(app, mws.SecurityAuthHandler()); err != nil {
 		return nil, err
 	}
 	web.SetControllers(ctrls)
