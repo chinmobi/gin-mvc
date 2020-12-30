@@ -6,30 +6,43 @@ package routes
 
 import (
 	"github.com/chinmobi/gin-mvc/app"
-	"github.com/chinmobi/gin-mvc/controller"
+	"github.com/chinmobi/gin-mvc/middleware"
 	"github.com/chinmobi/gin-mvc/web/ctx"
 )
 
 func SetUp(web *ctx.WebContext, app *app.App) error {
-	ctrls := NewControllerSet()
-	if err := ctrls.setUp(app); err != nil {
+	ctrls, err := setUp(web, app)
+	if err != nil {
 		return err
 	}
-	web.SetControllers(ctrls)
 
-	// Set up routes' handlers
-	r := web.RootRouter()
+	mws := getMiddlewares(web)
 
-	v1 := r.Group("/api/v1")
-	{
-		setupUserRoutes(v1, ctrls.userCtrl)
-	}
-
-	r.GET("/", controller.HandleDefault)
-	return nil
+	return setUpRoutes(web.RootRouter(), ctrls, mws)
 }
 
 func TearDown(web *ctx.WebContext) error {
+	return tearDown(web)
+}
+
+func getMiddlewares(web *ctx.WebContext) *middleware.MiddlewareSet {
+	set := web.GetMiddlewares()
+	return set.(*middleware.MiddlewareSet)
+}
+
+// Manage controllers (setUp / tearDown)
+
+func setUp(web *ctx.WebContext, app *app.App) (*ControllerSet, error) {
+	ctrls := NewControllerSet()
+	if err := ctrls.setUp(app); err != nil {
+		return nil, err
+	}
+	web.SetControllers(ctrls)
+
+	return ctrls, nil
+}
+
+func tearDown(web *ctx.WebContext) error {
 	set := web.GetControllers()
 	if set != nil {
 		if ctrls, ok := set.(*ControllerSet); ok {
