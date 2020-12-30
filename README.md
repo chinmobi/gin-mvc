@@ -52,9 +52,7 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 * `controller` - Define controller handers for handling requests.
 
-* `ctx` - Provide request scale context while handling requests.
-
-* `ctx/security` - Provide authentication and authorization while handling requests.
+* `ctx` - Provide request scale context while handling requests, especially for auth security.
 
 * `db` - Manage the data-stores' connections (`redis`, `mongodb`, `prosgres`, etc...), and provide the DAOs(data access objects) that used for `model`.
 
@@ -76,6 +74,8 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 * `routes` - Map the `RESTful API` URL path routes to `controller` handers.
 
+* `security` - Provide authentication and authorization utilities.
+
 * `service` - Define the business services that used for `controller` and `middleware` handers.
 
 * `web` - Provide the web server to run the `app`.
@@ -94,7 +94,7 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 6. Complete the `db` DAOs to implement the `model` and `service` objects.
 
-**IMPORTANT: Following the agile development. All of the steps can be and must be taking turns to develop, be processing from iteration to iteration (step by step). <br/>Once someone has recognized some use cases, another one can design the APIs and/or design the business models/services simultaneously. <br/>Once someone has completed some APIs' design, another one can develop the controller handlers and/or develop the models/services and/or develop the DAOs simultaneously, and so on.**
+**IMPORTANT: <br/>Following the agile development. All of the steps can be and must be taking turns to develop, be processing from iteration to iteration (step by step). <br/>Once someone has recognized some use cases, another one can design the APIs and/or design the business models/services simultaneously. <br/>Once someone has completed some APIs' design, another one can develop the controller handlers and/or develop the models/services and/or develop the DAOs simultaneously, and so on.**
 
 ## Authors
 
