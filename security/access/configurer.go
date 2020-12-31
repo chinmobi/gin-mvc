@@ -28,6 +28,10 @@ func (pe *PermissionsEntry) PermissionsGroup() *PermissionsGroup {
 	return &pe.permissions
 }
 
+func (pe *PermissionsEntry) AddPermission(permission ...RolePermission) {
+	pe.permissions.AddPermission(permission...)
+}
+
 func (pe *PermissionsEntry) configure(c *gin.Context) {
 	c.Set(CTX_ACCESS_PERMISSIONS, &pe.permissions)
 
@@ -45,6 +49,14 @@ func (pe *PermissionsEntry) createHandlerFunc() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		pe.configure(c)
 	}
+}
+
+func (pe *PermissionsEntry) AccessDecisionAgent() *AccessDecisionAgent {
+	if pe.interceptor == nil {
+		pe.interceptor = buildDefaultInterceptor(pe)
+	}
+
+	return pe.interceptor.DecisionAgent()
 }
 
 // PermissionsConfigurer
