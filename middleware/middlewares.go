@@ -7,21 +7,25 @@ package middleware
 import (
 	"github.com/chinmobi/gin-mvc/app"
 	"github.com/chinmobi/gin-mvc/errors"
+	acconfig "github.com/chinmobi/gin-mvc/middleware/access"
 	"github.com/chinmobi/gin-mvc/middleware/config"
 	"github.com/chinmobi/gin-mvc/middleware/mw"
 	"github.com/chinmobi/gin-mvc/security"
+	"github.com/chinmobi/gin-mvc/security/access"
 
 	"github.com/gin-gonic/gin"
 )
 
 type MiddlewareSet struct {
 	authHandler  *security.AuthHandlerSet
+	permsConfig  *access.PermissionsConfigurer
 	entries      *mw.Entry
 }
 
 func NewMiddlewareSet() *MiddlewareSet {
 	set := &MiddlewareSet{
 		authHandler: security.NewAuthHandlerSet(),
+		permsConfig: access.NewPermissionsConfigurer(),
 	}
 	return set
 }
@@ -37,12 +41,18 @@ func (set *MiddlewareSet) setUp(app *app.App) error {
 		return err
 	}
 
+	if err := acconfig.Configure(set.permsConfig, app); err != nil {
+		set.tearDown()
+		return err
+	}
+
 	return nil
 }
 
 func (set *MiddlewareSet) tearDown() error {
 	errs := errors.NewErrWrapErrors()
 
+	set.permsConfig.Reset()
 	set.authHandler.Clear()
 
 	entry := set.entries
@@ -70,6 +80,10 @@ func (set *MiddlewareSet) CommonHandlersChain() gin.HandlersChain {
 
 func (set *MiddlewareSet) AuthHandlersChain() gin.HandlersChain {
 	return set.HandlersChain(mw.MW_AUTH)
+}
+
+func (set *MiddlewareSet) PermissionsConfigurer() *access.PermissionsConfigurer {
+	return set.permsConfig
 }
 
 func (set *MiddlewareSet) HandlersChain(category string) gin.HandlersChain {
