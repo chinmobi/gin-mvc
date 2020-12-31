@@ -16,7 +16,7 @@ func SetUp(web *ctx.WebContext, app *app.App) error {
 		return err
 	}
 
-	return setUpRoutes(web.RootRouter(), ctrls, getMiddlewares(web))
+	return setUpRoutes(web.RootRouter(), getMiddlewares(web), ctrls)
 }
 
 func TearDown(web *ctx.WebContext) error {

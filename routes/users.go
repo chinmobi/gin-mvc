@@ -6,19 +6,27 @@ package routes
 
 import (
 	ctrl "github.com/chinmobi/gin-mvc/controller"
+	mw "github.com/chinmobi/gin-mvc/middleware"
 
 	"github.com/gin-gonic/gin"
 )
 
-func setupUserRoutes(r *gin.RouterGroup, userCtrl *ctrl.UserController) {
-	updateUserFunc := updateUser(userCtrl)
+// NOTE: The user routes are just for demo, could to be removed for real project.
 
-	r.POST("/users",        createUser(userCtrl))
+func setupUserRoutes(r *gin.RouterGroup, mws *mw.MiddlewareSet, userCtrl *ctrl.UserController) {
+	permsConfig := mws.PermissionsConfigurer()
+
+	permsEntry := permsConfig.ConfigureEntry("CUD_USERS")
+	access := permsEntry.AccessDecisionAgent()
+
+	updateUserFunc := access.DecideControllerFunc(updateUser(userCtrl))
+
+	r.POST("/users",        access.DecideHandlerFunc(), createUser(userCtrl))
 	r.GET("/users",         getAllUsers(userCtrl))
 	r.GET("/users/:uid",    getUserByID(userCtrl))
 	r.PATCH("/users/:uid",  updateUserFunc)
 	r.PUT("/users/:uid",    updateUserFunc)
-	r.DELETE("/users/:uid", deleteUser(userCtrl))
+	r.DELETE("/users/:uid", access.DecideHandlerFunc(), deleteUser(userCtrl))
 }
 
 func createUser(userCtrl *ctrl.UserController) gin.HandlerFunc {

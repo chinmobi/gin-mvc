@@ -11,7 +11,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func setUpRoutes(router *gin.RouterGroup, ctrls *ControllerSet, mws *mw.MiddlewareSet) error {
+func setUpRoutes(router *gin.RouterGroup, mws *mw.MiddlewareSet, ctrls *ControllerSet) error {
 	commonMWs := mws.CommonHandlersChain()
 	authMWs := mws.AuthHandlersChain()
 
@@ -20,7 +20,7 @@ func setUpRoutes(router *gin.RouterGroup, ctrls *ControllerSet, mws *mw.Middlewa
 
 	v1 := router.Group("/api/v1", authMWs...)
 	{
-		setupUserRoutes(v1, ctrls.userCtrl)
+		setupUserRoutes(v1, mws, ctrls.userCtrl)
 	}
 
 	router.GET("/", controller.HandleDefault)
