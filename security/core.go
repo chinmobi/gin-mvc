@@ -4,8 +4,15 @@
 
 package security
 
+import (
+	"strings"
+)
+
+const ROLE_PREFIX = "ROLE_"
+
 type GrantedAuthority interface {
 	GetAuthority() string
+	IsRole() bool
 }
 
 type Authentication interface {
@@ -25,6 +32,10 @@ type SimpleGrantedAuthority string
 
 func (s SimpleGrantedAuthority) GetAuthority() string {
 	return string(s)
+}
+
+func (s SimpleGrantedAuthority) IsRole() bool {
+	return strings.HasPrefix(string(s), ROLE_PREFIX)
 }
 
 type SGAuthority = SimpleGrantedAuthority
