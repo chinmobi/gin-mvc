@@ -39,3 +39,15 @@ func (b *InterceptorBuilder) Build() *SecurityInterceptor {
 	}
 	return si
 }
+
+func (b *InterceptorBuilder) BuildFor(entry *PermissionsEntry) *SecurityInterceptor {
+	si := &SecurityInterceptor{
+		permissions:    &entry.permissions,
+		deniedHandler:  b.deniedHandler,
+		evaluator:      b.evaluator,
+	}
+
+	entry.interceptor = si
+
+	return si
+}

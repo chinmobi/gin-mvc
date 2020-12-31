@@ -13,6 +13,7 @@ const CTX_ACCESS_PERMISSIONS = "CTX_ACCESS_PERMISSIONS"
 type PermissionsEntry struct {
 	permissions  PermissionsGroup
 	handlerFunc  gin.HandlerFunc
+	interceptor  *SecurityInterceptor
 }
 
 func (pe *PermissionsEntry) PermissionsGroup() *PermissionsGroup {
