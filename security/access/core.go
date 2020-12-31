@@ -18,6 +18,7 @@ type RolePermission interface {
 }
 
 // SimpleRolePermission
+
 type SimpleRolePermission string
 
 func (s SimpleRolePermission) GetPermission() string {
@@ -30,7 +31,8 @@ func (s SimpleRolePermission) IsRole() bool {
 
 type SRPermission = SimpleRolePermission
 
-// Permissions' group
+// PermissionsGroup
+
 type PermissionsGroup struct {
 	name         string
 	permissions  []RolePermission
@@ -41,6 +43,12 @@ func NewPermissionsGroup(name string) *PermissionsGroup {
 		name: name,
 	}
 	return pg
+}
+
+func (pg *PermissionsGroup) Clear() {
+	if pg.permissions != nil {
+		pg.permissions = pg.permissions[0:0]
+	}
 }
 
 func (pg *PermissionsGroup) AddPermission(permission ...RolePermission) {
