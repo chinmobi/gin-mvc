@@ -84,3 +84,9 @@ func (set *AuthHandlerSet) OnAuthFailure(c *gin.Context, authErr *ErrAuthenticat
 	}
 	return count, nil
 }
+
+// Wrap the errors.NewErrAuthentication
+
+func NewErrAuthentication(cause error) *ErrAuthentication {
+	return errors.NewErrAuthentication(cause)
+}
