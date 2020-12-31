@@ -9,10 +9,10 @@ import (
 )
 
 type PermissionEvaluator interface {
-	HasPermission(authentication security.Authentication, permission NeedPermission) bool
+	HasPermission(authentication security.Authentication, permission RolePermission) bool
 }
 
-func SimplePermissionEval(authentication security.Authentication, permission NeedPermission) bool {
+func SimplePermissionEval(authentication security.Authentication, permission RolePermission) bool {
 	authorities := authentication.GetAuthorities()
 	size := len(authorities)
 	if size == 0 {
@@ -37,8 +37,8 @@ func SimplePrivilegeEval(authentication security.Authentication, permissions *Pe
 	authorities := authentication.GetAuthorities()
 	authSize := len(authorities)
 
-	needPermissions := permissions.NeedPermissions()
-	permSize := len(needPermissions)
+	rolePermissions := permissions.RolePermissions()
+	permSize := len(rolePermissions)
 
 	if authSize == 0 {
 		if permSize == 0 {
@@ -53,7 +53,7 @@ func SimplePrivilegeEval(authentication security.Authentication, permissions *Pe
 	}
 
 	for i := 0; i < permSize; i++ {
-		permStr := needPermissions[i].GetPermission()
+		permStr := rolePermissions[i].GetPermission()
 
 		for j := 0; j < authSize; j++ {
 			if authorities[j].GetAuthority() == permStr {

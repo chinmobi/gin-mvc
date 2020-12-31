@@ -12,28 +12,28 @@ import (
 
 const ROLE_PREFIX = security.ROLE_PREFIX
 
-type NeedPermission interface {
+type RolePermission interface {
 	GetPermission() string
 	IsRole() bool
 }
 
-// SimpleNeedPermission
-type SimpleNeedPermission string
+// SimpleRolePermission
+type SimpleRolePermission string
 
-func (s SimpleNeedPermission) GetPermission() string {
+func (s SimpleRolePermission) GetPermission() string {
 	return string(s)
 }
 
-func (s SimpleNeedPermission) IsRole() bool {
+func (s SimpleRolePermission) IsRole() bool {
 	return strings.HasPrefix(string(s), ROLE_PREFIX)
 }
 
-type SNPermission = SimpleNeedPermission
+type SRPermission = SimpleRolePermission
 
 // Permissions' group
 type PermissionsGroup struct {
 	name         string
-	permissions  []NeedPermission
+	permissions  []RolePermission
 }
 
 func NewPermissionsGroup(name string) *PermissionsGroup {
@@ -43,11 +43,11 @@ func NewPermissionsGroup(name string) *PermissionsGroup {
 	return pg
 }
 
-func (pg *PermissionsGroup) AddPermission(permission ...NeedPermission) {
+func (pg *PermissionsGroup) AddPermission(permission ...RolePermission) {
 	pg.permissions = append(pg.permissions, permission...)
 }
 
-func (pg *PermissionsGroup) NeedPermissions() []NeedPermission {
+func (pg *PermissionsGroup) RolePermissions() []RolePermission {
 	return pg.permissions
 }
 
