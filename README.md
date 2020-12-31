@@ -74,7 +74,7 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 * `routes` - Map the `RESTful API` URL path routes to `controller` handers.
 
-* `security` - Provide the [security](security/README.md) (authentication and authorization) utilities.
+* `security` - Provide the [security](security/ABOUT.md) (authentication and authorization) utilities.
 
 * `service` - Define the business services that used for `controller` and `middleware` handers.
 
