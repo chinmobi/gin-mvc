@@ -44,7 +44,7 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 <br/>Use `go clean` to clean the built objects.
 <br/>Use `make` to build more complex targets.
 
-## Architecture
+## Project structure
 
 * `app` - The application main context to load and provide the app's components/utilities, it also manages the components/utilities' lifecycle (`Load, Setup/Start, Teardown/Shutdown, Release`).
 
@@ -74,7 +74,7 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 * `routes` - Map the `RESTful API` URL path routes to `controller` handers.
 
-* `security` - Provide authentication and authorization utilities.
+* `security` - Provide the [security](security/README.md) (authentication and authorization) utilities.
 
 * `service` - Define the business services that used for `controller` and `middleware` handers.
 
@@ -95,6 +95,10 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 6. Complete the `db` DAOs to implement the `model` and `service` objects.
 
 **IMPORTANT: <br/>Following the agile development. All of the steps can be and must be taking turns to develop, be processing from iteration to iteration (step by step). <br/>Once someone has recognized some use cases, another one can design the APIs and/or design the business models/services simultaneously. <br/>Once someone has completed some APIs' design, another one can develop the controller handlers and/or develop the models/services and/or develop the DAOs simultaneously, and so on.**
+
+## Architecture
+
+(coming soon...)
 
 ## Authors
 
