@@ -13,36 +13,59 @@ import (
 )
 
 type SecurityInterceptor struct {
-	permissions     *PermissionsGroup
-	deniedHandler   AccessDeniedHandler
-	evaluator       PrivilegeEvaluator
+	permissions    *PermissionsGroup
+	deniedHandler  AccessDeniedHandler
+	evaluator      PrivilegeEvaluator
+	decisionAgent  *AccessDecisionAgent
 }
 
-type InterceptorAgent struct {
-	interceptor     *SecurityInterceptor
-	controllerFunc  gin.HandlerFunc
+type AccessDecisionAgent struct {
+	interceptor    *SecurityInterceptor
+	handlerFunc    gin.HandlerFunc
 }
 
-func (si *SecurityInterceptor) InterceptAgent(controllerFunc gin.HandlerFunc) gin.HandlerFunc {
-	agent := &InterceptorAgent{
+func (si *SecurityInterceptor) DecisionAgent() *AccessDecisionAgent {
+	if si.decisionAgent != nil {
+		return si.decisionAgent
+	}
+
+	agent := &AccessDecisionAgent{
 		interceptor: si,
-		controllerFunc: controllerFunc,
 	}
-	return agent.getHandlerFunc()
+	si.decisionAgent = agent
+
+	return agent
 }
 
-func (agent *InterceptorAgent) getHandlerFunc() gin.HandlerFunc {
+func (agent *AccessDecisionAgent) DecideHandlerFunc() gin.HandlerFunc {
+	if agent.handlerFunc == nil {
+		agent.handlerFunc = agent.createHandlerFunc()
+	}
+	return agent.handlerFunc
+}
+
+func (agent *AccessDecisionAgent) DecideControllerFunc(ctrlFunc gin.HandlerFunc) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		agent.doIntercept(c)
+		if agent.doDecide(c) {
+			ctrlFunc(c)
+		}
 	}
 }
 
-func (agent *InterceptorAgent) doIntercept(c *gin.Context) {
+func (agent *AccessDecisionAgent) createHandlerFunc() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		if agent.doDecide(c) {
+			c.Next()
+		}
+	}
+}
+
+func (agent *AccessDecisionAgent) doDecide(c *gin.Context) bool {
 	if err := agent.interceptor.decide(c); err != nil {
 		agent.interceptor.deniedHandler.OnAccessDenied(c, NewErrAccessDenied(err))
-		return
+		return false
 	}
-	agent.controllerFunc(c)
+	return true
 }
 
 func (si *SecurityInterceptor) decide(c *gin.Context) error {
