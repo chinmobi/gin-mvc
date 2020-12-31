@@ -12,11 +12,15 @@ import (
 
 type ErrAccessDenied = errors.ErrAccessDenied
 
+// AccessDeniedHandler
+
 type OnAccessDeniedFunc func(c *gin.Context, err *ErrAccessDenied) error
 
 type AccessDeniedHandler interface {
 	OnAccessDenied(c *gin.Context, err *ErrAccessDenied) (bool, error)
 }
+
+// accessDeniedFuncWrap
 
 type accessDeniedFuncWrap struct {
 	onAccessDenied OnAccessDeniedFunc
@@ -35,6 +39,16 @@ func WrapAccessDeniedFunc(onAccessDenied OnAccessDeniedFunc) AccessDeniedHandler
 	}
 	return wrap
 }
+
+// NullAccessDeniedHandler
+
+type NullAccessDeniedHandler struct{}
+
+func (n NullAccessDeniedHandler) OnAccessDenied(c *gin.Context, err *ErrAccessDenied) (bool, error) {
+	return false, nil
+}
+
+// Wrap the errors.NewErrAccessDenied
 
 func NewErrAccessDenied(cause error) *ErrAccessDenied {
 	return errors.NewErrAccessDenied(cause)
