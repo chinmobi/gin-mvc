@@ -10,40 +10,66 @@ import (
 
 const CTX_ACCESS_PERMISSIONS = "CTX_ACCESS_PERMISSIONS"
 
+// PermissionsEntry
+
 type PermissionsEntry struct {
 	permissions  PermissionsGroup
 	handlerFunc  gin.HandlerFunc
 	interceptor  *SecurityInterceptor
 }
 
+func (pe *PermissionsEntry) Reset() {
+	pe.permissions.Clear()
+	pe.handlerFunc = nil
+	pe.interceptor = nil
+}
+
 func (pe *PermissionsEntry) PermissionsGroup() *PermissionsGroup {
 	return &pe.permissions
 }
 
-func (pe *PermissionsEntry) handle(c *gin.Context) {
+func (pe *PermissionsEntry) configure(c *gin.Context) {
 	c.Set(CTX_ACCESS_PERMISSIONS, &pe.permissions)
 
 	c.Next()
 }
 
-func (pe *PermissionsEntry) GetHandlerFunc() gin.HandlerFunc {
+func (pe *PermissionsEntry) ConfigureHandlerFunc() gin.HandlerFunc {
 	if pe.handlerFunc == nil {
-		pe.handlerFunc = pe.doGetHandlerFunc()
+		pe.handlerFunc = pe.createHandlerFunc()
 	}
 	return pe.handlerFunc
 }
 
-func (pe *PermissionsEntry) doGetHandlerFunc() gin.HandlerFunc {
+func (pe *PermissionsEntry) createHandlerFunc() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		pe.handle(c)
+		pe.configure(c)
 	}
 }
+
+// PermissionsConfigurer
 
 type PermissionsConfigurer struct {
 	entries []*PermissionsEntry
 }
 
-func (pc *PermissionsConfigurer) Configure(group string) *PermissionsEntry {
+func NewPermissionsConfigurer() *PermissionsConfigurer {
+	pc := &PermissionsConfigurer{
+	}
+	return pc
+}
+
+func (pc *PermissionsConfigurer) Reset() {
+	if pc.entries != nil {
+		for i, cnt := 0, len(pc.entries); i < cnt; i++ {
+			pc.entries[i].Reset()
+		}
+
+		pc.entries = pc.entries[0:0]
+	}
+}
+
+func (pc *PermissionsConfigurer) ConfigureEntry(group string) *PermissionsEntry {
 	for i, cnt := 0, len(pc.entries); i < cnt; i++ {
 		entry := pc.entries[i]
 		if entry.permissions.Name() == group {
