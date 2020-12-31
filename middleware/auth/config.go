@@ -11,6 +11,8 @@ import (
 )
 
 func Configure(builder *mw.Builder, authHandler security.AuthHandlerSetter, app *app.App) error {
+	setUp(authHandler)
+
 	// The CtxHolder MUST be the first handler of all the security auth handlers
 	builder.AddMwAdapter(NewCtxHolder())
 	return nil
