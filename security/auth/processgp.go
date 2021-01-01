@@ -16,14 +16,20 @@ import (
 )
 
 type ProcessorGroup struct {
+	configurer   *ProcessorConfigurer
 	processors   []*AuthProcessor
 	handlerFunc  gin.HandlerFunc
 }
 
-func NewProcessorGroup() *ProcessorGroup {
+func NewProcessorGroup(config *ProcessorConfigurer) *ProcessorGroup {
 	group := &ProcessorGroup{
+		configurer: config,
 	}
 	return group
+}
+
+func (pg *ProcessorGroup) Configurer() *ProcessorConfigurer {
+	return pg.configurer
 }
 
 func (pg *ProcessorGroup) AddProcessor(processor ...*AuthProcessor) {
@@ -45,11 +51,8 @@ func (pg *ProcessorGroup) processAuth(c *gin.Context) bool {
 			authErr = NewErrAuthentication(err)
 		}
 
-		authHandler := pg.authHandler()
-		if authHandler != nil {
-			authHandler.OnAuthFailure(c, authErr)
-			return false
-		}
+		pg.authHandler().OnAuthFailure(c, authErr)
+		return false
 	}
 
 	return true
@@ -89,12 +92,7 @@ func (pg *ProcessorGroup) doProcess(c *gin.Context, s sec.SecurityContext) error
 }
 
 func (pg *ProcessorGroup) authHandler() sec.AuthHandler {
-	for i := len(pg.processors)-1; i >= 0; i-- {
-		if authHandler := pg.processors[i].AuthHandler(); authHandler != nil {
-			return authHandler
-		}
-	}
-	return nil
+	return pg.configurer.AuthHandlerSet()
 }
 
 func (pg *ProcessorGroup) HandlerFunc() gin.HandlerFunc {
