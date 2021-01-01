@@ -32,6 +32,11 @@ func (pg *ProcessorGroup) Configurer() *ProcessorConfigurer {
 	return pg.configurer
 }
 
+func (pg *ProcessorGroup) CreateProcessor(helper AuthHelper) *AuthProcessor {
+	base := pg.configurer.ProcessorBase()
+	return NewAuthProcessor(base, helper)
+}
+
 func (pg *ProcessorGroup) AddProcessor(processor ...*AuthProcessor) {
 	pg.processors = append(pg.processors, processor...)
 }
