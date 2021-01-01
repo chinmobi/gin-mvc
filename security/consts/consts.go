@@ -11,4 +11,5 @@ const (
 	ERR_STR_NIL_AUTHENTICATION = "Nil authentication"
 	ERR_STR_NOT_AUTHENTICATED = "Not authenticated"
 	ERR_STR_NOT_ALLOWED_PERMISSIONS = "Not allowed permissions"
+	ERR_STR_AUTHENTICATION_FAILED = "Authentication failed"
 )
