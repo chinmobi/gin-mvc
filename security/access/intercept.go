@@ -8,6 +8,7 @@ import (
 	"errors"
 
 	"github.com/chinmobi/gin-mvc/ctx"
+	"github.com/chinmobi/gin-mvc/security/consts"
 
 	"github.com/gin-gonic/gin"
 )
@@ -78,32 +79,32 @@ func (si *SecurityInterceptor) decide(c *gin.Context) error {
 
 		perms, ok := ctxPerms.(*PermissionsGroup)
 		if !ok {
-			return errors.New("Invalid permissions")
+			return errors.New(consts.ERR_STR_INVALID_PERMISSIONS)
 		}
 		permissions = perms
 	}
 
 	holder, exists := c.Get(ctx.CTX_SECURITY_HOLDER)
 	if !exists {
-		return errors.New("SecurityContextHolder not exists")
+		return errors.New(consts.ERR_STR_HOLDER_NOT_EXISTS)
 	}
 
 	securityHolder, ok := holder.(ctx.SecurityContextHolder)
 	if !ok {
-		return errors.New("Invalid SecurityContextHolder")
+		return errors.New(consts.ERR_STR_INVALID_HOLDER)
 	}
 
 	authentication := securityHolder.GetSecurityContex().GetAuthentication()
 	if authentication == nil {
-		return errors.New("Nil authentication")
+		return errors.New(consts.ERR_STR_NIL_AUTHENTICATION)
 	}
 
 	if !authentication.IsAuthenticated() {
-		return errors.New("Not authenticated")
+		return errors.New(consts.ERR_STR_NOT_AUTHENTICATED)
 	}
 
 	if !si.evaluator.IsAllowed(authentication, permissions) {
-		return errors.New("Not allowed permissions")
+		return errors.New(consts.ERR_STR_NOT_ALLOWED_PERMISSIONS)
 	}
 
 	return nil
