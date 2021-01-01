@@ -52,10 +52,27 @@ func (pc *ProcessorConfigurer) ProcessorBase() *AuthProcessorBase {
 	return processor
 }
 
+func (pc *ProcessorConfigurer) AddProvider(provider ...AuthProvider) {
+	pc.manager.AddProvider(provider...)
+}
+
+func (pc *ProcessorConfigurer) AddSuccessFunc(onSuccess ...security.OnAuthSuccessFunc) {
+	pc.handlerSet.AddSuccessFunc(onSuccess...)
+}
+
+func (pc *ProcessorConfigurer) AddFailureFunc(onFailure ...security.OnAuthFailureFunc) {
+	pc.handlerSet.AddFailureFunc(onFailure...)
+}
+
 func (pc *ProcessorConfigurer) ProviderManager() *ProviderManager {
 	return &pc.manager
 }
 
 func (pc *ProcessorConfigurer) AuthHandlerSet() *security.AuthHandlerSet {
 	return &pc.handlerSet
+}
+
+func (pc *ProcessorConfigurer) Reset() {
+	pc.manager.Clear()
+	pc.handlerSet.Clear()
 }
