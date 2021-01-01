@@ -12,7 +12,7 @@ import (
 )
 
 type AuthenticationHelper interface {
-	AttemptAuthentication(c *gin.Context) (sec.Authentication, error)
+	AttemptAuthentication(c *gin.Context, handler sec.AuthSuccessHandler) (sec.Authentication, error)
 	TearDown() error
 }
 
@@ -73,7 +73,7 @@ func (ap *AuthProcessor) doProcess(c *gin.Context, s sec.SecurityContext) error 
 		return nil
 	}
 
-	authentication, err := ap.helper.AttemptAuthentication(c)
+	authentication, err := ap.helper.AttemptAuthentication(c, ap.AuthHandler())
 	if err != nil {
 		return err
 	}
@@ -82,7 +82,8 @@ func (ap *AuthProcessor) doProcess(c *gin.Context, s sec.SecurityContext) error 
 	}
 
 	if authentication.IsAuthenticated() {
-		ap.successfulAuth(c, s, authentication)
+		// The AuthSuccessHandler SHOULD be invoked within the helper's AttemptAuthentication method!
+		s.SetAuthentication(authentication)
 		return nil
 	}
 
