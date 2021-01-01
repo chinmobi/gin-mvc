@@ -16,7 +16,7 @@ var usersDB *UsersDB
 
 func setUp() *UsersDB {
 	if usersDB == nil {
-		usersDB = NewUsersDB()
+		usersDB = newUsersDB()
 	}
 	return usersDB
 }
