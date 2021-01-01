@@ -5,9 +5,9 @@
 package auth
 
 import (
-	"github.com/chinmobi/gin-mvc/security"
+	"github.com/chinmobi/gin-mvc/security/auth"
 )
 
-func setUp(authHandler security.AuthHandlerSetter) {
-	authHandler.AddFailureFunc(RespAuthenticationError)
+func setUp(authConfig *auth.ProcessorConfigurer) {
+	authConfig.AddFailureFunc(RespAuthenticationError)
 }

@@ -26,9 +26,9 @@ func (ap *AuthProcessorBase) AuthHandler() security.AuthHandler {
 
 // ProcessorConfigurer
 type ProcessorConfigurer struct {
-	processorBase  *AuthProcessorBase
 	manager        ProviderManager
 	handlerSet     security.AuthHandlerSet
+	processorBase  *AuthProcessorBase
 }
 
 func NewProcessorConfigurer() *ProcessorConfigurer {
@@ -42,14 +42,14 @@ func (pc *ProcessorConfigurer) ProcessorBase() *AuthProcessorBase {
 		return pc.processorBase
 	}
 
-	processor := &AuthProcessorBase{
+	base := &AuthProcessorBase{
 		manager: &pc.manager,
 		authHandler: &pc.handlerSet,
 	}
 
-	pc.processorBase = processor
+	pc.processorBase = base
 
-	return processor
+	return base
 }
 
 func (pc *ProcessorConfigurer) AddProvider(provider ...AuthProvider) {

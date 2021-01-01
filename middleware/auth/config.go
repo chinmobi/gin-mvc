@@ -7,13 +7,15 @@ package auth
 import (
 	"github.com/chinmobi/gin-mvc/app"
 	"github.com/chinmobi/gin-mvc/middleware/mw"
-	"github.com/chinmobi/gin-mvc/security"
+	"github.com/chinmobi/gin-mvc/security/auth"
 )
 
-func Configure(builder *mw.Builder, authHandler security.AuthHandlerSetter, app *app.App) error {
-	setUp(authHandler)
+func Configure(builder *mw.Builder, authConfig *auth.ProcessorConfigurer, app *app.App) error {
+	setUp(authConfig)
 
-	// The CtxHolder MUST be the first handler of all the security auth handlers
-	builder.AddMwAdapter(NewCtxHolder())
+	authGrop := auth.NewProcessorGroup(authConfig)
+
+	builder.AddMwAdapter(authGrop)
+
 	return nil
 }

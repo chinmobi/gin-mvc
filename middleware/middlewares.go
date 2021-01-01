@@ -12,19 +12,20 @@ import (
 	"github.com/chinmobi/gin-mvc/middleware/mw"
 	"github.com/chinmobi/gin-mvc/security"
 	"github.com/chinmobi/gin-mvc/security/access"
+	"github.com/chinmobi/gin-mvc/security/auth"
 
 	"github.com/gin-gonic/gin"
 )
 
 type MiddlewareSet struct {
-	authHandler  *security.AuthHandlerSet
+	authConfig   *auth.ProcessorConfigurer
 	permsConfig  *access.PermissionsConfigurer
 	entries      *mw.Entry
 }
 
 func NewMiddlewareSet() *MiddlewareSet {
 	set := &MiddlewareSet{
-		authHandler: security.NewAuthHandlerSet(),
+		authConfig: auth.NewProcessorConfigurer(),
 		permsConfig: access.NewPermissionsConfigurer(),
 	}
 	return set
@@ -36,7 +37,7 @@ func (set *MiddlewareSet) setUp(app *app.App) error {
 
 	configurer := mw.NewConfigurer(set.entries)
 
-	if err := config.Configure(configurer, set.authHandler, app); err != nil {
+	if err := config.Configure(configurer, set.authConfig, app); err != nil {
 		set.tearDown()
 		return err
 	}
@@ -53,7 +54,6 @@ func (set *MiddlewareSet) tearDown() error {
 	errs := errors.NewErrWrapErrors()
 
 	set.permsConfig.Reset()
-	set.authHandler.Clear()
 
 	entry := set.entries
 	for entry != nil {
@@ -67,11 +67,13 @@ func (set *MiddlewareSet) tearDown() error {
 		entry = entry.Next()
 	}
 
+	set.authConfig.Reset()
+
 	return errs.AsError()
 }
 
 func (set *MiddlewareSet) SecurityAuthHandler() security.AuthHandler {
-	return set.authHandler
+	return set.authConfig.AuthHandlerSet()
 }
 
 func (set *MiddlewareSet) CommonHandlersChain() gin.HandlersChain {
@@ -89,7 +91,7 @@ func (set *MiddlewareSet) PermissionsConfigurer() *access.PermissionsConfigurer 
 func (set *MiddlewareSet) HandlersChain(category string) gin.HandlersChain {
 	handlers := gin.HandlersChain{}
 
-	entry := set.fineEntry(category)
+	entry := set.findEntry(category)
 	if entry == nil {
 		return handlers
 	}
@@ -102,7 +104,7 @@ func (set *MiddlewareSet) HandlersChain(category string) gin.HandlersChain {
 	return handlers
 }
 
-func (set *MiddlewareSet) fineEntry(category string) *mw.Entry {
+func (set *MiddlewareSet) findEntry(category string) *mw.Entry {
 	entry := set.entries
 	for entry != nil {
 		if entry.Category() == category {

@@ -95,7 +95,6 @@ func (ap *AuthProcessor) doProcess(c *gin.Context, s sec.SecurityContext) error 
 	}
 
 	ap.successfulAuth(c, s, authentication)
-
 	return nil
 }
 

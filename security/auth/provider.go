@@ -5,13 +5,13 @@
 package auth
 
 import (
-	"github.com/chinmobi/gin-mvc/security"
+	sec "github.com/chinmobi/gin-mvc/security"
 )
 
 // AuthenticationProvider
 type AuthenticationProvider interface {
-	Authenticate(authentication security.Authentication) (security.Authentication, error)
-	Supports(authentication security.Authentication) bool
+	Authenticate(authentication sec.Authentication) (sec.Authentication, error)
+	Supports(authentication sec.Authentication) bool
 }
 
 type AuthProvider = AuthenticationProvider
@@ -21,7 +21,7 @@ type ProviderManager struct {
 	providers []AuthProvider
 }
 
-func (pm *ProviderManager) GetProviders() []AuthProvider {
+func (pm *ProviderManager) Providers() []AuthProvider {
 	return pm.providers
 }
 
@@ -35,7 +35,7 @@ func (pm *ProviderManager) Clear() {
 	}
 }
 
-func (pm *ProviderManager) Authenticate(authentication security.Authentication) (security.Authentication, error) {
+func (pm *ProviderManager) Authenticate(authentication sec.Authentication) (sec.Authentication, error) {
 	for i, cnt := 0, len(pm.providers); i < cnt; i++ {
 		provider := pm.providers[i]
 
