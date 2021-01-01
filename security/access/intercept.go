@@ -84,14 +84,9 @@ func (si *SecurityInterceptor) decide(c *gin.Context) error {
 		permissions = perms
 	}
 
-	holder, exists := c.Get(ctx.CTX_SECURITY_HOLDER)
-	if !exists {
-		return errors.New(consts.ERR_STR_HOLDER_NOT_EXISTS)
-	}
-
-	securityHolder, ok := holder.(ctx.SecurityContextHolder)
-	if !ok {
-		return errors.New(consts.ERR_STR_INVALID_HOLDER)
+	securityHolder, err := ctx.GetSecurityHolder(c)
+	if err != nil {
+		return err
 	}
 
 	authentication := securityHolder.GetSecurityContex().GetAuthentication()
