@@ -17,6 +17,9 @@ func Configure(builder *mw.Builder, authConfig *auth.ProcessorConfigurer, app *a
 
 	authGroup := auth.NewProcessorGroup(authConfig)
 
+	// Add the authGroup middleware early to ensure all the added processor tearing down while error occurred.
+	builder.AddMwAdapter(authGroup)
+
 	// Configure each of needed auth processors
 	// NOTE: The order of the processors is IMPORTANT!
 
@@ -28,7 +31,8 @@ func Configure(builder *mw.Builder, authConfig *auth.ProcessorConfigurer, app *a
 		return err
 	}
 
-	builder.AddMwAdapter(authGroup)
+	// NOTE: While using the anonymous auth processor, add the processor finally.
+	configureAnonymous(authGroup)
 
 	return nil
 }
