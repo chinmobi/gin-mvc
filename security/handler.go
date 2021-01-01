@@ -15,9 +15,17 @@ type ErrAuthentication = errors.ErrAuthentication
 type OnAuthSuccessFunc func(c *gin.Context, auth Authentication) error
 type OnAuthFailureFunc func(c *gin.Context, authErr *ErrAuthentication) error
 
-type AuthHandler interface {
+type AuthSuccessHandler interface {
 	OnAuthSuccess(c *gin.Context, auth Authentication) (int, error)
+}
+
+type AuthFailureHandler interface {
 	OnAuthFailure(c *gin.Context, authErr *ErrAuthentication) (int, error)
+}
+
+type AuthHandler interface {
+	AuthSuccessHandler
+	AuthFailureHandler
 }
 
 type AuthHandlerSetter interface {
