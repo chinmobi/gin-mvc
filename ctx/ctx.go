@@ -13,9 +13,24 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func SetSecurityHolder(c *gin.Context) SecurityContextHolder {
+	holder, exists := c.Get(CTX_SECURITY_HOLDER)
+	if exists && holder != nil {
+		if securityHolder, ok := holder.(SecurityContextHolder); ok {
+			return securityHolder
+		}
+	}
+
+	securityHolder := NewContextHolder().GetSecurityContextHolder()
+
+	c.Set(CTX_SECURITY_HOLDER, securityHolder)
+
+	return securityHolder
+}
+
 func GetSecurityHolder(c *gin.Context) (SecurityContextHolder, error) {
 	holder, exists := c.Get(CTX_SECURITY_HOLDER)
-	if !exists {
+	if !exists || holder == nil {
 		return nil, errors.New(consts.ERR_STR_HOLDER_NOT_EXISTS)
 	}
 
@@ -34,4 +49,8 @@ func GetSecurityContext(c *gin.Context) (security.SecurityContext, error) {
 	}
 
 	return securityHolder.GetSecurityContex(), nil
+}
+
+func CleanSecurityHolder(c *gin.Context) {
+	c.Set(CTX_SECURITY_HOLDER, nil)
 }
