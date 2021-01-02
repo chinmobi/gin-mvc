@@ -20,4 +20,5 @@ func TestRunSuites(t *testing.T) {
 	defer TearDown()
 
 	runCase(t, DemoCase00)
+	runCase(t, DemoCase01)
 }

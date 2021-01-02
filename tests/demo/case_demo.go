@@ -5,7 +5,12 @@
 package demo
 
 import (
+	"log"
+	"net/http"
+	"net/http/httptest"
 	"testing"
+
+	"github.com/chinmobi/gin-mvc/tests"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -25,4 +30,16 @@ func DemoCase00(t *testing.T) {
 
 		assert.Equal(test.want, got)
 	}
+}
+
+func DemoCase01(t *testing.T) {
+	router := tests.GinEngine()
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("GET", "/", nil)
+	router.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusOK, w.Code)
+
+	log.Println(w.Body.String())
 }
