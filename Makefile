@@ -14,7 +14,7 @@ OUTPUT_BIN := $(OUTPUT_DIR)/$(BINARY_NAME)
 
 
 GO_TEST_DIRS = $(shell ./go-test-dirs.sh)
-GO_TEST_SUITES = $(shell ./go-test-suites.sh)
+GO_TEST_SUITES = $(shell ./go-test-suite-dirs.sh)
 
 
 # Deployment variables
