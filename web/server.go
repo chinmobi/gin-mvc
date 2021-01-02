@@ -25,30 +25,69 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func StartServer(app *app.App) {
+type ServerContext struct {
+	app     *app.App
+	engine  *gin.Engine
+	web     *ctx.WebContext
+}
 
+func NewServerContext(app *app.App) *ServerContext {
 	// Starts a new Gin instance with no middle-ware
 	engine := gin.New()
 
-	web := ctx.NewWebContext(engine)
+	server := &ServerContext{
+		app: app,
+		engine: engine,
+		web: ctx.NewWebContext(engine),
+	}
+	return server
+}
+
+func (s *ServerContext) SetUp() {
+	if err := s.app.Start(); err != nil {
+		log.Fatalf("App starting fault: %+v\n", err)
+	}
 
 	// Set up middlewares
-	if err := middleware.SetUp(web, app); err != nil {
-		shutDownApp(app)
+	if err := middleware.SetUp(s.web, s.app); err != nil {
+		shutDownApp(s.app)
 		log.Fatalf("Setup web middlewares fault: %+v", err)
 	}
 
 	// Define handlers
-	if err := routes.SetUp(web, app); err != nil {
-		tearDownMiddleware(web)
-		shutDownApp(app)
+	if err := routes.SetUp(s.web, s.app); err != nil {
+		tearDownMiddleware(s.web)
+		shutDownApp(s.app)
 		log.Fatalf("Setup web routers fault: %+v", err)
 	}
+}
+
+func (s *ServerContext) TearDown() {
+	tearDownWebContext(s.web)
+	shutDownApp(s.app)
+}
+
+func (s *ServerContext) Engine() *gin.Engine {
+	return s.engine
+}
+
+func (s *ServerContext) App() *app.App {
+	return s.app
+}
+
+// Start the web server
+
+func StartServer(app *app.App) {
+
+	server := NewServerContext(app)
+	server.SetUp()
+
+	web := server.web
 
 	// Listen and serve on defined port
 	srv := &http.Server{
 		Addr:    ":" + app.Config().Server.Port,
-		Handler: engine,
+		Handler: server.Engine(),
 	}
 
 	// Initializing the server in a goroutine so that
