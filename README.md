@@ -98,7 +98,7 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 **IMPORTANT:**
 
-**Following the agile development. All of the steps can be and must be taking turns to develop, be processing from iteration to iteration (step by step).**
+**Following the agile development. All of the steps can be and must be taking turns to develop, processing from iteration to iteration (step by step).**
 
 **Once someone has recognized some use cases, another one can design the APIs and/or design the business models/services simultaneously.**
 
@@ -111,14 +111,15 @@ The whole starting process of the framework consists of three stages: `app-setup
 * **The `app-setup` stage**
 
 ```
-1. Load the configure (`config`) that will be used to set up the other components.
+1. Load the configure (`config`) that will be used for other components.
 2. Setup the logging (`log`).
 3. Setup goroutine pool (`grpool`), the pool hasn't been activated.
 4. Setup the application event's utility (`evt`).
 5-1. Load the databases and cache (`db`).
 5-2. Setup the models (`model`) using the database access objects (DAOs).
 6. Load the message queuing utilities (`mq`).
-7. Setup the services (`service`) using models, register the event listener and message queue, etc.
+7-1. Setup the services (`service`) using models (`model`).
+7-2. Register event listeners and message queue consumers.
 ```
 
 * **The `web-setup` stage**
