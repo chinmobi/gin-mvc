@@ -115,7 +115,8 @@ The whole starting process of the framework consists of three stages: `app-setup
 2. Setup the logging (`log`).
 3. Setup goroutine pool (`grpool`), the pool hasn't been activated.
 4. Setup the application event's utility (`evt`).
-5. Load the databases and cache (`db`) and set up the models (`model`) that will be supplied to services.
+5-1. Load the databases and cache (`db`).
+5-2. Setup the models (`model`) using the database access objects (DAOs).
 6. Load the message queuing utilities (`mq`).
 7. Setup the services (`service`) using models, register the event listener and message queue, etc.
 ```
