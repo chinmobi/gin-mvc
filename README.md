@@ -78,6 +78,8 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 * `service` - Define the business services that used for `controller` and `middleware` handers.
 
+* `tests` - Test cases for integration tests, especially for the `controller` layer about the RESTful APIs.
+
 * `web` - Provide the web server to run the `app`.
 
 ## Best Practices
@@ -94,7 +96,13 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 6. Complete the `db` DAOs to implement the `model` and `service` objects.
 
-**IMPORTANT: <br/>Following the agile development. All of the steps can be and must be taking turns to develop, be processing from iteration to iteration (step by step). <br/>Once someone has recognized some use cases, another one can design the APIs and/or design the business models/services simultaneously. <br/>Once someone has completed some APIs' design, another one can develop the controller handlers and/or develop the models/services and/or develop the DAOs simultaneously, and so on.**
+**IMPORTANT:**
+
+**Following the agile development. All of the steps can be and must be taking turns to develop, be processing from iteration to iteration (step by step).**
+
+**Once someone has recognized some use cases, another one can design the APIs and/or design the business models/services simultaneously.**
+
+**Once someone has completed some APIs' design, another one can develop the controller handlers and/or develop the models/services and/or develop the DAOs simultaneously, and so on.**
 
 ## Architecture
 

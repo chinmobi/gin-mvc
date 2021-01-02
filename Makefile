@@ -14,6 +14,7 @@ OUTPUT_BIN := $(OUTPUT_DIR)/$(BINARY_NAME)
 
 
 GO_TEST_DIRS = $(shell ./go-test-dirs.sh)
+GO_TEST_SUITES = $(shell ./go-test-suites.sh)
 
 
 # Deployment variables
@@ -37,7 +38,7 @@ GOCLEAN := $(GOCMD) clean
 GOTEST := $(GOCMD) test
 
 
-.PHONY: all build test clean help
+.PHONY: all build test test-suites clean help
 
 .DEFAULT_GOAL := help
 
@@ -48,6 +49,11 @@ build:
 	$(GOBUILD) -o $(OUTPUT_BIN) -v $(BUILDFLAGS)
 
 test: $(GO_TEST_DIRS)
+	@for dir in $^; do \
+		go test -v ./$$dir ; \
+	done;
+
+test-suites: $(GO_TEST_SUITES)
 	@for dir in $^; do \
 		go test -v ./$$dir ; \
 	done;
@@ -84,6 +90,7 @@ help:
 	@echo '    all           Test and build'
 	@echo '    build         Compile packages and dependencies'
 	@echo '    test          Test packages'
+	@echo '    test-suites   Run integration test suites'
 	@echo '    clean         Remove object files and cached files'
 	@echo
 	@echo '    deploy-build  Compile packages for deployment'
