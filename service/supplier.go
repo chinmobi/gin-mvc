@@ -9,6 +9,7 @@ import (
 )
 
 type Supplier interface {
+	GetAuthService() *AuthService
 	GetUserService() *UserService
 }
 
