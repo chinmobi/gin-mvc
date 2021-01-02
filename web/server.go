@@ -60,11 +60,17 @@ func (s *ServerContext) SetUp() {
 		shutDownApp(s.app)
 		log.Fatalf("Setup web routers fault: %+v", err)
 	}
+
+	log.Println("Server started")
 }
 
 func (s *ServerContext) TearDown() {
+	log.Println("Server exiting...")
+
 	tearDownWebContext(s.web)
 	shutDownApp(s.app)
+
+	log.Println("Server exited")
 }
 
 func (s *ServerContext) Engine() *gin.Engine {
@@ -99,7 +105,6 @@ func StartServer(app *app.App) {
 			log.Fatalf("Http server listen fault: %+v", err)
 		}
 	}()
-	log.Println("Server started")
 
 	// Wait for interrupt signal to gracefully shutdown the server with
 	// a timeout of 5 seconds.
