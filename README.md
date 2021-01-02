@@ -82,7 +82,7 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 * `web` - Provide the web server to run the `app`.
 
-## Best Practices
+## Best practices
 
 1. First of all, analyze the requirements and business rules, and then write the use cases.
 
@@ -115,7 +115,7 @@ The whole starting process of the framework consists of three stages: `app-setup
 2. Setup the logging (`log`).
 3. Setup goroutine pool (`grpool`), the pool hasn't been activated.
 4. Setup the application event's utility (`evt`).
-5. Load the databases and cache (`db`) to set up the models (`model`) that will be supplied to services.
+5. Load the databases and cache (`db`) and set up the models (`model`) that will be supplied to services.
 6. Load the message queuing utilities (`mq`).
 7. Setup the services (`service`) using models, register the event listener and message queue, etc.
 ```
@@ -138,6 +138,16 @@ The whole starting process of the framework consists of three stages: `app-setup
 ## Architecture
 
 (coming soon...)
+
+## About
+
+Most of the design patterns and key concepts are refined from the [Spring Projects](https://spring.io/projects), the `Spring Framework`, `Spring MVC`, `Spring Security`, `Spring Data`, `Spring Boot`, etc.
+
+As mature technology, the `Spring Projects` provides the best patterns and solutions to build enterprise level applications, especially the web, cloud, and micro-service products.
+
+But the components and concepts about the `Spring` family technologies are huge, and much more flexible and configurable. It is hard to use the `Spring` technologies easily, and the built projects are so heavy.
+
+I (YuZhaoping) just refine the key thoughts of the `Spring` technologies to ensure the framework is light, but flexible and configurable to use, and more important, using the advanced features of `Golang` and `Gin`.
 
 ## Authors
 
