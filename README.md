@@ -60,7 +60,7 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 * `evt` - Provide the application event utilities to publish / listen / multicast application events.
 
-* `grpool` - Provide the Goroutine pool that used for the app's other components.
+* `grpool` - Provide the goroutine pool that used for the app's other components.
 
 * `log` - Provide the application logging utilities.
 
@@ -103,6 +103,37 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 **Once someone has recognized some use cases, another one can design the APIs and/or design the business models/services simultaneously.**
 
 **Once someone has completed some APIs' design, another one can develop the controller handlers and/or develop the models/services and/or develop the DAOs simultaneously, and so on.**
+
+## Starting process
+
+The whole starting process of the framework consists of three stages: `app-setup` stage, `web-setup` stage, and `start-run` stage.
+
+* **The `app-setup` stage**
+
+```
+1. Load the configure (`config`) that will be used to set up the other components.
+2. Setup the logging (`log`).
+3. Setup goroutine pool (`grpool`), the pool hasn't been activated.
+4. Setup the application event's utility (`evt`).
+5. Load the databases and cache (`db`) to set up the models (`model`) that will be supplied to services.
+6. Load the message queuing utilities (`mq`).
+7. Setup the services (`service`) using models, register the event listener and message queue, etc.
+```
+
+* **The `web-setup` stage**
+
+```
+1. Setup the middlewares (`middleware`) with the (`config`) and app services (`sevice`).
+2. Setup controllers (`controller`) with app services (`sevice`).
+3. Setup the router path routes (`routes`) with middlewares and controllers.
+```
+
+* **The `start-run` stage**
+
+```
+1. Activate the goroutine pool.
+2. Start the http listening.
+```
 
 ## Architecture
 
