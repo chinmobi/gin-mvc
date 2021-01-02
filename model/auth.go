@@ -84,8 +84,8 @@ func (u *UserDetails) IsEnabled() bool {
 
 // UserDetails's Authentication token
 
-type UserDetailsToken = auth.UserPrincipalToken
+type UserDetailsAuthToken = auth.UserPrincipalAuthToken
 
-func NewUserDetailsToken(user *UserDetails) *UserDetailsToken {
-	return auth.NewUserPrincipalToken(user)
+func NewUserDetailsAuthToken(user *UserDetails) *UserDetailsAuthToken {
+	return auth.NewUserPrincipalAuthToken(user)
 }

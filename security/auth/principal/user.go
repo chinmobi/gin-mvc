@@ -38,39 +38,39 @@ type UserPrincipalService interface {
 
 // UserPrincipal's Authentication token
 
-type UserPrincipalToken struct {
+type UserPrincipalAuthToken struct {
 	user UserPrincipal
 	isAuthed bool
 }
 
-func NewUserPrincipalToken(u UserPrincipal) *UserPrincipalToken {
-	token := &UserPrincipalToken{
+func NewUserPrincipalAuthToken(u UserPrincipal) *UserPrincipalAuthToken {
+	token := &UserPrincipalAuthToken{
 		user: u,
 		isAuthed: false,
 	}
 	return token
 }
 
-func (u *UserPrincipalToken) GetAuthorities() []GrantedAuthority {
+func (u *UserPrincipalAuthToken) GetAuthorities() []GrantedAuthority {
 	return u.user.GetAuthorities()
 }
 
-func (u *UserPrincipalToken) GetCredentials() interface{} {
+func (u *UserPrincipalAuthToken) GetCredentials() interface{} {
 	return u.user.GetPassword()
 }
 
-func (u *UserPrincipalToken) GetDetails() interface{} {
+func (u *UserPrincipalAuthToken) GetDetails() interface{} {
 	return u.user.GetDetails()
 }
 
-func (u *UserPrincipalToken) GetPrincipal() interface{} {
+func (u *UserPrincipalAuthToken) GetPrincipal() interface{} {
 	return u.user
 }
 
-func (u *UserPrincipalToken) SetAuthenticated(isAuthenticated bool) {
+func (u *UserPrincipalAuthToken) SetAuthenticated(isAuthenticated bool) {
 	u.isAuthed = isAuthenticated
 }
 
-func (u *UserPrincipalToken) IsAuthenticated() bool {
+func (u *UserPrincipalAuthToken) IsAuthenticated() bool {
 	return u.isAuthed
 }
