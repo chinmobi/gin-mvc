@@ -98,11 +98,11 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 **IMPORTANT:**
 
-**Following the agile development. All of the steps can be and must be taking turns to develop, processing from iteration to iteration (step by step).**
+* Following the agile development. All of the steps can be and must be taking turns to develop, processing from iteration to iteration (step by step).
 
-**Once someone has recognized some use cases, another one can design the APIs and/or design the business models/services simultaneously.**
+* Once someone has recognized some use cases, another one can design the APIs and/or design the business models/services simultaneously.
 
-**Once someone has completed some APIs' design, another one can develop the controller handlers and/or develop the models/services and/or develop the DAOs simultaneously, and so on.**
+* Once someone has completed some APIs' design, another one can develop the controller handlers and/or develop the models/services and/or develop the DAOs simultaneously, and so on.
 
 ## Starting process
 
@@ -147,9 +147,11 @@ Most of the design patterns and key concepts are refined from the [Spring Projec
 
 As mature technology, the `Spring Projects` provides the best patterns and solutions to build enterprise level applications, especially the web, cloud, and micro-service products.
 
-But the components and concepts about the `Spring` family technologies are huge, and much more flexible and configurable. It is hard to use the `Spring` technologies easily, and the built projects are so heavy.
+But the components and concepts about the `Spring` family technologies are huge, and much more flexible and configurable. It is hard to use the `Spring` technologies easily (especially for beginner), and the built projects are so heavy.
 
 I (YuZhaoping) just refine the key thoughts of the `Spring` technologies to ensure the framework is light, but flexible and configurable to use, and more important, using the advanced features of `Golang` and `Gin`.
+
+The project issuing as out-of-box style, is preferred to start the project immediately, not needed to do surrounding works to establish a real project. One aim of the project is to act as a starter using the best practices to build enterprise level applications.
 
 ## Authors
 
