@@ -2,6 +2,6 @@
 
 cd $(dirname $0)
 
-GO_TEST_DIRS=$(find . -name "*_test.go" -not -path "./vendor/*" | xargs -I {} dirname {}  | uniq)
+GO_TEST_DIRS=$(find . -name "*_test.go" ! -path "./tests/*" ! -path "./_deploy/*" | xargs -I {} dirname {} | sort | uniq)
 
 echo "${GO_TEST_DIRS}"
