@@ -36,35 +36,42 @@ type UserPrincipalService interface {
 	LoadUserByUsername(username string) (UserPrincipal, error)
 }
 
-// UserPrincipal's Authentication token
+// UserPrincipal's Authentication
 
 type UserPrincipalAuthToken struct {
-	user UserPrincipal
+	principal UserPrincipal
 	isAuthed bool
 }
 
-func NewUserPrincipalAuthToken(u UserPrincipal) *UserPrincipalAuthToken {
+func NewUserPrincipalAuthToken(principal UserPrincipal) *UserPrincipalAuthToken {
 	token := &UserPrincipalAuthToken{
-		user: u,
+		principal: principal,
 		isAuthed: false,
 	}
 	return token
 }
 
+func (u *UserPrincipalAuthToken) Init(principal UserPrincipal) {
+	u.principal = principal
+	u.isAuthed = false
+}
+
+// Authentication methods
+
 func (u *UserPrincipalAuthToken) GetAuthorities() []GrantedAuthority {
-	return u.user.GetAuthorities()
+	return u.principal.GetAuthorities()
 }
 
 func (u *UserPrincipalAuthToken) GetCredentials() interface{} {
-	return u.user.GetPassword()
+	return u.principal.GetPassword()
 }
 
 func (u *UserPrincipalAuthToken) GetDetails() interface{} {
-	return u.user.GetDetails()
+	return u.principal.GetDetails()
 }
 
 func (u *UserPrincipalAuthToken) GetPrincipal() interface{} {
-	return u.user
+	return u.principal
 }
 
 func (u *UserPrincipalAuthToken) SetAuthenticated(isAuthenticated bool) {

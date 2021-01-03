@@ -13,6 +13,8 @@ import (
 
 type SGAuthority = auth.SGAuthority
 
+type UserPrincipal = auth.UserPrincipal
+
 type UserDetails struct {
 	authorities  []auth.GrantedAuthority
 	entity       *UserEntity
@@ -22,7 +24,7 @@ type UserDetails struct {
 
 func NewUserDetails(user *UserEntity) *UserDetails {
 	u := &UserDetails{
-		authorities: []auth.GrantedAuthority{},
+//		authorities: []auth.GrantedAuthority{},
 		entity: user,
 		username: strconv.FormatUint(uint64(user.ID), 10),
 	}
@@ -84,8 +86,20 @@ func (u *UserDetails) IsEnabled() bool {
 
 // UserDetails's Authentication token
 
-type UserDetailsAuthToken = auth.UserPrincipalAuthToken
+type UserPrincipalAuthToken = auth.UserPrincipalAuthToken
 
-func NewUserDetailsAuthToken(user *UserDetails) *UserDetailsAuthToken {
-	return auth.NewUserPrincipalAuthToken(user)
+type UserDetailsAuthToken struct {
+	UserPrincipalAuthToken
+}
+
+func NewUserDetailsAuthToken(principal *UserDetails) *UserDetailsAuthToken {
+	token := &UserDetailsAuthToken{
+	}
+	token.UserPrincipalAuthToken.Init(principal)
+	return token
+}
+
+func (u *UserDetailsAuthToken) GetUserDetails() *UserDetails {
+	principal := u.GetPrincipal()
+	return principal.(*UserDetails)
 }
