@@ -15,15 +15,15 @@ type Authentication = security.Authentication
 
 type ErrAuthentication = errors.ErrAuthentication
 
-type OnAuthSuccessFunc func(c *gin.Context, auth Authentication) error
-type OnAuthFailureFunc func(c *gin.Context, authErr *ErrAuthentication) error
+type OnAuthSuccessFunc func(c *gin.Context, auth Authentication) (bool, error)
+type OnAuthFailureFunc func(c *gin.Context, authErr *ErrAuthentication) (bool, error)
 
 type AuthSuccessHandler interface {
-	OnAuthSuccess(c *gin.Context, auth Authentication) (int, error)
+	OnAuthSuccess(c *gin.Context, auth Authentication) (bool, error)
 }
 
 type AuthFailureHandler interface {
-	OnAuthFailure(c *gin.Context, authErr *ErrAuthentication) (int, error)
+	OnAuthFailure(c *gin.Context, authErr *ErrAuthentication) (bool, error)
 }
 
 type AuthHandler interface {
@@ -68,32 +68,34 @@ func (set *AuthHandlerSet) Clear() {
 
 // AuthHandler methods
 
-func (set *AuthHandlerSet) OnAuthSuccess(c *gin.Context, auth Authentication) (int, error) {
-	count := 0
+func (set *AuthHandlerSet) OnAuthSuccess(c *gin.Context, auth Authentication) (bool, error) {
 	for i := len(set.successFuncChain)-1; i >= 0; i-- {
 		onSuccess := set.successFuncChain[i]
 
-		if err := onSuccess(c, auth); err != nil {
-			return count, err
+		done, err := onSuccess(c, auth)
+		if err != nil {
+			return done, err
 		}
-
-		count++
+		if done {
+			return true, nil
+		}
 	}
-	return count, nil
+	return false, nil
 }
 
-func (set *AuthHandlerSet) OnAuthFailure(c *gin.Context, authErr *ErrAuthentication) (int, error) {
-	count := 0
+func (set *AuthHandlerSet) OnAuthFailure(c *gin.Context, authErr *ErrAuthentication) (bool, error) {
 	for i := len(set.failureFuncChain)-1; i >= 0; i-- {
 		onFailure := set.failureFuncChain[i]
 
-		if err := onFailure(c, authErr); err != nil {
-			return count, err
+		done, err := onFailure(c, authErr)
+		if err != nil {
+			return done, err
 		}
-
-		count++
+		if done {
+			return true, nil
+		}
 	}
-	return count, nil
+	return false, nil
 }
 
 // Wrap the errors.NewErrAuthentication

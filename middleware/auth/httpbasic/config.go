@@ -64,20 +64,14 @@ func (h HttpBasicHelper) TearDown() error {
 func SetHttpBasicRealmHeaderFunc(realm string) auth.OnAuthFailureFunc {
 	realm = BASIC_REALM_PREFIX + strconv.Quote(realm)
 
-	return func(c *gin.Context, err *auth.ErrAuthentication) error {
+	return func(c *gin.Context, err *auth.ErrAuthentication) (bool, error) {
 		c.Header(AUTHORIZATION_RESP_HEADER, realm)
-		return nil
+		return false, nil
 	}
 }
 
 func Configure(authGroup *auth.ProcessorGroup, app *app.App) error {
 	processor := authGroup.CreateProcessor(HttpBasicHelper{})
-
-	// No AuthProvider for httpbasic processor.
-	//authGroup.Configurer().AddProvider(...)
-
-	// No OnAuthSuccessFunc to do for httpbasic processor.
-	//authGroup.Configurer().AddSuccessFunc(...)
 
 	// TODO: realm := app.Config.Auth.HttpBasic.Realm
 	realm := "Authorization Required"

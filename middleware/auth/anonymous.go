@@ -35,8 +35,5 @@ func configureAnonymous(authGroup *auth.ProcessorGroup) {
 	// Need AuthProvider for anonymous processor.
 	//authGroup.Configurer().AddProvider(...)
 
-	// No OnAuthSuccessFunc to do for anonymous processor.
-	//authGroup.Configurer().AddSuccessFunc(...)
-
 	authGroup.AddProcessor(processor)
 }

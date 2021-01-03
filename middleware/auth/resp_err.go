@@ -13,8 +13,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func RespAuthenticationError(c *gin.Context, err *auth.ErrAuthentication) error {
+func RespAuthenticationError(c *gin.Context, err *auth.ErrAuthentication) (bool, error) {
 	apiErr := restful.NewApiErrorEntity(http.StatusUnauthorized, err)
 	c.JSON(apiErr.GetStatusCode(), restful.CreateApiErrorBody(apiErr))
-	return nil
+	return true, nil
 }

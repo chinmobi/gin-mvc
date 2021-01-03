@@ -60,8 +60,8 @@ func (ap *AuthProcessor) processAuth(c *gin.Context) bool {
 			authErr = NewErrAuthentication(err)
 		}
 
-		ap.AuthHandler().OnAuthFailure(c, authErr)
-		return false
+		done, _ := ap.AuthHandler().OnAuthFailure(c, authErr)
+		return !done
 	}
 
 	return true
@@ -81,8 +81,9 @@ func (ap *AuthProcessor) doProcess(c *gin.Context, s ctx.SecurityContext) error 
 		return nil
 	}
 
+	s.SetAuthentication(auth)
+
 	if auth.IsAuthenticated() {
-		s.SetAuthentication(auth)
 		return nil
 	}
 
@@ -91,26 +92,11 @@ func (ap *AuthProcessor) doProcess(c *gin.Context, s ctx.SecurityContext) error 
 		return err
 	}
 
-	if result == nil {
-		if auth.IsAuthenticated() {
-			ap.AuthHandler().OnAuthSuccess(c, auth)
-		}
-		return nil
-	}
-
-	if !result.IsAuthenticated() {
+	if result != nil {
 		s.SetAuthentication(result)
-	} else {
-		ap.successfulAuth(c, s, result)
 	}
 
 	return nil
-}
-
-func (ap *AuthProcessor) successfulAuth(c *gin.Context, s ctx.SecurityContext, auth Authentication) {
-	s.SetAuthentication(auth)
-
-	ap.AuthHandler().OnAuthSuccess(c, auth)
 }
 
 func (ap *AuthProcessor) HandlerFunc() gin.HandlerFunc {

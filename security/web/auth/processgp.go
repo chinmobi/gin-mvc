@@ -55,8 +55,8 @@ func (pg *ProcessorGroup) processAuth(c *gin.Context) bool {
 			authErr = NewErrAuthentication(err)
 		}
 
-		pg.authHandler().OnAuthFailure(c, authErr)
-		return false
+		done, _ := pg.authHandler().OnAuthFailure(c, authErr)
+		return !done
 	}
 
 	return true
