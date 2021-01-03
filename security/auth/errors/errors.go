@@ -13,28 +13,22 @@ func NewErrUsernameNotFound() error {
 	return errors.New("UsernameNotFound")
 }
 
-// ErrAccountNotFound
-func NewErrAccountNotFound() error {
-	return errors.New("AccountNotFound")
-}
-
-// ErrBadCredentials
-// ErrIncorrectPassword
-func NewErrIncorrectPassword() error {
-	return errors.New("IncorrectPassword")
-}
-
-// ErrCredentialNotFound
-func NewErrCredentialNotFound() error {
-	return errors.New("CredentialNotFound")
+// ErrBadCredentials (ErrIncorrectPassword)
+func NewErrBadCredentials() error {
+	return errors.New("BadCredentials")
 }
 
 // ErrAccountStatus:
-// (ErrAccountExpired, ErrCredentialExpired, ErrAccountDisabled, ErrAccountLocked)
+// (ErrAccountExpired, ErrAccountLocked, ErrCredentialExpired, ErrAccountDisabled)
 
 // ErrAccountExpired
 func NewErrAccountExpired() error {
 	return errors.New("AccountExpired")
+}
+
+// ErrAccountLocked
+func NewErrAccountLocked() error {
+	return errors.New("AccountLocked")
 }
 
 // ErrCredentialExpired
@@ -45,9 +39,4 @@ func NewErrCredentialExpired() error {
 // ErrAccountDisabled
 func NewErrAccountDisabled() error {
 	return errors.New("AccountDisabled")
-}
-
-// ErrAccountLocked
-func NewErrAccountLocked() error {
-	return errors.New("AccountLocked")
 }
