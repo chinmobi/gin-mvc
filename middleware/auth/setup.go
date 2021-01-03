@@ -5,9 +5,14 @@
 package auth
 
 import (
+	"github.com/chinmobi/gin-mvc/app"
 	"github.com/chinmobi/gin-mvc/security/web/auth"
 )
 
-func setUp(authConfig *auth.ProcessorConfigurer) {
+func setUp(authConfig *auth.ProcessorConfigurer, app *app.App) {
 	authConfig.AddFailureFunc(RespAuthenticationError)
+
+	// Setup the UserDetails service auth provider, to authenticate the UesrnamePasswordAuthToken
+	authProvider := app.ServiceSupplier().GetAuthService().CreateAuthProvider()
+	authConfig.AddProvider(authProvider)
 }

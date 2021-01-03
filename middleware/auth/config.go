@@ -13,7 +13,7 @@ import (
 )
 
 func Configure(builder *mw.Builder, authConfig *auth.ProcessorConfigurer, app *app.App) error {
-	setUp(authConfig)
+	setUp(authConfig, app)
 
 	authGroup := auth.NewProcessorGroup(authConfig)
 
