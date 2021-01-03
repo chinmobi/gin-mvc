@@ -45,6 +45,10 @@ func NewPermissionsGroup(name string) *PermissionsGroup {
 	return pg
 }
 
+func (pg *PermissionsGroup) Init(name string) {
+	pg.name = name
+}
+
 func (pg *PermissionsGroup) Clear() {
 	if pg.permissions != nil {
 		pg.permissions = pg.permissions[0:0]
