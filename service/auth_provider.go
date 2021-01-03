@@ -53,6 +53,8 @@ func (p *AuthServiceAuthProvider) authUsernamePassword(auth sec.Authentication) 
 		return token, err
 	}
 
+	token.EraseCredentials()
+
 	userDetails := principal.(*model.UserDetails)
 	userDetailsToken := model.NewUserDetailsAuthToken(userDetails)
 

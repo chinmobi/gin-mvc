@@ -38,6 +38,9 @@ func (aa *AbstractAuthToken) IsAuthenticated() bool {
 	return aa.isAuthed
 }
 
+func (aa *AbstractAuthToken) EraseCredentials() {
+}
+
 // Setter methods
 
 func (aa *AbstractAuthToken) AddAuthority(authority ...security.GrantedAuthority) {

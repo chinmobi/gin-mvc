@@ -20,6 +20,10 @@ func NewUsernamePasswordAuthToken(username, password string) *UsernamePasswordAu
 	return token
 }
 
+func (u *UsernamePasswordAuthToken) EraseCredentials() {
+	u.password = ""
+}
+
 func (u *UsernamePasswordAuthToken) GetCredentials() interface{} {
 	return u.password
 }
