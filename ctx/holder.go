@@ -12,8 +12,10 @@ import (
 
 const CTX_SECURITY_HOLDER = "CTX_SECURITY_HOLDER"
 
+type SecurityContext = security.SecurityContext
+
 type SecurityContextHolder interface {
-	GetSecurityContex() security.SecurityContext
+	GetSecurityContex() SecurityContext
 }
 
 type ContextHolder struct {
@@ -27,7 +29,7 @@ func NewContextHolder() *ContextHolder {
 	return h
 }
 
-func (h *ContextHolder) GetSecurityContex() security.SecurityContext {
+func (h *ContextHolder) GetSecurityContex() SecurityContext {
 	return &h.security
 }
 

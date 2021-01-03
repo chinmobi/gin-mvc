@@ -7,7 +7,6 @@ package ctx
 import (
 	"errors"
 
-	"github.com/chinmobi/gin-mvc/security"
 	"github.com/chinmobi/gin-mvc/security/consts"
 
 	"github.com/gin-gonic/gin"
@@ -42,7 +41,7 @@ func GetSecurityHolder(c *gin.Context) (SecurityContextHolder, error) {
 	return securityHolder, nil
 }
 
-func GetSecurityContext(c *gin.Context) (security.SecurityContext, error) {
+func GetSecurityContext(c *gin.Context) (SecurityContext, error) {
 	securityHolder, err := GetSecurityHolder(c)
 	if err != nil {
 		return nil, err
