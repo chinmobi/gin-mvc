@@ -8,11 +8,13 @@ import (
 	"github.com/chinmobi/gin-mvc/security"
 )
 
+type Authentication = security.Authentication
+
 type PermissionEvaluator interface {
-	HasPermission(authentication security.Authentication, permission RolePermission) bool
+	HasPermission(authentication Authentication, permission RolePermission) bool
 }
 
-func SimplePermissionEval(authentication security.Authentication, permission RolePermission) bool {
+func SimplePermissionEval(authentication Authentication, permission RolePermission) bool {
 	authorities := authentication.GetAuthorities()
 	size := len(authorities)
 	if size == 0 {
@@ -30,10 +32,10 @@ func SimplePermissionEval(authentication security.Authentication, permission Rol
 }
 
 type PrivilegeEvaluator interface {
-	IsAllowed(authentication security.Authentication, permissions *PermissionsGroup) bool
+	IsAllowed(authentication Authentication, permissions *PermissionsGroup) bool
 }
 
-func SimplePrivilegeEval(authentication security.Authentication, permissions *PermissionsGroup) bool {
+func SimplePrivilegeEval(authentication Authentication, permissions *PermissionsGroup) bool {
 	authorities := authentication.GetAuthorities()
 	authSize := len(authorities)
 
@@ -67,6 +69,6 @@ func SimplePrivilegeEval(authentication security.Authentication, permissions *Pe
 
 type SimplePrivilegeEvaluator struct{}
 
-func (s SimplePrivilegeEvaluator) IsAllowed(auth security.Authentication, perms *PermissionsGroup) bool {
+func (s SimplePrivilegeEvaluator) IsAllowed(auth Authentication, perms *PermissionsGroup) bool {
 	return SimplePrivilegeEval(auth, perms)
 }
