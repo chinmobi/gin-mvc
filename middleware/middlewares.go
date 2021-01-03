@@ -10,7 +10,7 @@ import (
 	acconfig "github.com/chinmobi/gin-mvc/middleware/access"
 	"github.com/chinmobi/gin-mvc/middleware/config"
 	"github.com/chinmobi/gin-mvc/middleware/mw"
-	"github.com/chinmobi/gin-mvc/security/access"
+	"github.com/chinmobi/gin-mvc/security/web/access"
 	"github.com/chinmobi/gin-mvc/security/web/auth"
 
 	"github.com/gin-gonic/gin"

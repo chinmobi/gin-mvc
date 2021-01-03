@@ -5,7 +5,7 @@
 package access
 
 import (
-	"github.com/chinmobi/gin-mvc/security/access"
+	"github.com/chinmobi/gin-mvc/security/web/access"
 )
 
 func setUpBuilder() *access.InterceptorBuilder {
