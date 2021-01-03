@@ -28,7 +28,7 @@ const (
 // HttpBasicHelper
 type HttpBasicHelper struct{}
 
-func (hb HttpBasicHelper) AttemptAuthentication(c *gin.Context, h auth.AuthSuccessHandler) (auth.Authentication, error) {
+func (h HttpBasicHelper) AttemptAuthentication(c *gin.Context) (auth.Authentication, error) {
 	authHeader := c.GetHeader(AUTHORIZATION_REQ_HEADER)
 	if authHeader == "" {
 		return nil, nil
@@ -56,7 +56,7 @@ func (hb HttpBasicHelper) AttemptAuthentication(c *gin.Context, h auth.AuthSucce
 	return token.NewUsernamePasswordAuthToken(username, password), nil
 }
 
-func (hb HttpBasicHelper) TearDown() error {
+func (h HttpBasicHelper) TearDown() error {
 	// Nothing to do.
 	return nil
 }

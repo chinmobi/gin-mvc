@@ -15,7 +15,7 @@ import (
 // AnonymousHelper
 type AnonymousHelper struct{}
 
-func (a AnonymousHelper) AttemptAuthentication(c *gin.Context, h auth.AuthSuccessHandler) (auth.Authentication, error) {
+func (a AnonymousHelper) AttemptAuthentication(c *gin.Context) (auth.Authentication, error) {
 	token := token.NewAnonymousAuthToken("ANONYMOUS_USER")
 	token.AddAuthority(security.SGAuthority("ROLE_ANONYMOUS"))
 
