@@ -68,34 +68,43 @@ func (ap *AuthProcessor) processAuth(c *gin.Context) bool {
 }
 
 func (ap *AuthProcessor) doProcess(c *gin.Context, s sec.SecurityContext) error {
-	authentication := s.GetAuthentication()
-	if authentication != nil && authentication.IsAuthenticated() {
+	auth := s.GetAuthentication()
+	if auth != nil && auth.IsAuthenticated() {
 		return nil
 	}
 
-	authentication, err := ap.helper.AttemptAuthentication(c, ap.AuthHandler())
+	auth, err := ap.helper.AttemptAuthentication(c, ap.AuthHandler())
 	if err != nil {
 		return err
 	}
-	if authentication == nil {
+	if auth == nil {
 		return nil
 	}
 
-	if authentication.IsAuthenticated() {
+	if auth.IsAuthenticated() {
 		// The AuthSuccessHandler SHOULD be invoked within the helper's AttemptAuthentication method!
-		s.SetAuthentication(authentication)
+		s.SetAuthentication(auth)
 		return nil
 	}
 
-	authentication, err = ap.AuthManager().Authenticate(authentication)
+	result, err := ap.AuthManager().Authenticate(auth)
 	if err != nil {
 		return err
 	}
-	if !authentication.IsAuthenticated() {
+
+	if result == nil {
+		if auth.IsAuthenticated() {
+			ap.AuthHandler().OnAuthSuccess(c, auth)
+		}
 		return nil
 	}
 
-	ap.successfulAuth(c, s, authentication)
+	if !result.IsAuthenticated() {
+		s.SetAuthentication(result)
+	} else {
+		ap.successfulAuth(c, s, result)
+	}
+
 	return nil
 }
 
