@@ -19,10 +19,6 @@ func (a AnonymousHelper) AttemptAuthentication(c *gin.Context, h auth.AuthSucces
 	token := token.NewAnonymousAuthToken("ANONYMOUS_USER")
 	token.AddAuthority(security.SGAuthority("ROLE_ANONYMOUS"))
 
-	token.SetAuthenticated(true)
-
-	// DON'T invoke the AuthSuccessHandler as the AnonymousAuthToken is not a real Authentication.
-
 	return token, nil
 }
 
@@ -36,7 +32,7 @@ func (a AnonymousHelper) TearDown() error {
 func configureAnonymous(authGroup *auth.ProcessorGroup) {
 	processor := authGroup.CreateProcessor(AnonymousHelper{})
 
-	// No AuthProvider for anonymous processor.
+	// Need AuthProvider for anonymous processor.
 	//authGroup.Configurer().AddProvider(...)
 
 	// No OnAuthSuccessFunc to do for anonymous processor.
