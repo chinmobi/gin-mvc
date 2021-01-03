@@ -7,7 +7,7 @@ package routes
 import (
 	"github.com/chinmobi/gin-mvc/app"
 	"github.com/chinmobi/gin-mvc/controller"
-	"github.com/chinmobi/gin-mvc/security"
+	"github.com/chinmobi/gin-mvc/security/web/auth"
 )
 
 type ControllerSet struct {
@@ -20,7 +20,7 @@ func NewControllerSet() *ControllerSet {
 	return set
 }
 
-func (set *ControllerSet) setUp(app *app.App, authHandler security.AuthHandler) error {
+func (set *ControllerSet) setUp(app *app.App, authHandler auth.AuthHandler) error {
 	set.userCtrl = controller.NewUserController(app.ServiceSupplier())
 	return nil
 }

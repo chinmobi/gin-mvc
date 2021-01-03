@@ -6,7 +6,7 @@ package jwt
 
 import (
 	"github.com/chinmobi/gin-mvc/app"
-	"github.com/chinmobi/gin-mvc/security/auth"
+	"github.com/chinmobi/gin-mvc/security/web/auth"
 )
 
 func Configure(authGroup *auth.ProcessorGroup, app *app.App) error {

@@ -9,7 +9,7 @@ import (
 	"github.com/chinmobi/gin-mvc/middleware/auth/httpbasic"
 	"github.com/chinmobi/gin-mvc/middleware/auth/jwt"
 	"github.com/chinmobi/gin-mvc/middleware/mw"
-	"github.com/chinmobi/gin-mvc/security/auth"
+	"github.com/chinmobi/gin-mvc/security/web/auth"
 )
 
 func Configure(builder *mw.Builder, authConfig *auth.ProcessorConfigurer, app *app.App) error {
@@ -32,7 +32,7 @@ func Configure(builder *mw.Builder, authConfig *auth.ProcessorConfigurer, app *a
 	}
 
 	// NOTE: While using the anonymous auth processor, add the processor finally.
-	configureAnonymous(authGroup)
+	//configureAnonymous(authGroup)
 
 	return nil
 }

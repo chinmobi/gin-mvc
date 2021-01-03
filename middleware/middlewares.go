@@ -10,9 +10,8 @@ import (
 	acconfig "github.com/chinmobi/gin-mvc/middleware/access"
 	"github.com/chinmobi/gin-mvc/middleware/config"
 	"github.com/chinmobi/gin-mvc/middleware/mw"
-	"github.com/chinmobi/gin-mvc/security"
 	"github.com/chinmobi/gin-mvc/security/access"
-	"github.com/chinmobi/gin-mvc/security/auth"
+	"github.com/chinmobi/gin-mvc/security/web/auth"
 
 	"github.com/gin-gonic/gin"
 )
@@ -72,7 +71,7 @@ func (set *MiddlewareSet) tearDown() error {
 	return errs.AsError()
 }
 
-func (set *MiddlewareSet) SecurityAuthHandler() security.AuthHandler {
+func (set *MiddlewareSet) SecurityAuthHandler() auth.AuthHandler {
 	return set.authConfig.AuthHandlerSet()
 }
 

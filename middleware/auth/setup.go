@@ -5,7 +5,7 @@
 package auth
 
 import (
-	"github.com/chinmobi/gin-mvc/security/auth"
+	"github.com/chinmobi/gin-mvc/security/web/auth"
 )
 
 func setUp(authConfig *auth.ProcessorConfigurer) {

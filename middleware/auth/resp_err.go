@@ -8,12 +8,12 @@ import (
 	"net/http"
 
 	"github.com/chinmobi/gin-mvc/restful"
-	"github.com/chinmobi/gin-mvc/security"
+	"github.com/chinmobi/gin-mvc/security/web/auth"
 
 	"github.com/gin-gonic/gin"
 )
 
-func RespAuthenticationError(c *gin.Context, err *security.ErrAuthentication) error {
+func RespAuthenticationError(c *gin.Context, err *auth.ErrAuthentication) error {
 	apiErr := restful.NewApiErrorEntity(http.StatusUnauthorized, err)
 	c.JSON(apiErr.GetStatusCode(), restful.CreateApiErrorBody(apiErr))
 	return nil

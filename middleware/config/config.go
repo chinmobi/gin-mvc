@@ -9,7 +9,7 @@ import (
 	mwauth "github.com/chinmobi/gin-mvc/middleware/auth"
 	"github.com/chinmobi/gin-mvc/middleware/common"
 	"github.com/chinmobi/gin-mvc/middleware/mw"
-	"github.com/chinmobi/gin-mvc/security/auth"
+	"github.com/chinmobi/gin-mvc/security/web/auth"
 )
 
 func Configure(config *mw.Configurer, authConfig *auth.ProcessorConfigurer, app *app.App) error {
