@@ -35,27 +35,32 @@ func (pm *ProviderManager) Clear() {
 	}
 }
 
-func (pm *ProviderManager) Authenticate(authentication sec.Authentication) (sec.Authentication, error) {
+func (pm *ProviderManager) Authenticate(auth sec.Authentication) (sec.Authentication, error) {
 	for i, cnt := 0, len(pm.providers); i < cnt; i++ {
 		provider := pm.providers[i]
 
-		if !provider.Supports(authentication) {
+		if !provider.Supports(auth) {
 			continue
 		}
 
-		authed, err := provider.Authenticate(authentication)
+		result, err := provider.Authenticate(auth)
 		if err != nil {
-			return authentication, err
+			return auth, err
 		}
 
-		if authed != nil {
-			if authed.IsAuthenticated() {
-				return authed, nil
-			}
+		if result == nil {
+			result = auth
+		}
 
-			authentication = authed
+		if result.IsAuthenticated() {
+			return result, nil
+		}
+
+		if auth != result {
+			auth = result
+			i = -1 // New authentication, restart the loop.
 		}
 	}
 
-	return authentication, nil
+	return auth, nil
 }
