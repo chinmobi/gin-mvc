@@ -11,7 +11,7 @@ import (
 func buildDefaultInterceptor(entry *PermissionsEntry) *SecurityInterceptor {
 	si := &SecurityInterceptor{
 		permissions:    &entry.permissions,
-		deniedHandler:  access.NullAccessDeniedHandler{},
+		deniedHandler:  NullAccessDeniedHandler{},
 		evaluator:      access.SimplePrivilegeEvaluator{},
 	}
 
