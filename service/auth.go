@@ -16,6 +16,11 @@ type AuthService struct {
 	userModel  model.UserModel
 }
 
+func (svc *AuthService) CreateAuthProvider() *AuthServiceAuthProvider {
+	return newAuthProvider(svc)
+}
+
+// UserPrincipalService method
 func (svc *AuthService) LoadUserByUsername(username string) (auth.UserPrincipal, error) {
 	if uid, ok := validator.ParseUserID(username); ok {
 		return svc.LoadUserByUserID(uid)
