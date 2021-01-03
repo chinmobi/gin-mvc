@@ -10,6 +10,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type SimpleRolePermission = access.SimpleRolePermission
+
 // PermissionsEntry
 
 type PermissionsEntry struct {
