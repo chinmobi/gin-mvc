@@ -6,7 +6,7 @@ package service
 
 import (
 	"github.com/chinmobi/gin-mvc/model"
-	sec "github.com/chinmobi/gin-mvc/security"
+	sec "github.com/chinmobi/gin-mvc/security/auth"
 	"github.com/chinmobi/gin-mvc/security/auth/errors"
 	"github.com/chinmobi/gin-mvc/security/auth/token"
 )

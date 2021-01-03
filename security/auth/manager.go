@@ -9,11 +9,13 @@ import (
 	"github.com/chinmobi/gin-mvc/security/errors"
 )
 
+type Authentication = security.Authentication
+
 type ErrAuthentication = errors.ErrAuthentication
 
 // AuthenticationManager
 type AuthenticationManager interface {
-	Authenticate(authentication security.Authentication) (security.Authentication, error)
+	Authenticate(auth Authentication) (Authentication, error)
 }
 
 type AuthManager = AuthenticationManager
