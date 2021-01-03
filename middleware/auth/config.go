@@ -32,7 +32,7 @@ func Configure(builder *mw.Builder, authConfig *auth.ProcessorConfigurer, app *a
 	}
 
 	// NOTE: While using the anonymous auth processor, add the processor finally.
-	//configureAnonymous(authGroup)
+	configureAnonymous(authGroup)
 
 	return nil
 }
