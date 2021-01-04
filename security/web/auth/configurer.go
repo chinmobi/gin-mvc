@@ -56,12 +56,12 @@ func (pc *ProcessorConfigurer) AddProvider(provider ...auth.AuthProvider) {
 	pc.manager.AddProvider(provider...)
 }
 
-func (pc *ProcessorConfigurer) AddSuccessFunc(onSuccess ...OnAuthSuccessFunc) {
-	pc.handlerSet.AddSuccessFunc(onSuccess...)
+func (pc *ProcessorConfigurer) AddAuthSuccessFunc(onSuccess ...OnAuthSuccessFunc) {
+	pc.handlerSet.AddAuthSuccessFunc(onSuccess...)
 }
 
-func (pc *ProcessorConfigurer) AddFailureFunc(onFailure ...OnAuthFailureFunc) {
-	pc.handlerSet.AddFailureFunc(onFailure...)
+func (pc *ProcessorConfigurer) AddAuthFailureFunc(onFailure ...OnAuthFailureFunc) {
+	pc.handlerSet.AddAuthFailureFunc(onFailure...)
 }
 
 func (pc *ProcessorConfigurer) ProviderManager() *auth.ProviderManager {

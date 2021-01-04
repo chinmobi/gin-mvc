@@ -32,8 +32,8 @@ type AuthHandler interface {
 }
 
 type AuthHandlerSetter interface {
-	AddSuccessFunc(onSuccess ...OnAuthSuccessFunc)
-	AddFailureFunc(onFailure ...OnAuthFailureFunc)
+	AddAuthSuccessFunc(onSuccess ...OnAuthSuccessFunc)
+	AddAuthFailureFunc(onFailure ...OnAuthFailureFunc)
 }
 
 type AuthHandlerSet struct {
@@ -49,11 +49,11 @@ func NewAuthHandlerSet() *AuthHandlerSet {
 
 // AuthHandlerSetter methods
 
-func (set *AuthHandlerSet) AddSuccessFunc(onSuccess ...OnAuthSuccessFunc) {
+func (set *AuthHandlerSet) AddAuthSuccessFunc(onSuccess ...OnAuthSuccessFunc) {
 	set.successFuncChain = append(set.successFuncChain, onSuccess...)
 }
 
-func (set *AuthHandlerSet) AddFailureFunc(onFailure ...OnAuthFailureFunc) {
+func (set *AuthHandlerSet) AddAuthFailureFunc(onFailure ...OnAuthFailureFunc) {
 	set.failureFuncChain = append(set.failureFuncChain, onFailure...)
 }
 

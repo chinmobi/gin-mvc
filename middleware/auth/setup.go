@@ -10,7 +10,7 @@ import (
 )
 
 func setUp(authConfig *auth.ProcessorConfigurer, app *app.App) {
-	authConfig.AddFailureFunc(RespAuthenticationError)
+	authConfig.AddAuthFailureFunc(RespAuthenticationError)
 
 	// Setup the UserDetails service auth provider, to authenticate the UesrnamePasswordAuthToken
 	authProvider := app.ServiceSupplier().GetAuthService().CreateAuthProvider()

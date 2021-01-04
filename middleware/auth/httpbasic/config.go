@@ -76,7 +76,7 @@ func Configure(authGroup *auth.ProcessorGroup, app *app.App) error {
 	// TODO: realm := app.Config.Auth.HttpBasic.Realm
 	realm := "Authorization Required"
 
-	authGroup.Configurer().AddFailureFunc(SetHttpBasicRealmHeaderFunc(realm))
+	authGroup.Configurer().AddAuthFailureFunc(SetHttpBasicRealmHeaderFunc(realm))
 
 	authGroup.AddProcessor(processor)
 
