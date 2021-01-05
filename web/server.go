@@ -119,7 +119,7 @@ func StartServer(app *app.App) {
 
 	// The context is used to inform the server it has 5 seconds to finish
 	// the request it is currently handling
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	shutdownCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 
 	defer func() {
 		cancel()
@@ -128,7 +128,7 @@ func StartServer(app *app.App) {
 		log.Println("Server exited")
 	}()
 
-	if err := srv.Shutdown(ctx); err != nil {
+	if err := srv.Shutdown(shutdownCtx); err != nil {
 		log.Fatalf("Server forced to shutdown: %+v", err)
 	}
 

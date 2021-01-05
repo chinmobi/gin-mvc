@@ -1,1 +1,1 @@
-BUILDFLAGS="-tags=jsoniter"
+BUILDFLAGS="-tags=jsoniter fasthttp"
