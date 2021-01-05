@@ -21,6 +21,7 @@ import (
 	"github.com/chinmobi/gin-mvc/middleware"
 	"github.com/chinmobi/gin-mvc/routes"
 	"github.com/chinmobi/gin-mvc/web/ctx"
+	"github.com/chinmobi/gin-mvc/web/srv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -91,10 +92,10 @@ func StartServer(app *app.App) {
 	web := server.web
 
 	// Listen and serve on defined port
-	srv := &http.Server{
+	srv := srv.NewServer(&srv.ServerConfig{
 		Addr:    ":" + app.Config().Server.Port,
 		Handler: server.Engine(),
-	}
+	})
 
 	// Initializing the server in a goroutine so that
 	// it won't block the graceful shutdown handling below
