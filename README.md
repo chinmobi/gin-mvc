@@ -1,11 +1,13 @@
 # Gin-MVC
 The MVC framework based on [Gin](https://github.com/gin-gonic/gin).
 
-The framework integrates MVC-developing patterns to build a RESTful web application (especially, the microservice application).
+The framework integrates MVC-developing patterns to build a RESTful web application (especially, the micro-service application).
 
-The framework is lightweight and flexible, easy to extend and configure, and additionally with essential facilities to build an enterprise product project. Especially, the project is out of box. You could clone the project, rename the project's module name, and then start your business-logic developing work.
+The framework is lightweight and flexible, easy to extend and configure, and additionally with essential facilities to build an enterprise level project. Especially, the project is issued as out-of-box. You could clone the project, rename the project's module name, and then start your business-logic developing work.
 
 The project acts as a starter to build a real RESTful, MVC-style web application.
+
+The framework's core runtime is based on the [Gin](https://github.com/gin-gonic/gin), [fasthttp](https://github.com/valyala/fasthttp) and [ants](https://github.com/panjf2000/ants) to process millions of concurrent requests.
 
 ## Usage
 
@@ -31,7 +33,7 @@ cd ~/work/go/<your-project-name>
 rm -rf .git
 ```
 
-Then the project is ready to develop your own RESTful MVC-web application.
+Then the project is ready for developing your own RESTful MVC-web application.
 <br/>To test the works properly:
 
 ```sh
