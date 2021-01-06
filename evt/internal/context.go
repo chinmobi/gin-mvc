@@ -22,7 +22,7 @@ type Context struct {
 	params   *Params
 }
 
-func NewContext(maxParams uint16) *Context {
+func newContext(maxParams uint16) *Context {
 	v := make(Params, 0, maxParams)
 	c := &Context{
 		params: &v,
@@ -74,4 +74,46 @@ func (c *Context) IsAborted() bool {
 // Note that this will not stop the current handler.
 func (c *Context) Abort() {
 	c.index = abortIndex
+}
+
+// --- Event Envelope methods ---
+
+func (c *Context) GetEventPayload() EventPayload {
+	return c.event.Payload
+}
+
+func (c *Context) Topic() string {
+	return c.event.Topic
+}
+
+func (c *Context) RoutingPath() string {
+	return c.event.RoutingPath
+}
+
+func (c *Context) Source() string {
+	return c.event.Source
+}
+
+func (c *Context) GetParam(name string) string {
+	return c.Param(name)
+}
+
+func (c *Context) getEngine() *Engine {
+	if c.event.Handler == nil {
+		return nil
+	}
+
+	engine, ok := c.event.Handler.(*Engine)
+	if !ok {
+		return nil
+	}
+
+	return engine
+}
+
+func (c *Context) Reply(ack EventPayload) {
+	engine := c.getEngine()
+	if engine != nil {
+		engine.ReplyEvent(c.event, ack)
+	}
 }
