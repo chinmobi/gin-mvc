@@ -10,9 +10,15 @@ import (
 
 type EventPayload = event.Payload
 
+type EventListener = event.Listener
+
+// --- EventHandler ---
+
 type EventHandler interface {
 	HandleEvent(event *Event)
 }
+
+// --- Event ---
 
 type Event struct {
 	Topic, RoutingPath, Source string
@@ -20,12 +26,8 @@ type Event struct {
 	Handler EventHandler
 }
 
-func NewEvent(topic, routingPath, source string, payload EventPayload) *Event {
+func NewEvent() *Event {
 	event := &Event{
-		Topic: topic,
-		RoutingPath: routingPath,
-		Source: source,
-		Payload: payload,
 	}
 	return event
 }
@@ -35,6 +37,17 @@ func (e *Event) Init(topic, routingPath, source string, payload EventPayload) {
 	e.RoutingPath = routingPath
 	e.Source = source
 	e.Payload = payload
+}
+
+func (e *Event) Reset() *Event {
+	e.Topic = ""
+	e.RoutingPath = ""
+	e.Source = ""
+	e.Payload = nil
+
+	e.Handler = nil
+
+	return e
 }
 
 func (e *Event) Run() {
