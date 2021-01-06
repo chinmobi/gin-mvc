@@ -13,7 +13,7 @@ type Engine struct {
 
 	pool           sync.Pool
 
-	trees          TopicTreeS
+	trees          topicTreeS
 	maxParams      uint16
 }
 
@@ -53,7 +53,7 @@ func (engine *Engine) addRoute(topic, path string, handlers HandlersChain) {
 	assert1(path[0] == '/', "path must begin with '/'")
 	assert1(len(handlers) > 0, "there must be at least one handler")
 
-	engine.trees = engine.trees.AddRoute(topic, path, handlers)
+	engine.trees = engine.trees.addRoute(topic, path, handlers)
 
 	// Update maxParams
 	if paramsCount := countParams(path); paramsCount > engine.maxParams {

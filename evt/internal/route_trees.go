@@ -4,14 +4,14 @@
 
 package internal
 
-type TopicTree struct {
+type topicTree struct {
 	topic string
 	root  *node
 }
 
-type TopicTreeS []TopicTree
+type topicTreeS []topicTree
 
-func (trees TopicTreeS) get(topic string) *node {
+func (trees topicTreeS) get(topic string) *node {
 	for _, tree := range trees {
 		if tree.topic == topic {
 			return tree.root
@@ -20,13 +20,13 @@ func (trees TopicTreeS) get(topic string) *node {
 	return nil
 }
 
-func (trees TopicTreeS) AddRoute(topic, path string, handlers HandlersChain) TopicTreeS {
+func (trees topicTreeS) addRoute(topic, path string, handlers HandlersChain) topicTreeS {
 	root := trees.get(topic)
 
 	if root == nil {
 		root = new(node)
 		root.fullPath = "/"
-		trees = append(trees, TopicTree{ topic: topic, root: root })
+		trees = append(trees, topicTree{ topic: topic, root: root })
 	}
 
 	root.addRoute(path, handlers)
@@ -34,7 +34,7 @@ func (trees TopicTreeS) AddRoute(topic, path string, handlers HandlersChain) Top
 	return trees
 }
 
-func (trees TopicTreeS) Handle(c *Context, event *Event) {
+func (trees topicTreeS) handle(c *Context, event *Event) {
 	unescape := false
 
 	topic := event.Topic
