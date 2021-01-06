@@ -7,7 +7,7 @@ package event
 type Payload = interface{}
 
 type Publisher interface {
-	PublishEvent(routingPath, source string, payload Payload) error
+	PublishEvent(routingPath, source string, payload Payload)
 }
 
 type Envelope interface {
@@ -19,7 +19,7 @@ type Envelope interface {
 
 	GetParam(name string) string
 
-	Reply(ack Payload) error
+	Reply(ack Payload)
 }
 
 type Listener interface {
