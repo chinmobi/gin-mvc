@@ -8,12 +8,15 @@ import (
 	"github.com/chinmobi/gin-mvc/config"
 	"github.com/chinmobi/gin-mvc/db"
 	"github.com/chinmobi/gin-mvc/errors"
+	"github.com/chinmobi/gin-mvc/grpool"
+	"github.com/chinmobi/gin-mvc/grpool/gr"
 	"github.com/chinmobi/gin-mvc/model"
 	"github.com/chinmobi/gin-mvc/service"
 )
 
 type App struct {
 	config    *config.Config
+	executor  gr.ExecutorService
 	models    model.Supplier
 	services  service.Supplier
 }
@@ -52,6 +55,15 @@ func (app *App) Start() error {
 	}
 	app.services = services
 
+	executor, err := grpool.SetUp(&app.config.Grpool)
+	if err != nil {
+		defer func() {
+			app.Shutdown()
+		}()
+		return err
+	}
+	app.executor = executor
+
 	return nil
 }
 
@@ -59,6 +71,10 @@ func (app *App) Shutdown() error {
 	// Shutting down / releasing application components.
 
 	errs := errors.NewErrWrapErrors()
+
+	if app.executor != nil {
+		app.executor.Shutdown()
+	}
 
 	// Tear down the services
 	if app.services != nil {
@@ -81,6 +97,10 @@ func (app *App) Shutdown() error {
 
 func (app *App) Config() *config.Config {
 	return app.config
+}
+
+func (app *App) Executor() gr.Executor {
+	return app.executor
 }
 
 func (app *App) ServiceSupplier() service.Supplier {
