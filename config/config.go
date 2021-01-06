@@ -24,10 +24,14 @@ type Server struct {
 
 type Config struct {
 	Server Server
+	Grpool Grpool
 }
 
 func Default() *Config {
 	config := &Config{
+		Grpool: Grpool{
+			Size: 8,
+		},
 	}
 
 	config.Server.Port = normalizePort(os.Getenv(SERVER_PORT_ENV_NAME))
