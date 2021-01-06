@@ -8,6 +8,8 @@ import (
 	"github.com/chinmobi/gin-mvc/config"
 	"github.com/chinmobi/gin-mvc/db"
 	"github.com/chinmobi/gin-mvc/errors"
+	"github.com/chinmobi/gin-mvc/evt"
+	"github.com/chinmobi/gin-mvc/evt/event"
 	"github.com/chinmobi/gin-mvc/grpool"
 	"github.com/chinmobi/gin-mvc/grpool/gr"
 	"github.com/chinmobi/gin-mvc/model"
@@ -15,10 +17,11 @@ import (
 )
 
 type App struct {
-	config    *config.Config
-	executor  gr.ExecutorService
-	models    model.Supplier
-	services  service.Supplier
+	config      *config.Config
+	executor    gr.ExecutorService
+	eventBroker event.Broker
+	models      model.Supplier
+	services    service.Supplier
 }
 
 func New(config *config.Config) *App {
@@ -38,31 +41,35 @@ func NewWithStart(config *config.Config) (*App, error) {
 func (app *App) Start() error {
 	// Configuring, setting up / starting application components.
 
+	executor, err := grpool.SetUp(&app.config.Grpool)
+	if err != nil {
+		app.Shutdown()
+		return err
+	}
+	app.executor = executor
+
+	eventBroker, err := evt.SetUp(executor)
+	if err != nil {
+		app.Shutdown()
+		return err
+	}
+	app.eventBroker = eventBroker
+
 	// Load the models
 	models, err := db.Load(app.config)
 	if err != nil {
+		app.Shutdown()
 		return err
 	}
 	app.models = models
 
 	// Set up the services
-	services, err := service.SetUp(models)
+	services, err := service.SetUp(models, eventBroker)
 	if err != nil {
-		defer func() {
-			app.Shutdown()
-		}()
+		app.Shutdown()
 		return err
 	}
 	app.services = services
-
-	executor, err := grpool.SetUp(&app.config.Grpool)
-	if err != nil {
-		defer func() {
-			app.Shutdown()
-		}()
-		return err
-	}
-	app.executor = executor
 
 	return nil
 }
@@ -97,6 +104,10 @@ func (app *App) Shutdown() error {
 
 func (app *App) Config() *config.Config {
 	return app.config
+}
+
+func (app *App) EventBroker() event.Broker {
+	return app.eventBroker
 }
 
 func (app *App) Executor() gr.Executor {

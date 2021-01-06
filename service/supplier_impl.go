@@ -5,18 +5,21 @@
 package service
 
 import (
+	"github.com/chinmobi/gin-mvc/evt/event"
 	"github.com/chinmobi/gin-mvc/model"
 )
 
 type serviceSupplier struct {
-	models        model.Supplier
+	models       model.Supplier
+	eventBroker  event.Broker
 	authService  *AuthService
 	userService  *UserService
 }
 
-func createSupplier(models model.Supplier) (*serviceSupplier, error) {
+func createSupplier(models model.Supplier, broker event.Broker) (*serviceSupplier, error) {
 	ss := &serviceSupplier{
 		models: models,
+		eventBroker: broker,
 	}
 
 	ss.authService = &AuthService{
@@ -30,6 +33,10 @@ func createSupplier(models model.Supplier) (*serviceSupplier, error) {
 	}
 
 	return ss, nil
+}
+
+func (ss *serviceSupplier) GetEventBroker() event.Broker {
+	return ss.eventBroker
 }
 
 func (ss *serviceSupplier) GetAuthService() *AuthService {

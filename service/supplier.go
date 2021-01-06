@@ -5,16 +5,18 @@
 package service
 
 import (
+	"github.com/chinmobi/gin-mvc/evt/event"
 	"github.com/chinmobi/gin-mvc/model"
 )
 
 type Supplier interface {
+	GetEventBroker() event.Broker
 	GetAuthService() *AuthService
 	GetUserService() *UserService
 }
 
-func SetUp(models model.Supplier) (Supplier, error) {
-	return createSupplier(models)
+func SetUp(models model.Supplier, broker event.Broker) (Supplier, error) {
+	return createSupplier(models, broker)
 }
 
 func TearDown(services Supplier) error {
