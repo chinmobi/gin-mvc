@@ -38,12 +38,12 @@ Then the project is ready for developing your own RESTful MVC-web application.
 
 ```sh
 cd ~/work/go/<your-project-name>
-go build -v
-./<your-project-name>
+make build
+./_deploy/entrypoint.sh
 ```
 The web server is listening at `8080` port as default, use `http://localhost:8080/` to access the web server.
 <br/>Use `Ctrl+C` to exit the web server.
-<br/>Use `go clean` to clean the built objects.
+<br/>Use `make clean` to clean the built objects.
 <br/>Use `make` to build more complex targets.
 
 ## Project structure
