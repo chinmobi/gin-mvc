@@ -9,7 +9,7 @@ if [ "${1:0:1}" = '-' ]; then
 fi
 
 if [ "$1" = 'start-app' ]; then
-  exec ./bin/${APP_NAME}
+  exec ./bin/${APP_BIN_NAME}
 else
   exec "$@"
 fi

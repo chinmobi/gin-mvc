@@ -5,13 +5,13 @@ include ./_deploy/prod.env
 
 
 PROJECT_NAME ?= $(shell basename "$(CURDIR)")
-BINARY_NAME ?= $(PROJECT_NAME)
+BINARY_NAME = $(shell echo "$(PROJECT_NAME).exe")
 
-APP_NAME ?= $(BINARY_NAME)
+APP_BIN_NAME ?= $(BINARY_NAME)
 
 
 OUTPUT_DIR := ./_deploy/bin
-OUTPUT_BIN := $(OUTPUT_DIR)/$(APP_NAME)
+OUTPUT_BIN := $(OUTPUT_DIR)/$(APP_BIN_NAME)
 
 
 GO_TEST_DIRS = $(shell ./go-test-dirs.sh)
@@ -22,7 +22,7 @@ GO_TEST_SUITES = $(shell ./go-test-suite-dirs.sh)
 DEPLOY_OS_ARCH = $(shell echo $(IMAGE_OS_ARCH))
 
 DEPLOY_OUTPUT_DIR := ./_deploy/prod_bin
-DEPLOY_OUTPUT_BIN := $(DEPLOY_OUTPUT_DIR)/$(APP_NAME)
+DEPLOY_OUTPUT_BIN := $(DEPLOY_OUTPUT_DIR)/$(APP_BIN_NAME)
 
 DOCKER_SCRIPTS_DIR := ./_deploy/docker
 

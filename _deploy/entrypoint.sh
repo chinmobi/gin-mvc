@@ -2,4 +2,4 @@
 
 cd $(dirname $0) && source ./dev.env
 
-exec ./bin/${APP_NAME}
+exec ./bin/${APP_BIN_NAME}
