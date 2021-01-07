@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eo pipefail
 
-source ./.env
+source ./app.env
 
 
 if [ "${1:0:1}" = '-' ]; then

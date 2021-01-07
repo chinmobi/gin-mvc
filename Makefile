@@ -1,7 +1,7 @@
 
 include ./BUILD.variables
 include ./_deploy/BUILD.variables
-include ./_deploy/.env
+include ./_deploy/prod.env
 
 
 PROJECT_NAME ?= $(shell basename "$(CURDIR)")

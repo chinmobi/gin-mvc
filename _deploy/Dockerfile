@@ -29,7 +29,7 @@ WORKDIR $APP_HOME
 COPY --chown=$APP_USER:$APP_USER bin $APP_HOME/bin/
 
 
-COPY --chown=$APP_USER:$APP_USER .env $APP_HOME/
+COPY --chown=$APP_USER:$APP_USER prod.env $APP_HOME/app.env
 COPY --chown=$APP_USER:$APP_USER docker-entrypoint.sh $APP_HOME/
 ENTRYPOINT ["./docker-entrypoint.sh"]
 
