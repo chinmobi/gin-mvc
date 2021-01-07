@@ -12,9 +12,11 @@ FROM alpine:3.12
 
 
 ENV APP_HOME=/opt/chinmobi/app \
+    APP_VAR_DIR=/opt/chinmobi/app/var \
     APP_USER=chinmobi
 
 RUN set -x \
+    && mkdir -p $APP_VAR_DIR && chmod 777 $APP_VAR_DIR \
     && addgroup -g 1010 -S $APP_USER \
     && adduser -S -D -H -u 1010 -h $APP_HOME -s /sbin/nologin -G $APP_USER -g $APP_USER $APP_USER \
     && mkdir -p $APP_HOME \
@@ -23,11 +25,15 @@ RUN set -x \
 USER $APP_USER
 
 
+VOLUME ["${APP_VAR_DIR}"]
+
 WORKDIR $APP_HOME
 
 
-COPY --chown=$APP_USER:$APP_USER bin $APP_HOME/bin/
+COPY --chown=$APP_USER:$APP_USER configs $APP_HOME/configs/
+COPY --chown=$APP_USER:$APP_USER public $APP_HOME/public/
 
+COPY --chown=$APP_USER:$APP_USER prod_bin $APP_HOME/bin/
 
 COPY --chown=$APP_USER:$APP_USER prod.env $APP_HOME/app.env
 COPY --chown=$APP_USER:$APP_USER docker-entrypoint.sh $APP_HOME/
