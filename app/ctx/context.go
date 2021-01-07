@@ -27,7 +27,7 @@ func (ctx *AppContext) Init() error {
 	}
 
 	if path == "" {
-		exe, err := os.Executable()
+		exe, err := getExecutable()
 		if err != nil {
 			return err
 		}
@@ -49,7 +49,7 @@ func (ctx *AppContext) GetRealPath(relativePath string) string {
 }
 
 func guessHomePath() (string, error) {
-	exe, err := os.Executable()
+	exe, err := getExecutable()
 	if err != nil {
 		return "", err
 	}
@@ -65,6 +65,18 @@ func guessHomePath() (string, error) {
 	}
 
 	return resolvePwdPath(pwd), nil
+}
+
+func getExecutable() (string, error) {
+	exe, err := os.Executable()
+	if err == nil {
+		return exe, nil
+	}
+	if exe == "" {
+		return "", err
+	}
+
+	return filepath.EvalSymlinks(exe)
 }
 
 func resolveExePath(path string) string {
