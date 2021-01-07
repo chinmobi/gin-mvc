@@ -12,6 +12,7 @@ import (
 	"github.com/chinmobi/gin-mvc/evt/event"
 	"github.com/chinmobi/gin-mvc/grpool"
 	"github.com/chinmobi/gin-mvc/grpool/gr"
+	"github.com/chinmobi/gin-mvc/log"
 	"github.com/chinmobi/gin-mvc/model"
 	"github.com/chinmobi/gin-mvc/service"
 )
@@ -40,6 +41,9 @@ func NewWithStart(config *config.Config) (*App, error) {
 
 func (app *App) Start() error {
 	// Configuring, setting up / starting application components.
+
+	log.SetUp(&app.config.Logger)
+	defer log.L().Sync()
 
 	executor, err := grpool.SetUp(&app.config.Grpool)
 	if err != nil {
@@ -76,6 +80,8 @@ func (app *App) Start() error {
 
 func (app *App) Shutdown() error {
 	// Shutting down / releasing application components.
+
+	defer log.L().Sync()
 
 	errs := errors.NewErrWrapErrors()
 
