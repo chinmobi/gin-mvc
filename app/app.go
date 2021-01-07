@@ -5,6 +5,7 @@
 package app
 
 import (
+	"github.com/chinmobi/gin-mvc/app/ctx"
 	"github.com/chinmobi/gin-mvc/config"
 	"github.com/chinmobi/gin-mvc/db"
 	"github.com/chinmobi/gin-mvc/errors"
@@ -17,7 +18,10 @@ import (
 	"github.com/chinmobi/gin-mvc/service"
 )
 
+type AppContext = ctx.AppContext
+
 type App struct {
+	context     *ctx.AppContext
 	config      *config.Config
 	executor    gr.ExecutorService
 	eventBroker event.Broker
@@ -27,6 +31,7 @@ type App struct {
 
 func New(config *config.Config) *App {
 	app := &App{
+		context: ctx.NewAppContext(),
 		config: config,
 	}
 
@@ -41,6 +46,11 @@ func NewWithStart(config *config.Config) (*App, error) {
 
 func (app *App) Start() error {
 	// Configuring, setting up / starting application components.
+
+	err := app.context.Init()
+	if err != nil {
+		return err
+	}
 
 	log.SetUp(&app.config.Logger)
 	defer log.L().Sync()
@@ -106,6 +116,10 @@ func (app *App) Shutdown() error {
 	}
 
 	return errs.AsError()
+}
+
+func (app *App) Context() *ctx.AppContext {
+	return app.context
 }
 
 func (app *App) Config() *config.Config {
