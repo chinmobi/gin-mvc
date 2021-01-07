@@ -6,6 +6,13 @@ package config
 
 import (
 	"os"
+	"strings"
+
+	"github.com/chinmobi/gin-mvc/app/ctx"
+)
+
+const (
+	APP_HOME = "APP_HOME"
 )
 
 type Config struct {
@@ -18,9 +25,9 @@ func Default() *Config {
 	config := &Config{
 		Logger: Logger{
 			File: File{
-				Enabled: true,
+				Enabled: false,
 				Level: "INFO",
-				Filename: "/tmp/ginmvc.log", // "/var/log/ginmvc/ginmvc.log"
+				Filename: "APP_HOME/var/logs/ginmvc.log", // The APP_HOME will be resolved as real home path at runtime.
 				MaxSize: 500, // megabytes
 				MaxBackups: 3,
 				MaxAge: 28, // days
@@ -41,4 +48,17 @@ func Default() *Config {
 	}
 
 	return config
+}
+
+func (c *Config) ResolveWith(ctx *ctx.AppContext) {
+	filename := c.Logger.File.Filename
+	if !strings.HasPrefix(filename, APP_HOME) {
+		return
+	}
+
+	prefix := len(APP_HOME)
+	filename = filename[prefix:]
+
+	filename = ctx.GetRealPath(filename)
+	c.Logger.File.Filename = filename
 }

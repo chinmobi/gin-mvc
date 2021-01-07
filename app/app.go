@@ -52,6 +52,8 @@ func (app *App) Start() error {
 		return err
 	}
 
+	app.config.ResolveWith(app.context)
+
 	log.SetUp(&app.config.Logger)
 	defer log.L().Sync()
 
