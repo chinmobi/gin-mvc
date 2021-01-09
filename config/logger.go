@@ -5,22 +5,22 @@
 package config
 
 type File struct {
-	Enabled    bool
-	Level      string
-	Filename   string
-	MaxSize    uint32
-	MaxBackups uint32
-	MaxAge     uint32
-	Compress   bool
+	Enabled    bool   `json:"enabled"`
+	Level      string `json:"level"`
+	Filename   string `json:"filename"`
+	MaxSize    int    `json:"max_size"`
+	MaxBackups int    `json:"max_backups"`
+	MaxAge     int    `json:"max_age"`
+	Compress   bool   `json:"compress"`
 }
 
 type Console struct {
-	Enabled    bool
-	Level      string
+	Enabled    bool   `json:"enabled"`
+	Level      string `json:"level"`
 }
 
 type Logger struct {
-	File    File
-	Console Console
-	Level   string
+	File    File      `json:"file"`
+	Console Console   `json:"console"`
+	Level   string    `json:"level"`
 }

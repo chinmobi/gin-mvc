@@ -5,5 +5,5 @@
 package config
 
 type Grpool struct {
-	Size int
+	Size int `json:"size"`
 }

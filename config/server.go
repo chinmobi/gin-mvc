@@ -18,7 +18,7 @@ const (
 )
 
 type Server struct {
-	Port string
+	Port string `json:"port"`
 }
 
 func normalizePort(port string) string {
