@@ -1,0 +1,16 @@
+{
+  "file": {
+    "enabled": false,
+    "level": "INFO",
+    "filename": "APP_HOME/var/logs/ginmvc.log",
+    "max_size": 128,
+    "max_backups": 3,
+    "max_age": 28,
+    "compress": true
+  },
+  "console": {
+    "enabled": true,
+    "level": "DEBUG"
+  },
+  "level": "INFO"
+}
