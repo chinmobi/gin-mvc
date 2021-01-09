@@ -54,8 +54,6 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 * `controller` - Define controller handers for handling requests.
 
-* `ctx` - Provide request scale context while handling requests, especially for auth security.
-
 * `db` - Manage the data-stores' connections (`redis`, `mongodb`, `prosgres`, etc...), and provide the DAOs(data access objects) that used for `model`.
 
 * `errors` - Define the application scale errors.
