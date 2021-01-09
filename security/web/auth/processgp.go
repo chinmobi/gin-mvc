@@ -7,9 +7,9 @@ package auth
 import (
 	"errors"
 
-	"github.com/chinmobi/gin-mvc/ctx"
 	myerrors "github.com/chinmobi/gin-mvc/errors"
 	"github.com/chinmobi/gin-mvc/security/consts"
+	"github.com/chinmobi/gin-mvc/security/ctx"
 
 	"github.com/gin-gonic/gin"
 )

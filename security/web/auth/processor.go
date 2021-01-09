@@ -5,8 +5,8 @@
 package auth
 
 import (
-	"github.com/chinmobi/gin-mvc/ctx"
 	"github.com/chinmobi/gin-mvc/security/auth"
+	"github.com/chinmobi/gin-mvc/security/ctx"
 
 	"github.com/gin-gonic/gin"
 )

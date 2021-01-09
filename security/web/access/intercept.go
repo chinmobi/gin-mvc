@@ -7,9 +7,9 @@ package access
 import (
 	"errors"
 
-	"github.com/chinmobi/gin-mvc/ctx"
 	"github.com/chinmobi/gin-mvc/security/access"
 	"github.com/chinmobi/gin-mvc/security/consts"
+	"github.com/chinmobi/gin-mvc/security/ctx"
 
 	"github.com/gin-gonic/gin"
 )
