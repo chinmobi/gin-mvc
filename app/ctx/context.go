@@ -10,6 +10,10 @@ import (
 	"strings"
 )
 
+const (
+	CONFIGS_PATH = "configs"
+)
+
 type AppContext struct {
 	home string
 }
@@ -46,6 +50,10 @@ func (ctx *AppContext) HomePath() string {
 
 func (ctx *AppContext) GetRealPath(relativePath string) string {
 	return filepath.Join(ctx.home, relativePath)
+}
+
+func (ctx *AppContext) ConfigsPath() string {
+	return filepath.Join(ctx.home, CONFIGS_PATH)
 }
 
 func guessHomePath() (string, error) {
