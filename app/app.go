@@ -7,6 +7,7 @@ package app
 import (
 	"github.com/chinmobi/gin-mvc/app/ctx"
 	"github.com/chinmobi/gin-mvc/config"
+	"github.com/chinmobi/gin-mvc/config/loader"
 	"github.com/chinmobi/gin-mvc/db"
 	"github.com/chinmobi/gin-mvc/errors"
 	"github.com/chinmobi/gin-mvc/evt"
@@ -44,6 +45,17 @@ func NewWithStart(config *config.Config) (*App, error) {
 	return app, app.Start()
 }
 
+func (app *App) loadConfig() error {
+	err := loader.Load(app.config, app.context.ConfigsPath())
+	if err != nil {
+		return err
+	}
+
+	app.config.ResolveWith(app.context)
+
+	return nil
+}
+
 func (app *App) Start() error {
 	// Configuring, setting up / starting application components.
 
@@ -52,7 +64,10 @@ func (app *App) Start() error {
 		return err
 	}
 
-	app.config.ResolveWith(app.context)
+	err = app.loadConfig()
+	if err != nil {
+		return err
+	}
 
 	log.SetUp(&app.config.Logger)
 	defer log.L().Sync()
