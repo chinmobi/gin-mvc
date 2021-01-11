@@ -5,7 +5,6 @@
 package config
 
 import (
-	"os"
 	"strings"
 
 	"github.com/chinmobi/gin-mvc/app/ctx"
@@ -28,7 +27,7 @@ func Default() *Config {
 				Enabled: false,
 				Level: "INFO",
 				Filename: "APP_HOME/var/logs/ginmvc.log", // The APP_HOME will be resolved as real home path at runtime.
-				MaxSize: 500, // megabytes
+				MaxSize: 128, // megabytes
 				MaxBackups: 3,
 				MaxAge: 28, // days
 				Compress: false,
@@ -40,7 +39,6 @@ func Default() *Config {
 			Level: "INFO",
 		},
 		Server: Server{
-			Port: normalizePort(os.Getenv(SERVER_PORT_ENV_NAME)),
 		},
 		Grpool: Grpool{
 			Size: 8,

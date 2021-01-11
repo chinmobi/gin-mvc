@@ -93,7 +93,7 @@ func StartServer(app *app.App) {
 
 	// Listen and serve on defined port
 	srv := srv.NewServer(&srv.ServerConfig{
-		Addr:    ":" + app.Config().Server.Port,
+		Addr:    ":" + normalizePort(app.Config().Server.Port),
 		Handler: server.Engine(),
 	})
 
