@@ -12,4 +12,4 @@ require (
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 )
 
-replace github.com/golobby/config v1.1.2 => github.com/chinmobi/config v1.2.0-dev
+replace github.com/golobby/config v1.1.2 => github.com/chinmobi/config v1.2.1-alpha
