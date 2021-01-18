@@ -5,8 +5,8 @@
 package service
 
 import (
-	"github.com/chinmobi/gin-mvc/evt/event"
 	"github.com/chinmobi/gin-mvc/model"
+	"github.com/chinmobi/modlib/evt/event"
 )
 
 type Supplier interface {

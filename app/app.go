@@ -10,12 +10,12 @@ import (
 	"github.com/chinmobi/gin-mvc/config/loader"
 	"github.com/chinmobi/gin-mvc/db"
 	"github.com/chinmobi/gin-mvc/errors"
-	"github.com/chinmobi/gin-mvc/evt"
-	"github.com/chinmobi/gin-mvc/evt/event"
 	"github.com/chinmobi/gin-mvc/grpool"
 	"github.com/chinmobi/gin-mvc/grpool/gr"
 	"github.com/chinmobi/gin-mvc/model"
 	"github.com/chinmobi/gin-mvc/service"
+	"github.com/chinmobi/modlib/evt"
+	"github.com/chinmobi/modlib/evt/event"
 	"github.com/chinmobi/modlib/log"
 )
 
@@ -79,12 +79,7 @@ func (app *App) Start() error {
 	}
 	app.executor = executor
 
-	eventBroker, err := evt.SetUp(executor)
-	if err != nil {
-		app.Shutdown()
-		return err
-	}
-	app.eventBroker = eventBroker
+	app.eventBroker = evt.NewEngine(DefaultMulticaster{})
 
 	// Load the models
 	models, err := db.Load(app.config)
@@ -95,7 +90,7 @@ func (app *App) Start() error {
 	app.models = models
 
 	// Set up the services
-	services, err := service.SetUp(models, eventBroker)
+	services, err := service.SetUp(models, app.eventBroker)
 	if err != nil {
 		app.Shutdown()
 		return err
