@@ -3,6 +3,7 @@ module github.com/chinmobi/gin-mvc
 go 1.15
 
 require (
+	github.com/chinmobi/modlib/log v0.1.0
 	github.com/gin-gonic/gin v1.6.3
 	github.com/golobby/config v1.1.2
 	github.com/stretchr/testify v1.4.0

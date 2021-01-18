@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/chinmobi/gin-mvc/app/ctx"
+	"github.com/chinmobi/modlib/log"
 )
 
 const (
@@ -15,24 +16,24 @@ const (
 )
 
 type Config struct {
-	Logger Logger
+	Logger log.LoggerConfig
 	Server Server
 	Grpool Grpool
 }
 
 func Default() *Config {
 	config := &Config{
-		Logger: Logger{
-			File: File{
+		Logger: log.LoggerConfig{
+			File: log.FileConfig{
 				Enabled: false,
 				Level: "INFO",
-				Filename: "APP_HOME/var/logs/ginmvc.log", // The APP_HOME will be resolved as real home path at runtime.
+				Filename: "APP_HOME/var/logs/info.log", // The APP_HOME will be resolved as real home path at runtime.
 				MaxSize: 128, // megabytes
 				MaxBackups: 3,
 				MaxAge: 28, // days
 				Compress: false,
 			},
-			Console: Console{
+			Console: log.ConsoleConfig{
 				Enabled: true,
 				Level: "DEBUG",
 			},

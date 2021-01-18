@@ -4,6 +4,9 @@ github.com/andybalholm/brotli v1.0.0 h1:7UCwP93aiSfvWpapti8g88vVVGp2qqtGyePsSuDa
 github.com/andybalholm/brotli v1.0.0/go.mod h1:loMXtMfwqflxFJPmdbJO0a3KNoPuLBgiu3qAvBg8x/Y=
 github.com/chinmobi/config v1.2.1-alpha h1:WxK9Ih8vmC4UTMgaXLFT7Kpd7hL085LoYqDxHw/cEso=
 github.com/chinmobi/config v1.2.1-alpha/go.mod h1:NkgTd6Kf8XomIc/ULT4oqlfrz2WqlNNqNV6ChYZJiws=
+github.com/chinmobi/modlib v0.0.0-20210117012618-ac13c3e8fed4 h1:+hTBcNWNzVD1lTMNkEA2leh3S0GHB7UbM6CdJDrK2uc=
+github.com/chinmobi/modlib/log v0.1.0 h1:hr3AUUpHqyw1J71l7vumzA3jd4UHDeYHB9+Q6OQ3NO8=
+github.com/chinmobi/modlib/log v0.1.0/go.mod h1:ZgSXytzkuJzclB+y7hWdVqWPo6moaekklpYsz8qbbA4=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

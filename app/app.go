@@ -14,9 +14,9 @@ import (
 	"github.com/chinmobi/gin-mvc/evt/event"
 	"github.com/chinmobi/gin-mvc/grpool"
 	"github.com/chinmobi/gin-mvc/grpool/gr"
-	"github.com/chinmobi/gin-mvc/log"
 	"github.com/chinmobi/gin-mvc/model"
 	"github.com/chinmobi/gin-mvc/service"
+	"github.com/chinmobi/modlib/log"
 )
 
 type AppContext = ctx.AppContext
@@ -69,7 +69,7 @@ func (app *App) Start() error {
 		return err
 	}
 
-	log.SetUp(&app.config.Logger)
+	log.SetUpLogger(&app.config.Logger)
 	defer log.L().Sync()
 
 	executor, err := grpool.SetUp(&app.config.Grpool)
