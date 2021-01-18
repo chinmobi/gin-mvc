@@ -6,10 +6,10 @@ package auth
 
 import (
 	mw "github.com/chinmobi/ginmod/middleware"
+	"github.com/chinmobi/ginmod/security/web/auth"
 	"github.com/chinmobi/gin-mvc/app"
 	"github.com/chinmobi/gin-mvc/middleware/auth/httpbasic"
 	"github.com/chinmobi/gin-mvc/middleware/auth/jwt"
-	"github.com/chinmobi/gin-mvc/security/web/auth"
 )
 
 func Configure(builder *mw.Builder, authConfig *auth.ProcessorConfigurer, app *app.App) error {

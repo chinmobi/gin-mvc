@@ -11,9 +11,9 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/chinmobi/ginmod/security/auth/token"
+	"github.com/chinmobi/ginmod/security/web/auth"
 	"github.com/chinmobi/gin-mvc/app"
-	"github.com/chinmobi/gin-mvc/security/auth/token"
-	"github.com/chinmobi/gin-mvc/security/web/auth"
 
 	"github.com/gin-gonic/gin"
 )

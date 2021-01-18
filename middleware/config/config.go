@@ -6,10 +6,10 @@ package config
 
 import (
 	mw "github.com/chinmobi/ginmod/middleware"
+	"github.com/chinmobi/ginmod/security/web/auth"
 	"github.com/chinmobi/gin-mvc/app"
 	mwauth "github.com/chinmobi/gin-mvc/middleware/auth"
 	"github.com/chinmobi/gin-mvc/middleware/common"
-	"github.com/chinmobi/gin-mvc/security/web/auth"
 )
 
 const (

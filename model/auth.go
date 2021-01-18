@@ -7,8 +7,8 @@ package model
 import (
 	"strconv"
 
+	auth "github.com/chinmobi/ginmod/security/auth/principal"
 	"github.com/chinmobi/gin-mvc/model/x/passwd"
-	auth "github.com/chinmobi/gin-mvc/security/auth/principal"
 )
 
 type SGAuthority = auth.SGAuthority

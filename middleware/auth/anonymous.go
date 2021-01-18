@@ -5,9 +5,9 @@
 package auth
 
 import (
-	"github.com/chinmobi/gin-mvc/security"
-	"github.com/chinmobi/gin-mvc/security/auth/token"
-	"github.com/chinmobi/gin-mvc/security/web/auth"
+	"github.com/chinmobi/ginmod/security"
+	"github.com/chinmobi/ginmod/security/auth/token"
+	"github.com/chinmobi/ginmod/security/web/auth"
 
 	"github.com/gin-gonic/gin"
 )

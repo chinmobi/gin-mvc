@@ -5,8 +5,8 @@
 package access
 
 import (
+	"github.com/chinmobi/ginmod/security/web/access"
 	"github.com/chinmobi/gin-mvc/app"
-	"github.com/chinmobi/gin-mvc/security/web/access"
 )
 
 type SRPermission = access.SimpleRolePermission

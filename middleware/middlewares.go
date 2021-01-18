@@ -7,11 +7,11 @@ package middleware
 import (
 	"github.com/chinmobi/ginmod/errors"
 	mw "github.com/chinmobi/ginmod/middleware"
+	"github.com/chinmobi/ginmod/security/web/access"
+	"github.com/chinmobi/ginmod/security/web/auth"
 	"github.com/chinmobi/gin-mvc/app"
 	acconfig "github.com/chinmobi/gin-mvc/middleware/access"
 	"github.com/chinmobi/gin-mvc/middleware/config"
-	"github.com/chinmobi/gin-mvc/security/web/access"
-	"github.com/chinmobi/gin-mvc/security/web/auth"
 
 	"github.com/gin-gonic/gin"
 )

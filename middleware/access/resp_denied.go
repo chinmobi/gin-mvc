@@ -8,7 +8,7 @@ import (
 	"net/http"
 
 	"github.com/chinmobi/ginmod/restful"
-	"github.com/chinmobi/gin-mvc/security/web/access"
+	"github.com/chinmobi/ginmod/security/web/access"
 
 	"github.com/gin-gonic/gin"
 )

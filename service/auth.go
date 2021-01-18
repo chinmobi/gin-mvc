@@ -5,10 +5,10 @@
 package service
 
 import (
+	"github.com/chinmobi/ginmod/security/auth/errors"
+	auth "github.com/chinmobi/ginmod/security/auth/principal"
 	"github.com/chinmobi/gin-mvc/model"
 	"github.com/chinmobi/gin-mvc/model/x/validator"
-	"github.com/chinmobi/gin-mvc/security/auth/errors"
-	auth "github.com/chinmobi/gin-mvc/security/auth/principal"
 )
 
 type AuthService struct {
@@ -47,7 +47,7 @@ func (svc *AuthService) LoadUserByNickname(nickname string) (*model.UserDetails,
 		return nil, err
 	}
 	if entity == nil {
-		return nil, errors.NewErrUsernameNotFound()
+		return nil, errors.NewUsernameNotFoundErr()
 	}
 	return svc.loadUserUserDetails(entity)
 }
@@ -58,7 +58,7 @@ func (svc *AuthService) LoadUserByEmail(email string) (*model.UserDetails, error
 		return nil, err
 	}
 	if entity == nil {
-		return nil, errors.NewErrUsernameNotFound()
+		return nil, errors.NewUsernameNotFoundErr()
 	}
 	return svc.loadUserUserDetails(entity)
 }

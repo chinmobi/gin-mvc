@@ -5,10 +5,10 @@
 package service
 
 import (
+	sec "github.com/chinmobi/ginmod/security/auth"
+	"github.com/chinmobi/ginmod/security/auth/errors"
+	"github.com/chinmobi/ginmod/security/auth/token"
 	"github.com/chinmobi/gin-mvc/model"
-	sec "github.com/chinmobi/gin-mvc/security/auth"
-	"github.com/chinmobi/gin-mvc/security/auth/errors"
-	"github.com/chinmobi/gin-mvc/security/auth/token"
 )
 
 type AuthServiceAuthProvider struct {
@@ -46,7 +46,7 @@ func (p *AuthServiceAuthProvider) authUsernamePassword(auth sec.Authentication) 
 	}
 
 	if !principal.IsPasswordMatched(token.GetPassword()) {
-		return token, errors.NewErrBadCredentials()
+		return token, errors.NewBadCredentialsErr()
 	}
 
 	if err := checkAccountStatus(principal); err != nil {
@@ -65,16 +65,16 @@ func (p *AuthServiceAuthProvider) authUsernamePassword(auth sec.Authentication) 
 
 func checkAccountStatus(principal model.UserPrincipal) error {
 	if !principal.IsAccountNonExpired() {
-		return errors.NewErrAccountExpired()
+		return errors.NewAccountExpiredErr()
 	}
 	if !principal.IsAccountNonLocked() {
-		return errors.NewErrAccountLocked()
+		return errors.NewAccountLockedErr()
 	}
 	if !principal.IsCredentialsNonExpired() {
-		return errors.NewErrCredentialExpired()
+		return errors.NewCredentialExpiredErr()
 	}
 	if !principal.IsEnabled() {
-		return errors.NewErrAccountDisabled()
+		return errors.NewAccountDisabledErr()
 	}
 	return nil
 }

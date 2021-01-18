@@ -5,9 +5,9 @@
 package routes
 
 import (
+	"github.com/chinmobi/ginmod/security/web/auth"
 	"github.com/chinmobi/gin-mvc/app"
 	"github.com/chinmobi/gin-mvc/controller"
-	"github.com/chinmobi/gin-mvc/security/web/auth"
 )
 
 type ControllerSet struct {
