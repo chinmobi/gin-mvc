@@ -48,15 +48,15 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 ## Project structure
 
-* `app` - The application main context to load and provide the app's components/utilities, it also manages the components/utilities' lifecycle (`Load, Setup/Start, Teardown/Shutdown, Release`).
+* `app` - Application main context to load and provide app's components/utilities, it also manages components/utilities' lifecycle (`Load, Setup/Start, Teardown/Shutdown, Release`).
 
-* `config` - Load and set up the configurations that used to set up the app's components/utilities.
+* `config` - Load and set up configurations that used to set up app's components/utilities.
 
 * `controller` - Define controller handers for handling requests.
 
-* `db` - Manage the data-stores' connections (`redis`, `mongodb`, `prosgres`, etc...), and provide the DAOs(data access objects) that used for `model`.
+* `db` - Manage data-store connections (`redis`, `mongodb`, `prosgres`, etc...), and provide data access objects(DAOs) that used for `model`.
 
-* `errors` - Define the common errors and utility (Migrated to [ginmod/errors](https://github.com/chinmobi/ginmod)).
+* `errors` - Define common errors and handling utility (Migrated to [ginmod/errors](https://github.com/chinmobi/ginmod)).
 
 * `evt` - Provide event publish/listen/multicast utility (Migrated to [modlib/evt](https://github.com/chinmobi/modlib)).
 
@@ -64,23 +64,23 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 * `log` - Provide logging utility (Migrated to [modlib/log](https://github.com/chinmobi/modlib)).
 
-* `middleware` - Define middleware handlers before the `controller` handler while handling requests.
+* `middleware` - Define middleware handlers before `controller` handler while handling requests.
 
-* `model` - Define the business entities and models that used for `service`.
+* `model` - Define business entities and models that used for `service`.
 
 * `mq` - Manage and provide message queueing utilities (`rabbitmq`, `kafka`, etc...).
 
-* `restful` - Provide the RESTful APIs' utilities.
+* `restful` - Utility to pack `RESTful API` response (Migrated to [ginmod/restful](https://github.com/chinmobi/ginmod)).
 
-* `routes` - Map the `RESTful API` URL path routes to `controller` handers.
+* `routes` - Map `RESTful API` URL path routes to `controller` handers.
 
 * `security` - Provide the [security](security/ABOUT.md) (authentication and authorization) utilities.
 
-* `service` - Define the business services that used for `controller` and `middleware` handers.
+* `service` - Define business services that used for `controller` and `middleware` handers.
 
-* `tests` - Test cases for integration tests, especially for the `controller` layer about the RESTful APIs.
+* `tests` - Test cases for integration tests, especially for `controller` layer about RESTful APIs.
 
-* `web` - Provide the web server to run the `app`.
+* `web` - Provide web server to run `app`.
 
 ## Best practices
 
