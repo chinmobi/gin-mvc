@@ -5,13 +5,17 @@
 package controller
 
 import (
-	"github.com/chinmobi/gin-mvc/restful"
+	"github.com/chinmobi/ginmod/restful"
 
 	"github.com/gin-gonic/gin"
 )
 
+const (
+	defaultApiVersion = "v1"
+)
+
 func HandleDefault(c *gin.Context) {
-	restful.RespDataEntity(c, gin.H{
+	restful.RespDataEntity(c, defaultApiVersion, gin.H{
 		"message": "TODO",
 	})
 }

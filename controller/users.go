@@ -7,7 +7,7 @@ package controller
 import (
 	"strconv"
 
-	"github.com/chinmobi/gin-mvc/restful"
+	"github.com/chinmobi/ginmod/restful"
 	"github.com/chinmobi/gin-mvc/service"
 	"github.com/chinmobi/gin-mvc/service/dto"
 
@@ -17,12 +17,14 @@ import (
 // NOTE: The user controller is just for demo, could to be removed for real project.
 
 type UserController struct {
-	services  service.Supplier
-	userSvc  *service.UserService
+	apiVersion  string
+	services    service.Supplier
+	userSvc    *service.UserService
 }
 
 func NewUserController(services service.Supplier) *UserController {
 	ctrl := &UserController{
+		apiVersion: defaultApiVersion,
 		services: services,
 		userSvc:  services.GetUserService(),
 	}
@@ -36,45 +38,45 @@ func (ctrl *UserController) CreateUser(c *gin.Context) {
 	var userDTO dto.UserDTO
 
 	if err := c.ShouldBindJSON(&userDTO); err != nil {
-		restful.RespBadRequest(c, err)
+		restful.RespBadRequest(c, ctrl.apiVersion, err)
 		return
 	}
 
 	user, err := ctrl.getUserSvc().CreateUser(&userDTO)
 	if err != nil {
-		restful.RespServiceError(c, err)
+		restful.RespServiceError(c, ctrl.apiVersion, err)
 		return
 	}
 
-	restful.RespCreatedDataEntity(c, user)
+	restful.RespCreatedDataEntity(c, ctrl.apiVersion, user)
 }
 
 // GET /users
 func (ctrl *UserController) GetAllUsers(c *gin.Context) {
 	users, err := ctrl.getUserSvc().FindAllUsers()
 	if err != nil {
-		restful.RespServiceError(c, err)
+		restful.RespServiceError(c, ctrl.apiVersion, err)
 		return
 	}
 
-	restful.RespDataEntity(c, users)
+	restful.RespDataEntity(c, ctrl.apiVersion, users)
 }
 
 // GET /users/:uid
 func (ctrl *UserController) GetUserByID(c *gin.Context) {
 	uid, err := getUserIdParam(c)
 	if err != nil {
-		restful.RespBadRequest(c, err)
+		restful.RespBadRequest(c, ctrl.apiVersion, err)
 		return
 	}
 
 	user, err := ctrl.getUserSvc().FindUserByID(uid)
 	if err != nil {
-		restful.RespServiceError(c, err)
+		restful.RespServiceError(c, ctrl.apiVersion, err)
 		return
 	}
 
-	restful.RespDataEntity(c, user)
+	restful.RespDataEntity(c, ctrl.apiVersion, user)
 }
 
 // PATCH /users/:uid
@@ -82,37 +84,37 @@ func (ctrl *UserController) GetUserByID(c *gin.Context) {
 func (ctrl *UserController) UpdateUser(c *gin.Context) {
 	uid, err := getUserIdParam(c)
 	if err != nil {
-		restful.RespBadRequest(c, err)
+		restful.RespBadRequest(c, ctrl.apiVersion, err)
 		return
 	}
 
 	var userDTO dto.UserDTO
 
 	if err := c.ShouldBindJSON(&userDTO); err != nil {
-		restful.RespBadRequest(c, err)
+		restful.RespBadRequest(c, ctrl.apiVersion, err)
 		return
 	}
 
 	user, err := ctrl.getUserSvc().UpdateUser(uid, &userDTO)
 	if err != nil {
-		restful.RespServiceError(c, err)
+		restful.RespServiceError(c, ctrl.apiVersion, err)
 		return
 	}
 
-	restful.RespDataEntity(c, user)
+	restful.RespDataEntity(c, ctrl.apiVersion, user)
 }
 
 // DELETE /users/:uid
 func (ctrl *UserController) DeleteUser(c *gin.Context) {
 	uid, err := getUserIdParam(c)
 	if err != nil {
-		restful.RespBadRequest(c, err)
+		restful.RespBadRequest(c, ctrl.apiVersion, err)
 		return
 	}
 
 	_, err = ctrl.getUserSvc().DeleteUser(uid)
 	if err != nil {
-		restful.RespServiceError(c, err)
+		restful.RespServiceError(c, ctrl.apiVersion, err)
 		return
 	}
 

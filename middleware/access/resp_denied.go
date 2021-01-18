@@ -7,14 +7,18 @@ package access
 import (
 	"net/http"
 
-	"github.com/chinmobi/gin-mvc/restful"
+	"github.com/chinmobi/ginmod/restful"
 	"github.com/chinmobi/gin-mvc/security/web/access"
 
 	"github.com/gin-gonic/gin"
 )
 
+const (
+	apiVersion = "v1"
+)
+
 func RespAccessDenied(c *gin.Context, err *access.ErrAccessDenied) error {
 	apiErr := restful.NewApiErrorEntity(http.StatusForbidden, err)
-	c.JSON(apiErr.GetStatusCode(), restful.CreateApiErrorBody(apiErr))
+	c.JSON(apiErr.GetStatusCode(), restful.CreateApiErrorBody(apiVersion, apiErr))
 	return nil
 }
