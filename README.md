@@ -60,7 +60,7 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 * `evt` - Provide event publish/listen/multicast utility (Migrated to [modlib/evt](https://github.com/chinmobi/modlib)).
 
-* `grpool` - Provide the goroutine pool that used for the app's other components.
+* `grpool` - Provide goroutine pool utility (Migrated to [modlib/grpool](https://github.com/chinmobi/modlib)).
 
 * `log` - Provide logging utility (Migrated to [modlib/log](https://github.com/chinmobi/modlib)).
 
