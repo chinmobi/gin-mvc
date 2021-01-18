@@ -7,6 +7,8 @@ github.com/chinmobi/config v1.2.1-alpha/go.mod h1:NkgTd6Kf8XomIc/ULT4oqlfrz2WqlN
 github.com/chinmobi/modlib v0.0.0-20210117012618-ac13c3e8fed4 h1:+hTBcNWNzVD1lTMNkEA2leh3S0GHB7UbM6CdJDrK2uc=
 github.com/chinmobi/modlib/evt v0.1.1 h1:c50vtM5LQhwDcXrayf7/vxtS6QUeFGvgILXbgD4d06A=
 github.com/chinmobi/modlib/evt v0.1.1/go.mod h1:TQ26yhHw4WOkt0CQp/gGqoBu5ZV3X4lSDC908jWv2ig=
+github.com/chinmobi/modlib/grpool v0.1.0 h1:Ik3vW/HEAE7VkMStzYEQcbf9AOe9njyC7UjF+cEOsbs=
+github.com/chinmobi/modlib/grpool v0.1.0/go.mod h1:FfLVZO9U+Dv5rpR5lQ3fH6JBAkXF3QzWNS/s/KWRCwg=
 github.com/chinmobi/modlib/log v0.1.0 h1:hr3AUUpHqyw1J71l7vumzA3jd4UHDeYHB9+Q6OQ3NO8=
 github.com/chinmobi/modlib/log v0.1.0/go.mod h1:ZgSXytzkuJzclB+y7hWdVqWPo6moaekklpYsz8qbbA4=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

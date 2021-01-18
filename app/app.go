@@ -10,12 +10,12 @@ import (
 	"github.com/chinmobi/gin-mvc/config/loader"
 	"github.com/chinmobi/gin-mvc/db"
 	"github.com/chinmobi/gin-mvc/errors"
-	"github.com/chinmobi/gin-mvc/grpool"
-	"github.com/chinmobi/gin-mvc/grpool/gr"
 	"github.com/chinmobi/gin-mvc/model"
 	"github.com/chinmobi/gin-mvc/service"
 	"github.com/chinmobi/modlib/evt"
 	"github.com/chinmobi/modlib/evt/event"
+	"github.com/chinmobi/modlib/grpool"
+	"github.com/chinmobi/modlib/grpool/gr"
 	"github.com/chinmobi/modlib/log"
 )
 
@@ -72,7 +72,8 @@ func (app *App) Start() error {
 	log.SetUpLogger(&app.config.Logger)
 	defer log.L().Sync()
 
-	executor, err := grpool.SetUp(&app.config.Grpool)
+	poolSize := app.config.Grpool.Size
+	executor, err := grpool.NewAntsExecutor(poolSize, grpool.DefaultAntsOptions())
 	if err != nil {
 		app.Shutdown()
 		return err

@@ -4,6 +4,7 @@ go 1.15
 
 require (
 	github.com/chinmobi/modlib/evt v0.1.1
+	github.com/chinmobi/modlib/grpool v0.1.0
 	github.com/chinmobi/modlib/log v0.1.0
 	github.com/gin-gonic/gin v1.6.3
 	github.com/golobby/config v1.1.2
