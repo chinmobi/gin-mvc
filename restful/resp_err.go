@@ -7,13 +7,13 @@ package restful
 import (
 	"net/http"
 
-	"github.com/chinmobi/gin-mvc/errors"
+	"github.com/chinmobi/ginmod/errors"
 
 	"github.com/gin-gonic/gin"
 )
 
 func RespBadRequest(c *gin.Context, err error) {
-	err = errors.NewErrBadRequest(err)
+	err = errors.NewBadRequestErrOf(err)
 
 	apiErr := NewApiErrorEntity(http.StatusBadRequest, err)
 	c.JSON(apiErr.GetStatusCode(), CreateApiErrorBody(apiErr))
@@ -42,7 +42,7 @@ func RespServiceError(c *gin.Context, err error) {
 			// Nothing to do.
 
 		default:
-			err = errors.NewErrInternalError(err)
+			err = errors.NewInternalCausedErrOf(err)
 	}
 
 	apiErr := NewApiErrorEntity(statusCode, err)

@@ -5,11 +5,11 @@
 package app
 
 import (
+	"github.com/chinmobi/ginmod/errors"
 	"github.com/chinmobi/gin-mvc/app/ctx"
 	"github.com/chinmobi/gin-mvc/config"
 	"github.com/chinmobi/gin-mvc/config/loader"
 	"github.com/chinmobi/gin-mvc/db"
-	"github.com/chinmobi/gin-mvc/errors"
 	"github.com/chinmobi/gin-mvc/model"
 	"github.com/chinmobi/gin-mvc/service"
 	"github.com/chinmobi/modlib/evt"
@@ -107,7 +107,7 @@ func (app *App) Shutdown() error {
 
 	defer log.L().Sync()
 
-	errs := errors.NewErrWrapErrors()
+	errs := errors.NewWrapErrorsErr()
 
 	if app.executor != nil {
 		app.executor.Shutdown()
@@ -129,7 +129,7 @@ func (app *App) Shutdown() error {
 		app.models = nil
 	}
 
-	return errs.AsError()
+	return errs.ToError()
 }
 
 func (app *App) Context() *ctx.AppContext {

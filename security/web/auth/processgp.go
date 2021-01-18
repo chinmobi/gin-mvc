@@ -7,7 +7,7 @@ package auth
 import (
 	"errors"
 
-	myerrors "github.com/chinmobi/gin-mvc/errors"
+	myerrors "github.com/chinmobi/ginmod/errors"
 	"github.com/chinmobi/gin-mvc/security/consts"
 	"github.com/chinmobi/gin-mvc/security/ctx"
 
@@ -113,7 +113,7 @@ func (pg *ProcessorGroup) createHandlerFunc() gin.HandlerFunc {
 }
 
 func (pg *ProcessorGroup) TearDown() error {
-	errs := myerrors.NewErrWrapErrors()
+	errs := myerrors.NewWrapErrorsErr()
 
 	for i := len(pg.processors)-1; i >= 0; i-- {
 		processor := pg.processors[i]
@@ -122,5 +122,5 @@ func (pg *ProcessorGroup) TearDown() error {
 		}
 	}
 
-	return errs.AsError()
+	return errs.ToError()
 }

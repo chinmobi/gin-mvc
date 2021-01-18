@@ -5,7 +5,7 @@
 package impl
 
 import (
-	"github.com/chinmobi/gin-mvc/errors"
+	"github.com/chinmobi/ginmod/errors"
 	"github.com/chinmobi/gin-mvc/model"
 )
 
@@ -28,7 +28,7 @@ func (ms *ModelSupplier) AddCloser(c ...Closer) {
 }
 
 func (ms *ModelSupplier) Close() error {
-	errs := errors.NewErrWrapErrors()
+	errs := errors.NewWrapErrorsErr()
 
 	for _, closer := range ms.dbClosers {
 		if err := closer.Close(); err != nil {
@@ -36,7 +36,7 @@ func (ms *ModelSupplier) Close() error {
 		}
 	}
 
-	return errs.AsError()
+	return errs.ToError()
 }
 
 // Get / set models

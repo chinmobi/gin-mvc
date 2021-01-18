@@ -11,7 +11,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/chinmobi/gin-mvc/errors"
+	"github.com/chinmobi/ginmod/errors"
 	"github.com/chinmobi/gin-mvc/model"
 )
 
@@ -37,23 +37,23 @@ func newUsersDB() *UsersDB {
 }
 
 func notFoundByUidError(uid uint32) error {
-	return errors.NewErrNotFoundBy("User", "ID", strconv.FormatUint(uint64(uid), 10))
+	return errors.NewNotFoundErrBy("User", "ID", strconv.FormatUint(uint64(uid), 10))
 }
 
 func notFoundByNicknameError(nickname string) error {
-	return errors.NewErrNotFoundBy("User", "Nickname", nickname)
+	return errors.NewNotFoundErrBy("User", "Nickname", nickname)
 }
 
 func notFoundByEmailError(email string) error {
-	return errors.NewErrNotFoundBy("User", "Email", email)
+	return errors.NewNotFoundErrBy("User", "Email", email)
 }
 
 func nicknameAlreadyExistsError(nickname string) error {
-	return errors.NewErrAlreadyExistsFor("User", "Nickname", nickname)
+	return errors.NewAlreadyExistsErrFor("User", "Nickname", nickname)
 }
 
 func emailAlreadyExistsError(email string) error {
-	return errors.NewErrAlreadyExistsFor("User", "Email", email)
+	return errors.NewAlreadyExistsErrFor("User", "Email", email)
 }
 
 func (users *UsersDB) CreateUser(u *model.UserEntity) (*model.UserEntity, error) {
@@ -61,7 +61,7 @@ func (users *UsersDB) CreateUser(u *model.UserEntity) (*model.UserEntity, error)
 	email := u.Email
 
 	if nickname == "" && email == "" {
-		return u, errors.NewErrLackOfParameter("Nickname", "Email")
+		return u, errors.NewLackOfParameterErr("Nickname", "Email")
 	}
 
 	users.rw.Lock()

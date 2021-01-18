@@ -5,9 +5,9 @@
 package middleware
 
 import (
+	"github.com/chinmobi/ginmod/errors"
 	mw "github.com/chinmobi/ginmod/middleware"
 	"github.com/chinmobi/gin-mvc/app"
-	"github.com/chinmobi/gin-mvc/errors"
 	acconfig "github.com/chinmobi/gin-mvc/middleware/access"
 	"github.com/chinmobi/gin-mvc/middleware/config"
 	"github.com/chinmobi/gin-mvc/security/web/access"
@@ -50,7 +50,7 @@ func (set *MiddlewareSet) setUp(app *app.App) error {
 }
 
 func (set *MiddlewareSet) tearDown() error {
-	errs := errors.NewErrWrapErrors()
+	errs := errors.NewWrapErrorsErr()
 
 	set.permsConfig.Reset()
 
@@ -68,7 +68,7 @@ func (set *MiddlewareSet) tearDown() error {
 
 	set.authConfig.Reset()
 
-	return errs.AsError()
+	return errs.ToError()
 }
 
 func (set *MiddlewareSet) SecurityAuthHandler() auth.AuthHandler {
