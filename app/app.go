@@ -80,7 +80,8 @@ func (app *App) Start() error {
 	}
 	app.executor = executor
 
-	app.eventBroker = evt.NewEngine(DefaultMulticaster{})
+	multicaster := ExecutorMulticaster{executor: executor}
+	app.eventBroker = evt.NewEngine(multicaster)
 
 	// Load the models
 	models, err := db.Load(app.config)
