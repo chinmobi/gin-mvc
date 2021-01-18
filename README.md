@@ -56,7 +56,7 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 * `db` - Manage the data-stores' connections (`redis`, `mongodb`, `prosgres`, etc...), and provide the DAOs(data access objects) that used for `model`.
 
-* `errors` - Define the application scale errors.
+* `errors` - Define the common errors and utility (Migrated to [ginmod/errors](https://github.com/chinmobi/ginmod)).
 
 * `evt` - Provide event publish/listen/multicast utility (Migrated to [modlib/evt](https://github.com/chinmobi/modlib)).
 
