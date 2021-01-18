@@ -1,7 +1,7 @@
 # Gin-MVC
 The MVC framework based on [Gin](https://github.com/gin-gonic/gin).
 
-The framework integrates MVC-developing patterns to build a RESTful web application (especially, the micro-service application).
+The framework integrates MVC-developing patterns to build a RESTful web application (especially, micro-service application).
 
 The framework is lightweight and flexible, easy to extend and configure, and additionally with essential facilities to build an enterprise level project. Especially, the project is issued as out-of-box. You could clone the project, rename the project's module name, and then start your business-logic developing work.
 
@@ -48,13 +48,13 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 ## Project structure
 
-* `app` - Application main context to load and provide app's components/utilities, it also manages components/utilities' lifecycle (`Load, Setup/Start, Teardown/Shutdown, Release`).
+* `app` - Application main context to load and provide app's components/utilities, also manage components/utilities' lifecycle (`Load, Setup/Start, Teardown/Shutdown, Release`).
 
 * `config` - Load and set up configurations that used to set up app's components/utilities.
 
 * `controller` - Define controller handers for handling requests.
 
-* `db` - Manage data-store connections (`redis`, `mongodb`, `prosgres`, etc...), and provide data access objects(DAOs) that used for `model`.
+* `db` - Manage data-store connections (`redis`, `mongodb`, `prosgres`, etc...), and provide data access objects (DAOs) that used for `model`.
 
 * `errors` - Define common errors and handling utility (Migrated to [ginmod/errors](https://github.com/chinmobi/ginmod)).
 
@@ -74,7 +74,7 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 * `routes` - Map `RESTful API` URL path routes to `controller` handers.
 
-* `security` - Provide the [security](security/ABOUT.md) (authentication and authorization) utilities.
+* `security` - Security utility for authentication and authorization (Migrated to [ginmod/security](https://github.com/chinmobi/ginmod)).
 
 * `service` - Define business services that used for `controller` and `middleware` handers.
 
@@ -84,57 +84,57 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 ## Best practices
 
-1. First of all, analyze the requirements and business rules, and then write the use cases.
+1. First of all, analyze requirements and business rules, and then write use cases.
 
-2. According to the use cases, design the [RESTful APIs](restful-apis.md) that served for the use cases.
+2. According to use cases, design [RESTful APIs](restful-apis.md) that served for use cases.
 
-3. Based on the [RESTful APIs](restful-apis.md), design `controller` handers, and DTOs(data transfer objects) used for the handlers.
+3. Based on the [RESTful APIs](restful-apis.md), design `controller` handers, and data transfer objects (DTOs) used for handlers.
 
-4. Setup the `routes` that map the [RESTful APIs](restful-apis.md)' paths to `controller` handers.
+4. Setup `routes` that map the [RESTful APIs](restful-apis.md)' paths to `controller` handers.
 
-5. According to the DDD's(domain-driven design) principle, design the business `model` entities and `service` interfaces to implement the `controller` handers.
+5. According to domain-driven design's (DDD) principle, design business `model` entities and `service` interfaces to implement `controller` handers.
 
-6. Complete the `db` DAOs to implement the `model` and `service` objects.
+6. Complete `db` DAOs to implement `model` and `service` objects.
 
 **IMPORTANT:**
 
-* Following the agile development. All of the steps can be and must be taking turns to develop, processing from iteration to iteration (step by step).
+* Following the agile development. All of steps can be and must be taking turns to develop, processing from iteration to iteration (step by step).
 
-* Once someone has recognized some use cases, another one can design the APIs and/or design the business models/services simultaneously.
+* Once someone has recognized some use cases, another one can design APIs and/or design business models/services simultaneously.
 
-* Once someone has completed some APIs' design, another one can develop the controller handlers and/or develop the models/services and/or develop the DAOs simultaneously, and so on.
+* Once someone has completed some APIs' design, another one can develop controller handlers and/or develop models/services and/or develop DAOs simultaneously, and so on.
 
 ## Starting process
 
-The whole starting process of the framework consists of three stages: `app-setup` stage, `web-setup` stage, and `start-run` stage.
+The whole starting process of the framework consists of three stages: `app-setup` stage, `web-setup` stage and `start-run` stage.
 
 * **The `app-setup` stage**
 
 ```
-1. Load the configure (`config`) that will be used for other components.
-2. Setup the logging (`log`).
-3. Setup goroutine pool (`grpool`), the pool hasn't been activated.
-4. Setup the application event's utility (`evt`).
-5-1. Load the databases and cache (`db`).
-5-2. Setup the models (`model`) using the database access objects (DAOs).
-6. Load the message queuing utilities (`mq`).
-7-1. Setup the services (`service`) using models (`model`).
+1. Load configure (`config`) that will be used for other components.
+2. Setup logging (`log`) used for whole application.
+3. Setup goroutine pool (`grpool`), the pool hasn't been activated yet.
+4. Setup application event's utility (`evt`).
+5-1. Load databases and cache (`db`) that providing DAOs.
+5-2. Setup models (`model`) using DAOs.
+6. Load message queuing utility (`mq`).
+7-1. Setup services (`service`) using models (`model`).
 7-2. Register event listeners and message queue consumers.
 ```
 
 * **The `web-setup` stage**
 
 ```
-1. Setup the middlewares (`middleware`) with the (`config`) and app services (`sevice`).
+1. Setup middlewares (`middleware`) with `config` and app services (`sevice`).
 2. Setup controllers (`controller`) with app services (`sevice`).
-3. Setup the router path routes (`routes`) with middlewares and controllers.
+3. Setup router path routes (`routes`) with middlewares and controllers.
 ```
 
 * **The `start-run` stage**
 
 ```
 1. Activate the goroutine pool.
-2. Start the http listening.
+2. Start http listening to serve for requests.
 ```
 
 ## Architecture
