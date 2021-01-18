@@ -62,7 +62,7 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 * `grpool` - Provide the goroutine pool that used for the app's other components.
 
-* `log` - Provide the application logging utilities.
+* `log` - Provide logging utility (Migrated to [modlib/log](https://github.com/chinmobi/modlib)).
 
 * `middleware` - Define middleware handlers before the `controller` handler while handling requests.
 
