@@ -5,10 +5,10 @@
 package middleware
 
 import (
-	"github.com/chinmobi/gin-mvc/middleware/mw"
+	"github.com/chinmobi/gin-mvc/middleware/config"
 )
 
 const (
-	MW_COMMON = mw.MW_COMMON
-	MW_AUTH   = mw.MW_AUTH
+	MW_COMMON = config.MW_COMMON
+	MW_AUTH   = config.MW_AUTH
 )

@@ -5,20 +5,25 @@
 package config
 
 import (
+	mw "github.com/chinmobi/ginmod/middleware"
 	"github.com/chinmobi/gin-mvc/app"
 	mwauth "github.com/chinmobi/gin-mvc/middleware/auth"
 	"github.com/chinmobi/gin-mvc/middleware/common"
-	"github.com/chinmobi/gin-mvc/middleware/mw"
 	"github.com/chinmobi/gin-mvc/security/web/auth"
 )
 
+const (
+	MW_COMMON = "MW_COMMON"
+	MW_AUTH   = "MW_AUTH"
+)
+
 func Configure(config *mw.Configurer, authConfig *auth.ProcessorConfigurer, app *app.App) error {
-	builder := config.Build(mw.MW_COMMON)
+	builder := config.Build(MW_COMMON)
 	if err := common.Configure(builder, app); err != nil {
 		return err
 	}
 
-	builder = config.Build(mw.MW_AUTH)
+	builder = config.Build(MW_AUTH)
 	if err := mwauth.Configure(builder, authConfig, app); err != nil {
 		return err
 	}

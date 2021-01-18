@@ -5,11 +5,11 @@
 package middleware
 
 import (
+	mw "github.com/chinmobi/ginmod/middleware"
 	"github.com/chinmobi/gin-mvc/app"
 	"github.com/chinmobi/gin-mvc/errors"
 	acconfig "github.com/chinmobi/gin-mvc/middleware/access"
 	"github.com/chinmobi/gin-mvc/middleware/config"
-	"github.com/chinmobi/gin-mvc/middleware/mw"
 	"github.com/chinmobi/gin-mvc/security/web/access"
 	"github.com/chinmobi/gin-mvc/security/web/auth"
 
@@ -31,8 +31,8 @@ func NewMiddlewareSet() *MiddlewareSet {
 }
 
 func (set *MiddlewareSet) setUp(app *app.App) error {
-	set.entries = mw.NewEntry(mw.MW_COMMON)
-	set.entries.NewNext(mw.MW_AUTH)
+	set.entries = mw.NewEntry(config.MW_COMMON)
+	set.entries.NewNext(config.MW_AUTH)
 
 	configurer := mw.NewConfigurer(set.entries)
 
@@ -76,11 +76,11 @@ func (set *MiddlewareSet) SecurityAuthHandler() auth.AuthHandler {
 }
 
 func (set *MiddlewareSet) CommonHandlersChain() gin.HandlersChain {
-	return set.HandlersChain(mw.MW_COMMON)
+	return set.HandlersChain(config.MW_COMMON)
 }
 
 func (set *MiddlewareSet) AuthHandlersChain() gin.HandlersChain {
-	return set.HandlersChain(mw.MW_AUTH)
+	return set.HandlersChain(config.MW_AUTH)
 }
 
 func (set *MiddlewareSet) PermissionsConfigurer() *access.PermissionsConfigurer {

@@ -4,7 +4,8 @@ github.com/andybalholm/brotli v1.0.0 h1:7UCwP93aiSfvWpapti8g88vVVGp2qqtGyePsSuDa
 github.com/andybalholm/brotli v1.0.0/go.mod h1:loMXtMfwqflxFJPmdbJO0a3KNoPuLBgiu3qAvBg8x/Y=
 github.com/chinmobi/config v1.2.1-alpha h1:WxK9Ih8vmC4UTMgaXLFT7Kpd7hL085LoYqDxHw/cEso=
 github.com/chinmobi/config v1.2.1-alpha/go.mod h1:NkgTd6Kf8XomIc/ULT4oqlfrz2WqlNNqNV6ChYZJiws=
-github.com/chinmobi/modlib v0.0.0-20210117012618-ac13c3e8fed4 h1:+hTBcNWNzVD1lTMNkEA2leh3S0GHB7UbM6CdJDrK2uc=
+github.com/chinmobi/ginmod v0.1.1 h1:FsqeOwhhOTqGVssdzGN/7GJYXiMj+HNlbJQeKscwjcg=
+github.com/chinmobi/ginmod v0.1.1/go.mod h1:TEZWf6WTdwVr9N0Ik7Rf1HDZqWr1YhuRroLmyLmzn4c=
 github.com/chinmobi/modlib/evt v0.1.1 h1:c50vtM5LQhwDcXrayf7/vxtS6QUeFGvgILXbgD4d06A=
 github.com/chinmobi/modlib/evt v0.1.1/go.mod h1:TQ26yhHw4WOkt0CQp/gGqoBu5ZV3X4lSDC908jWv2ig=
 github.com/chinmobi/modlib/grpool v0.1.0 h1:Ik3vW/HEAE7VkMStzYEQcbf9AOe9njyC7UjF+cEOsbs=
@@ -57,6 +58,7 @@ github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 github.com/stretchr/testify v1.4.0 h1:2E4SXV/wtOkTonXsotYi4li6zVWxYlZuYNCXe9XRJyk=
 github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
+github.com/stretchr/testify v1.7.0 h1:nwc3DEeHmmLAfoZucVR881uASk0Mfjw8xYJ99tb5CcY=
 github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/ugorji/go v1.1.7 h1:/68gy2h+1mWMrwZFeD1kQialdSzAb432dtpeJ42ovdo=
 github.com/ugorji/go v1.1.7/go.mod h1:kZn38zHttfInRq0xu/PH0az30d+z6vm202qpg1oXVMw=
@@ -117,6 +119,7 @@ gopkg.in/yaml.v2 v2.2.8 h1:obN1ZagJSUGI0Ek/LBmuj4SNLPfIny3KsKFopxRdj10=
 gopkg.in/yaml.v2 v2.2.8/go.mod h1:hI93XBmqTisBFMUTm0b8Fm+jr3Dg1NNxqwp+5A1VGuI=
 gopkg.in/yaml.v2 v2.3.0 h1:clyUAQHOM3G0M3f5vQj7LuJrETvjVot3Z5el9nffUtU=
 gopkg.in/yaml.v2 v2.3.0/go.mod h1:hI93XBmqTisBFMUTm0b8Fm+jr3Dg1NNxqwp+5A1VGuI=
+gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c h1:dUUwHk2QECo/6vqA44rthZ8ie2QXMNeKRTHCNY2nXvo=
 gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
 honnef.co/go/tools v0.0.1-2019.2.3 h1:3JgtbtFHMiCmsznwGVTUWbgGov+pVqnlf1dEJTNAXeM=
 honnef.co/go/tools v0.0.1-2019.2.3/go.mod h1:a3bituU0lyd329TUQxRnasdCoJDkEUEAqEt0JzvZhAg=

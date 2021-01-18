@@ -5,8 +5,8 @@
 package common
 
 import (
+	mw "github.com/chinmobi/ginmod/middleware"
 	"github.com/chinmobi/gin-mvc/app"
-	"github.com/chinmobi/gin-mvc/middleware/mw"
 )
 
 func Configure(builder *mw.Builder, app *app.App) error {
