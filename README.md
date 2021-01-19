@@ -86,11 +86,11 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 1. First of all, analyze requirements and business rules, and then write use cases.
 
-2. According to use cases, design [RESTful APIs](restful-apis.md) that served for use cases.
+2. According to use cases, design [RESTful APIs](RESTful-APIs.md) that served for use cases.
 
-3. Based on the [RESTful APIs](restful-apis.md), design `controller` handers, and data transfer objects (DTOs) used for handlers.
+3. Based on the RESTful APIs, design `controller` handers, and data transfer objects (DTOs) used for handlers.
 
-4. Setup `routes` that map the [RESTful APIs](restful-apis.md)' paths to `controller` handers.
+4. Setup `routes` that map RESTful APIs' paths to `controller` handers.
 
 5. According to domain-driven design's (DDD) principle, design business `model` entities and `service` interfaces to implement `controller` handers.
 
