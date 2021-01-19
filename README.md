@@ -54,7 +54,7 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 * `controller` - Define controller handers for handling requests.
 
-* `db` - Manage data-store connections (`redis`, `mongodb`, `prosgres`, etc...), and provide data access objects (DAOs) that used for `model`.
+* `db` - Manage data-store connections (`redis`, `mongodb`, `postgres`, etc...), and provide data access objects (DAOs) that used for `model`.
 
 * `errors` - Define common errors and handling utility (Migrated to [ginmod/errors](https://github.com/chinmobi/ginmod)).
 
@@ -139,7 +139,7 @@ The whole starting process of the framework consists of three stages: `app-setup
 
 ## Architecture
 
-(coming soon...)
+![](ARCH.png)
 
 ## About
 
