@@ -54,7 +54,7 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 * `controller` - Define controller handers for handling requests.
 
-* `db` - Manage data-store connections (`redis`, `mongodb`, `postgres`, etc...), and provide data access objects (DAOs) that used for `model`.
+* `db` - Manage data-store connections (`Redis`, `MongoDB`, `PostgreSQL`, etc...), and provide data access objects (DAOs) that used for `model`.
 
 * `errors` - Define common errors and handling utility (Migrated to [ginmod/errors](https://github.com/chinmobi/ginmod)).
 
@@ -68,7 +68,7 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 * `model` - Define business entities and models that used for `service`.
 
-* `mq` - Manage and provide message queueing utilities (`rabbitmq`, `kafka`, etc...).
+* `mq` - Manage and provide message queueing utilities (`RabbitMQ`, `Kafka`, etc...).
 
 * `restful` - Utility to pack `RESTful API` response (Migrated to [ginmod/restful](https://github.com/chinmobi/ginmod)).
 
