@@ -62,7 +62,7 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 * `grpool` - Provide goroutine pool utility (Migrated to [modlib/grpool](https://github.com/chinmobi/modlib)).
 
-* `log` - Provide logging utility (Migrated to [modlib/log](https://github.com/chinmobi/modlib)).
+* `log` - Provide logging utility based on [zap](https://pkg.go.dev/go.uber.org/zap) (Migrated to [modlib/log](https://github.com/chinmobi/modlib)).
 
 * `middleware` - Define middleware handlers before `controller` handler while handling requests.
 
@@ -74,7 +74,7 @@ The web server is listening at `8080` port as default, use `http://localhost:808
 
 * `routes` - Map `RESTful API` URL path routes to `controller` handers.
 
-* `security` - Security utility for authentication and authorization (Migrated to [ginmod/security](https://github.com/chinmobi/ginmod)).
+* `security` - Security framework for authentication and authorization (Migrated to [ginmod/security](https://github.com/chinmobi/ginmod)).
 
 * `service` - Define business services that used for `controller` and `middleware` handers.
 
