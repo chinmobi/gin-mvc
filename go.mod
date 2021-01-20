@@ -14,4 +14,4 @@ require (
 	golang.org/x/crypto v0.0.0-20201221181555-eec23a3978ad
 )
 
-replace github.com/golobby/config v1.1.2 => github.com/chinmobi/config v1.2.1-alpha
+replace github.com/golobby/config v1.1.2 => github.com/chinmobi/config v1.2.3-beta

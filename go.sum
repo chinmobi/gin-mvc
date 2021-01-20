@@ -2,8 +2,8 @@ github.com/BurntSushi/toml v0.3.1 h1:WXkYYl6Yr3qBf1K79EBnL4mak0OimBfB0XUf9Vl28OQ
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/andybalholm/brotli v1.0.0 h1:7UCwP93aiSfvWpapti8g88vVVGp2qqtGyePsSuDafo4=
 github.com/andybalholm/brotli v1.0.0/go.mod h1:loMXtMfwqflxFJPmdbJO0a3KNoPuLBgiu3qAvBg8x/Y=
-github.com/chinmobi/config v1.2.1-alpha h1:WxK9Ih8vmC4UTMgaXLFT7Kpd7hL085LoYqDxHw/cEso=
-github.com/chinmobi/config v1.2.1-alpha/go.mod h1:NkgTd6Kf8XomIc/ULT4oqlfrz2WqlNNqNV6ChYZJiws=
+github.com/chinmobi/config v1.2.3-beta h1:tM2LU+m54ibqn4Uzc02v5dXk/1xWn/UVsjzVFf810X4=
+github.com/chinmobi/config v1.2.3-beta/go.mod h1:NkgTd6Kf8XomIc/ULT4oqlfrz2WqlNNqNV6ChYZJiws=
 github.com/chinmobi/ginmod v0.1.1 h1:FsqeOwhhOTqGVssdzGN/7GJYXiMj+HNlbJQeKscwjcg=
 github.com/chinmobi/ginmod v0.1.1/go.mod h1:TEZWf6WTdwVr9N0Ik7Rf1HDZqWr1YhuRroLmyLmzn4c=
 github.com/chinmobi/modlib/evt v0.1.1 h1:c50vtM5LQhwDcXrayf7/vxtS6QUeFGvgILXbgD4d06A=
