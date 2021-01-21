@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+
+  rabbitmq:
+    container_name: ${CONTAINER_NAME}
+    hostname: ${CONTAINER_NAME}
+    image: ${MANAGEMENT_IMAGE_FULL_NAME}
+    ports:
+      - "${HOST_PORT}:${PORT}"
+      - "${MGMT_HOST_PORT}:${MGMT_PORT}"
+    networks:
+      - backend-net
+    volumes:
+      - data:/var/lib/rabbitmq
+
+networks:
+  backend-net:
+    external:
+      name: ${BACKEND_NETWORK_NAME}
+
+volumes:
+  data:
+    external:
+      name: ${VOLUME_NAME}
