@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+  redis:
+    container_name: ${CONTAINER_NAME}
+    hostname: ${CONTAINER_NAME}
+    image: ${IMAGE_FULL_NAME}
+    ports:
+      - "${HOST_PORT}:${PORT}"
+    networks:
+      - backend-net
+    volumes:
+      - data:/data
+    command: ["redis-server", "--appendonly", "yes"]
+
+networks:
+  backend-net:
+    external:
+      name: ${BACKEND_NETWORK_NAME}
+
+volumes:
+  data:
+    external:
+      name: ${VOLUME_NAME}
