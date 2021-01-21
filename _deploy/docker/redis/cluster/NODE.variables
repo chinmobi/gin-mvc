@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+PORT_BEGIN=7000
+PORT_END=7005
