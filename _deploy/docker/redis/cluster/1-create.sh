@@ -8,7 +8,7 @@ if docker ps -a | grep -q "redis-${PORT_BEGIN}"; then
 fi
 
 
-./prepare.sh
+./0-prepare.sh
 ../network-setup.sh
 
 
