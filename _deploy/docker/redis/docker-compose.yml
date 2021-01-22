@@ -1,6 +1,7 @@
 version: '3.7'
 
 services:
+
   redis:
     container_name: ${CONTAINER_NAME}
     hostname: ${CONTAINER_NAME}
