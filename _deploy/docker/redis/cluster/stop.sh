@@ -8,6 +8,6 @@ if ! docker ps | grep -q "redis-${PORT_BEGIN}"; then
 fi
 
 
-for port in `seq $PORT_BEGIN $PORT_END`; do \
+for port in `seq $PORT_END -1 $PORT_BEGIN`; do \
   docker stop redis-${port}; \
 done
