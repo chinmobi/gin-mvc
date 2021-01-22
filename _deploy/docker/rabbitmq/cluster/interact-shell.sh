@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd $(dirname $0) && source ./NODE.variables
+cd $(dirname $0) && source ./NODE.variables && source ../.env
 
 
 port=${PORT_END}
@@ -14,11 +14,11 @@ if ! docker ps | grep -q "rabbit-${port}"; then
 fi
 
 
-docker exec -it rabbit-${port} bash
-
-
-### Check cluster status
-# rabbitmqctl cluster_status
-
-### Set as mirror cluster
-# rabbitmqctl set_policy ha-all "^" '{"ha-mode":"all"}'
+#docker exec -it rabbit-${port} bash
+docker run -it --rm \
+  --network=${BACKEND_NETWORK_NAME} \
+  -v $(pwd)/scripts:/scripts \
+  -v $(pwd)/build/${port}:/var/lib/rabbitmq \
+  -e RABBITMQ_NODENAME=rabbit@rabbit-${port} \
+  ${MANAGEMENT_IMAGE_FULL_NAME} \
+  bash
