@@ -3,10 +3,16 @@
 cd $(dirname $0) && source ./NODE.variables
 
 
-if ! docker ps | grep -q "redis-${PORT_BEGIN}"; then
+port=${PORT_BEGIN}
+if [ "$#" -gt 0 ]; then
+  port=$1
+fi
+
+
+if ! docker ps | grep -q "redis-${port}"; then
   exit 0
 fi
 
 
-docker exec -it redis-${PORT_BEGIN} \
-sh -c "redis-cli -c -p ${PORT_BEGIN}"
+docker exec -it redis-${port} \
+sh -c "redis-cli -c -p ${port}"
