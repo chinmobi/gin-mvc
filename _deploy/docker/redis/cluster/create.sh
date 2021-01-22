@@ -15,10 +15,10 @@ fi
 for port in `seq $PORT_BEGIN $PORT_END`; do \
   docker run -d \
   --name redis-${port} \
-  -p ${port}:${port} -p 1${port}:1${port} \
-  -v $(pwd)/_deploy/${port}/conf/redis.conf:/usr/local/etc/redis/redis.conf \
-  -v $(pwd)/_deploy/${port}/data:/data \
   --network=${BACKEND_NETWORK_NAME} --hostname=redis-${port} \
+  -p ${port}:${port} -p 1${port}:1${port} \
+  -v $(pwd)/build/${port}/conf/redis.conf:/usr/local/etc/redis/redis.conf \
+  -v $(pwd)/build/${port}/data:/data \
   --sysctl net.core.somaxconn=1024 \
   ${IMAGE_FULL_NAME} \
   redis-server /usr/local/etc/redis/redis.conf; \

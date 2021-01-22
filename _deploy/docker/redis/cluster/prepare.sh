@@ -3,13 +3,13 @@
 cd $(dirname $0) && source ./NODE.variables
 
 
-if [ -d "./_deploy/${PORT_BEGIN}/conf" ]; then
+if [ -d "./build/${PORT_BEGIN}/conf" ]; then
   exit 0
 fi
 
 
 for port in `seq $PORT_BEGIN $PORT_END`; do \
-  mkdir -p ./_deploy/${port}/conf \
-  && PORT=${port} envsubst < ./node-conf.tmpl > ./_deploy/${port}/conf/redis.conf \
-  && mkdir -p ./_deploy/${port}/data; \
+  mkdir -p ./build/${port}/conf \
+  && PORT=${port} envsubst < ./node-conf.tmpl > ./build/${port}/conf/redis.conf \
+  && mkdir -p ./build/${port}/data; \
 done

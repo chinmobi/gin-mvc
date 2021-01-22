@@ -20,5 +20,5 @@ if [ ! -d "./${PORT_BEGIN}" ]; then
 fi
 
 for port in `seq $PORT_BEGIN $PORT_END`; do \
-  rm -rf ./${port}; \
+  sudo rm -rf ./${port}; \
 done
