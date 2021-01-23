@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+
+  postgres:
+    container_name: ${CONTAINER_NAME}
+    hostname: ${CONTAINER_NAME}
+    image: ${IMAGE_FULL_NAME}
+    ports:
+      - "${HOST_PORT}:${PORT}"
+    env_file:
+      - ./DB.variables
+    networks:
+      - backend-net
+    volumes:
+      - data:/var/lib/postgresql/data
+
+networks:
+  backend-net:
+    external:
+      name: ${BACKEND_NETWORK_NAME}
+
+volumes:
+  data:
+    external:
+      name: ${VOLUME_NAME}
