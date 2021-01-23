@@ -3,13 +3,13 @@
 cd $(dirname $0) && source ./NODE.variables
 
 
-if ! docker ps | grep -q "rabbit-${PORT_END}"; then
+if ! docker ps | grep -q "rabbit-${NODE_END}"; then
   exit 0
 fi
 
 
 docker stop ${RABBITMQ_HAPROXY}
 
-for port in `seq $PORT_BEGIN $PORT_END`; do \
-  docker stop rabbit-${port}; \
+for node in `seq $NODE_BEGIN $NODE_END`; do \
+  docker stop rabbit-${node}; \
 done

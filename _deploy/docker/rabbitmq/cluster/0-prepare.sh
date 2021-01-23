@@ -3,13 +3,13 @@
 cd $(dirname $0) && source ./NODE.variables
 
 
-if [ -d "./build/${PORT_BEGIN}" ]; then
+if [ -d "./build/${NODE_BEGIN}" ]; then
   exit 0
 fi
 
 
-for port in `seq $PORT_BEGIN $PORT_END`; do \
-  mkdir -p ./build/${port}; \
+for node in `seq $NODE_BEGIN $NODE_END`; do \
+  mkdir -p ./build/${node}; \
 done
 
 mkdir -p ./build/haproxy

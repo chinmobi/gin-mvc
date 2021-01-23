@@ -7,7 +7,7 @@ if docker ps | grep -q "${RABBITMQ_HAPROXY}"; then
   exit 0
 fi
 
-if ! docker ps | grep -q "rabbit-${PORT_BEGIN}"; then
+if ! docker ps | grep -q "rabbit-${NODE_BEGIN}"; then
   exit 1
 fi
 
@@ -26,7 +26,7 @@ mgmt_server_nodes=""
 
 server_options="check inter 5s rise 2 fall 3"
 
-for node in `seq $PORT_BEGIN $PORT_END`; do
+for node in `seq $NODE_BEGIN $NODE_END`; do
   node_name="rabbit-${node}"
 
   amqp_server_nodes="${amqp_server_nodes}\\tserver  ${node_name} ${node_name}:${PORT}  ${server_options}\\n"

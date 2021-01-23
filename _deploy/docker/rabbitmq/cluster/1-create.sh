@@ -3,7 +3,7 @@
 cd $(dirname $0) && source ./NODE.variables && source ../.env
 
 
-if docker ps -a | grep -q "rabbit-${PORT_BEGIN}"; then
+if docker ps -a | grep -q "rabbit-${NODE_BEGIN}"; then
   exit 0
 fi
 
@@ -12,7 +12,7 @@ fi
 ../network-setup.sh
 
 
-for node in `seq $PORT_END -1 $PORT_BEGIN`; do \
+for node in `seq $NODE_END -1 $NODE_BEGIN`; do \
   docker run -d \
   --name rabbit-${node} \
   --network=${BACKEND_NETWORK_NAME} --hostname=rabbit-${node} \

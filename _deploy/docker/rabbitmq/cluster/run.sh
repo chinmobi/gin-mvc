@@ -3,17 +3,17 @@
 cd $(dirname $0) && source ./NODE.variables
 
 
-if docker ps | grep -q "rabbit-${PORT_BEGIN}"; then
+if docker ps | grep -q "rabbit-${NODE_BEGIN}"; then
   exit 0
 fi
 
-if ! docker ps -a | grep -q "rabbit-${PORT_BEGIN}"; then
+if ! docker ps -a | grep -q "rabbit-${NODE_BEGIN}"; then
   exit 1
 fi
 
 
-for port in `seq $PORT_END -1 $PORT_BEGIN`; do \
-  docker start rabbit-${port}; \
+for node in `seq $NODE_END -1 $NODE_BEGIN`; do \
+  docker start rabbit-${node}; \
 done
 
 docker start ${RABBITMQ_HAPROXY}

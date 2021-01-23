@@ -3,14 +3,14 @@
 cd $(dirname $0) && source ../NODE.variables
 
 
-if docker ps | grep -q "rabbit-${PORT_BEGIN}"; then
+if docker ps | grep -q "rabbit-${NODE_BEGIN}"; then
   ../stop.sh
 fi
 
 
-if docker ps -a | grep -q "rabbit-${PORT_BEGIN}"; then
-  for port in `seq $PORT_BEGIN $PORT_END`; do \
-    docker container rm -f rabbit-${port}; \
+if docker ps -a | grep -q "rabbit-${NODE_BEGIN}"; then
+  for node in `seq $NODE_BEGIN $NODE_END`; do \
+    docker container rm -f rabbit-${node}; \
   done
 fi
 
@@ -19,12 +19,12 @@ if docker ps -a | grep -q "${RABBITMQ_HAPROXY}"; then
 fi
 
 
-if [ ! -d "./${PORT_BEGIN}" ]; then
+if [ ! -d "./${NODE_BEGIN}" ]; then
   exit 0
 fi
 
-for port in `seq $PORT_BEGIN $PORT_END`; do \
-  sudo rm -rf ./${port}; \
+for node in `seq $NODE_BEGIN $NODE_END`; do \
+  sudo rm -rf ./${node}; \
 done
 
 sudo rm -rf ./haproxy
