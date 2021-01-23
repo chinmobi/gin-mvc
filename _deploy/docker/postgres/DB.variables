@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+POSTGRES_PASSWORD=admin
