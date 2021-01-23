@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+NODE_BEGIN=0
+NODE_END=1
