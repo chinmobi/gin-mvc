@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+
+  mongo:
+    container_name: ${CONTAINER_NAME}
+    hostname: ${CONTAINER_NAME}
+    image: ${IMAGE_FULL_NAME}
+    ports:
+      - "${HOST_PORT}:${PORT}"
+    env_file:
+      - ./DB.variables
+    networks:
+      - backend-net
+    volumes:
+      - db:/data/db
+      - configdb:/data/configdb
+
+networks:
+  backend-net:
+    external:
+      name: ${BACKEND_NETWORK_NAME}
+
+volumes:
+  db:
+    external:
+      name: ${VOLUME_NAME}
+  configdb:
+    external:
+      name: ${CONFIG_VOLUME_NAME}
