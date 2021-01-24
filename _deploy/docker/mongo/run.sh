@@ -14,10 +14,11 @@ if ! docker ps | grep -q "${CONTAINER_NAME}"; then
       --name ${CONTAINER_NAME} \
       --network=${BACKEND_NETWORK_NAME} --hostname=${CONTAINER_NAME} \
       -p ${HOST_PORT}:${PORT} \
-      -v ${VOLUME_NAME}:/data/db \
-      -v ${CONFIG_VOLUME_NAME}:/data/configdb \
-      -e MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME} \
-      -e MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD} \
+      -v ${VOLUME_NAME}:/bitnami/mongodb \
+      -e MONGODB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD} \
+      -e MONGODB_USERNAME=${MONGODB_USERNAME} \
+      -e MONGODB_PASSWORD=${MONGODB_PASSWORD} \
+      -e MONGODB_DATABASE=${MONGODB_DATABASE} \
       ${IMAGE_FULL_NAME}
   fi
 fi

@@ -13,8 +13,7 @@ services:
     networks:
       - backend-net
     volumes:
-      - db:/data/db
-      - configdb:/data/configdb
+      - data:/bitnami/mongodb
 
 networks:
   backend-net:
@@ -22,9 +21,6 @@ networks:
       name: ${BACKEND_NETWORK_NAME}
 
 volumes:
-  db:
+  data:
     external:
       name: ${VOLUME_NAME}
-  configdb:
-    external:
-      name: ${CONFIG_VOLUME_NAME}
