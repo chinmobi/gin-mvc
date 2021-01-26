@@ -7,13 +7,7 @@ cd $(dirname $0) && source ./NODE.variables \
 
 set_name=${REPLICA_SET_NAME}
 
-if [ "$#" -gt 0 ]; then
-  set_name=$1
-fi
-
-
 primary_name="${set_name}-${NODE_BEGIN}"
-
 
 if ! docker ps | grep -q "${primary_name}"; then
   exit 1
@@ -22,9 +16,10 @@ fi
 
 node_name="${set_name}-arbiter"
 
-if docker ps | grep -q "${node_name}"; then
+if docker ps -a | grep -q "${node_name}"; then
   exit 0
 fi
+
 
 docker run -d \
   --name ${node_name} \

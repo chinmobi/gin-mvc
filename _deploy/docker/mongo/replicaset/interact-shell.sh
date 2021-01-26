@@ -6,12 +6,13 @@ cd $(dirname $0) && source ./NODE.variables \
 
 
 set_name=${REPLICA_SET_NAME}
+node=${NODE_BEGIN}
 
 if [ "$#" -gt 0 ]; then
-  set_name=$1
+  node=$1
 fi
 
-node_name="${set_name}-${NODE_BEGIN}"
+node_name="${set_name}-${node}"
 
 
 if docker ps | grep -q "${node_name}"; then
