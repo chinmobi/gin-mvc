@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 MONGODB_ROOT_PASSWORD=admin
+
 MONGODB_USERNAME=test
 MONGODB_PASSWORD=test
 MONGODB_DATABASE=testdb
